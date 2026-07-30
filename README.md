@@ -1,13 +1,9 @@
-# James Sieng — Final Round // Vast Space
+# James Sieng
 
-This is the presentation. Not slides — a repository.
+CPA-credentialed accountant, tax auditor, and builder. This is my personal site.
 
-## Walk through it
+## On this site
 
-1. [**Introduction**](docs/introduction.md) — who I am
-2. [**Topic 1 — Capitalize or Expense**](docs/topic-1.md) — two real calls I've made, and why
-3. [**Topic 2 — The First 90 Days**](docs/topic-2.md) — a 30/60/90 plan, plus one idea for Vast
+- [**Vast Space — Final Interview**](vast/README.md) — the presentation for my final-round interview, built as a repo instead of a slide deck.
 
----
-
-Built for the final-round presentation.
+More to come.
