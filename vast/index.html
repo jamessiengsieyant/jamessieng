@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Sieng // Vast Space — Final Round</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Final Round — Vast Space</div>
+  <h1>James Sieng</h1>
+  <p class="sub">Not a slide deck. A repository — because the way I build things is part of the pitch.</p>
+  <nav class="toc">
+    <a href="#intro">Introduction</a>
+    <a href="#topic1">Topic 1 — Capitalize or Expense</a>
+    <a href="#topic2">Topic 2 — First 90 Days</a>
+  </nav>
+</header>
+
+<section id="intro">
+  <div class="label">~15 min · practiced to memory</div>
+  <h2>Introduction</h2>
+
+  <div class="card">
+    <h4>The hook</h4>
+    <p>Two ways to read a balance sheet: as the auditor asking "prove it," or as the person building the system that has to prove itself. I've spent my career doing both — sometimes in the same week.</p>
+
+    <h4>Present</h4>
+    <p>By day, I'm a sales and use tax auditor for the California Department of Tax and Fee Administration — I go into businesses' books and test whether transactions were taxed correctly under California's Revenue &amp; Taxation Code, including capital equipment purchases, which is a direct line into Topic 1.</p>
+    <p>Outside of that, I work with ForensisGroup, a forensic / expert-witness accounting firm, building out Salesforce and AI tooling for the practice. And I'm the founder of Sieyant.</p>
+
+    <h4>Past</h4>
+    <p>[CPA credential + education — school, year, anything worth naming]. Salesforce and QuickBooks certified along the way, which is what put me in the room to build the systems I used to just audit.</p>
+
+    <h4>Future — why Vast</h4>
+    <p>Every role I've had comes down to the same skill: translating between a rigid system of rules — tax code, GAAP, a chart of accounts — and the messy reality of a fast-moving business. That's exactly the seam Vast is scaling through right now.</p>
+  </div>
+  <div class="note"><strong>Draft note —</strong> bracketed lines above still need your fact-check: education specifics, and whether a personal "for fun" detail goes in the room.</div>
+</section>
+
+<section id="topic1">
+  <div class="label">Topic 1</div>
+  <h2>Capitalize or Expense?</h2>
+  <p>Two real situations where I had to make, or defend, that call.</p>
+
+  <div class="card">
+    <h3>Example 1 — ForensisGroup, Salesforce</h3>
+    <p>The technical spine: a Salesforce subscription is a Cloud Computing Arrangement under <strong>ASC 350-40</strong> (as amended by <strong>ASU 2018-15</strong>) — the subscription fee itself is never an asset, it's always a straight period expense, like rent. The real judgment call lives in the <em>implementation</em> costs: configuration, customization, and testing get capitalized as a prepaid asset and expensed ratably over the contract term; training and data conversion get expensed immediately, even though they feel like "setup work" too.</p>
+
+    <table>
+      <tr><th>Capitalize</th><td>Configuration, customization, scripting, testing</td></tr>
+      <tr><th>Expense</th><td>Subscription/hosting fees, training, data conversion</td></tr>
+    </table>
+
+    <h4>Goals / requirements</h4>
+    <p>—</p>
+    <h4>My direct contribution</h4>
+    <p>—</p>
+    <h4>Result</h4>
+    <p>—</p>
+    <h4>Lessons learned / what I'd do differently</h4>
+    <p>—</p>
+  </div>
+  <div class="note"><strong>Needs from James —</strong> did ForensisGroup pay a consultant/agency for implementation, or was this your own configuration work with no separately billed cost? What was the dollar scale? What did you personally decide or recommend, and what did the firm actually do?</div>
+
+  <div class="card">
+    <h3>Example 2 — TBD</h3>
+    <p>CDTFA audit files are off the table — confidential taxpayer information under the CA Revenue &amp; Taxation Code, not usable even anonymized.</p>
+    <p>Candidates: a repair-vs-improvement call on equipment somewhere in your work · a Sieyant capitalize/expense decision · another ForensisGroup call unrelated to Salesforce.</p>
+  </div>
+</section>
+
+<section id="topic2">
+  <div class="label">Topic 2</div>
+  <h2>The First 90 Days at Vast</h2>
+
+  <div class="grid90">
+    <div class="card">
+      <h3>30 days</h3>
+      <p>Map the chart of accounts and capitalization threshold. Learn how Ramp is configured — category mappings, AI-coding accuracy, dimensions in use. Shadow month-end close, flag where manual reclasses happen most.</p>
+    </div>
+    <div class="card">
+      <h3>60 days</h3>
+      <p>Tighten GL coding rules for the recurring judgment calls — CCA/SaaS implementation costs, capex thresholds. Help document the capitalization policy crisply. Start quantifying the manual-reclass problem.</p>
+    </div>
+    <div class="card">
+      <h3>90 days</h3>
+      <p>Pilot the idea below on a narrow slice of spend, with a before/after on reclass volume. Bring a lightweight business case, not just a demo.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The idea</h3>
+    <p><strong>Route the capitalize-vs-expense decision to the point of transaction entry in Ramp, not to close.</strong></p>
+    <p>AI-assisted coding in Ramp is tuned for speed and general category accuracy — not purpose-built to catch the two calls that create rework later: an invoice crossing the capitalization threshold, or a SaaS vendor bill blending capitalizable implementation work with costs that must stay expensed on the same invoice.</p>
+
+    <div class="flow">
+      <div class="step">Transaction hits Ramp</div>
+      <div class="arrow">↓ AI category + rules</div>
+      <div class="branch">
+        <div class="step">Below threshold, routine → auto-code as expense</div>
+        <div class="step">Above threshold, tangible asset → route to capex review queue</div>
+        <div class="step">CCA / SaaS implementation vendor → split: capitalize config &amp; testing, expense training &amp; data conversion</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step">Approved coding syncs to NetSuite</div>
+    </div>
+
+    <p>Small build, immediate payoff: fewer reclass journal entries at close, a cleaner audit trail, and a policy that used to live in someone's head now lives in the system.</p>
+  </div>
+</section>
+
+<footer>Built for the final-round presentation. <a href="../">← James Sieng</a></footer>
+</div>
+</body>
+</html>
