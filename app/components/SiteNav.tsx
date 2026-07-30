@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Show, UserButton } from "@clerk/nextjs";
 
 export default function SiteNav() {
   return (
@@ -11,17 +13,17 @@ export default function SiteNav() {
         <div className="nav-links">
           <a href="/#credentials">Credentials</a>
           <a href="/#work">Work</a>
-          <SignedOut>
+          <Show when="signed-out">
             <Link href="/sign-in" className="btn">
               Portal
             </Link>
-          </SignedOut>
-          <SignedIn>
+          </Show>
+          <Show when="signed-in">
             <Link href="/vast" className="btn">
               Portal
             </Link>
             <UserButton />
-          </SignedIn>
+          </Show>
         </div>
       </div>
     </nav>
