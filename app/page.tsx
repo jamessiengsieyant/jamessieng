@@ -49,8 +49,32 @@ export default function Home() {
             </div>
             <div className="card">
               <div className="cred">
-                <span className="k">Salesforce Certified</span>
-                <span className="v">Platform administration &amp; build</span>
+                <span className="k">Salesforce</span>
+                <span className="v">Administrator &amp; Advanced Administrator</span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="cred">
+                <span className="k">CISSP</span>
+                <span className="v">Exam passed — endorsement in progress</span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="cred">
+                <span className="k">CompTIA</span>
+                <span className="v">A+ · Network+ · Security+</span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="cred">
+                <span className="k">AWS</span>
+                <span className="v">Certified Cloud Practitioner</span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="cred">
+                <span className="k">ISC2</span>
+                <span className="v">Certified in Cybersecurity</span>
               </div>
             </div>
             <div className="card">
