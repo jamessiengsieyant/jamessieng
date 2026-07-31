@@ -73,16 +73,19 @@ export default function Topic2Page() {
                   <li style={{ borderBottom: "none" }}>
                     <span className="yr">Week 9–12</span>
                     <span className="body">
-                      Pilot the idea below on a narrow slice of spend, with a before/after on
-                      reclass volume. Bring a lightweight business case, not just a demo.
+                      Ship two things. First, pilot the Ramp coding rules below on a narrow
+                      slice of spend, with a before/after on reclass volume. Second, deliver
+                      the international consolidation map — how Japan and France actually flow
+                      into the US-GAAP close today. A lightweight business case for each, not
+                      just a demo.
                     </span>
                   </li>
                 </ul>
               </div>
             </section>
 
-            <section>
-              <h2 style={{ fontSize: 26, marginBottom: 12 }}>The idea</h2>
+            <section style={{ marginBottom: 52 }}>
+              <h2 style={{ fontSize: 26, marginBottom: 12 }}>Quick win: route the capitalize call to the point of entry</h2>
 
               <p style={{ marginTop: 12, fontWeight: 600 }}>
                 Route the capitalize-vs-expense decision to the point of transaction entry in
@@ -130,11 +133,64 @@ export default function Topic2Page() {
               </div>
 
               <p style={{ marginTop: 22 }}>
-                <strong>Why this works:</strong> small build, immediate payoff. Fewer reclass
-                journal entries at close, a cleaner audit trail, and a policy that used to live
-                in someone&apos;s head now lives in the system. Once it&apos;s working, it
-                becomes part of standard operating procedure — and that&apos;s not just a
-                feature, it&apos;s culture.
+                Small build, immediate payoff. Fewer reclass journal entries at close, a
+                cleaner audit trail, and a policy that used to live in someone&apos;s head now
+                lives in the system.
+              </p>
+            </section>
+
+            <section>
+              <h2 style={{ fontSize: 26, marginBottom: 12 }}>The brilliant idea: the international bridge, before it&apos;s a fire drill</h2>
+
+              <p style={{ marginTop: 12 }}>
+                Vast isn&apos;t a single-entity company anymore. There&apos;s{" "}
+                <a href="https://www.vastspace.com/updates/vast-expands-to-japan-appointing-naoko-yamazaki-as-general-manager-of-vast-japan-gk" target="_blank" rel="noopener noreferrer">Vast Japan GK</a>{" "}
+                in Tokyo, and a French operation tied to Vast&apos;s agreement with the French
+                government to fly French astronauts to LEO. Two real subsidiaries means the US
+                consolidation now has company on the same close calendar.
+              </p>
+
+              <p style={{ marginTop: 16, fontWeight: 600 }}>
+                Four things stack up under &ldquo;international,&rdquo; and each is a real
+                accounting problem, not a legal one:
+              </p>
+
+              <ul style={{ marginTop: 12 }}>
+                <li style={{ marginBottom: 10 }}>
+                  <strong>Currency translation (ASC 830).</strong> Japan GK&apos;s functional
+                  currency is JPY, the France entity&apos;s is EUR. Translating both to USD for
+                  consolidation produces a Cumulative Translation Adjustment that runs through
+                  OCI, not the income statement — a distinction that&apos;s easy to code wrong
+                  and expensive to unwind later.
+                </li>
+                <li style={{ marginBottom: 10 }}>
+                  <strong>Multi-entity consolidation.</strong> If Japan and France aren&apos;t
+                  already on NetSuite OneWorld with intercompany elimination built in, that
+                  consolidation is happening by hand somewhere — and manual consolidation is
+                  the first thing that breaks as transaction volume grows.
+                </li>
+                <li style={{ marginBottom: 10 }}>
+                  <strong>Transfer pricing.</strong> Any cost-sharing, management fee, or R&amp;D
+                  allocation between the US parent and the two subs needs arm&apos;s-length
+                  documentation to hold up under both a US Section 482 exam and a French or
+                  Japanese tax authority&apos;s own review.
+                </li>
+                <li>
+                  <strong>Indirect tax.</strong> France runs on VAT, Japan on Consumption Tax —
+                  different mechanics, same underlying discipline I already practice daily
+                  auditing California sales and use tax: does this transaction carry the tax it
+                  should, documented at the point of entry rather than reconstructed at audit.
+                </li>
+              </ul>
+
+              <p style={{ marginTop: 22 }}>
+                <strong>The pitch:</strong> within 90 days, a documented map of exactly how
+                Japan and France flow into the US-GAAP consolidation today — manual or
+                NetSuite-native — and a plan to close whichever gap is biggest first. Not a
+                redesign of what Vast already has. Making sure the multi-entity structure that
+                already runs Ramp and NetSuite domestically is held to the same standard
+                internationally, before the international side gets big enough that a gap
+                becomes a restatement.
               </p>
             </section>
           </div>

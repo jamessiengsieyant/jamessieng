@@ -145,40 +145,167 @@ export default function Topic1Page() {
             </section>
 
             <section>
-              <h2 style={{ fontSize: 26, marginBottom: 12 }}>Example 2 — TBD</h2>
+              <h2 style={{ fontSize: 26, marginBottom: 12 }}>
+                Example 2 — The LIMS: freezers, equipment, and software I built
+              </h2>
 
-              <div className="note">
-                <strong>Note:</strong> CDTFA audit files are off the table — confidential
-                taxpayer information under CA Revenue &amp; Taxation Code.
+              <div className="field">
+                <h4>The technical spine</h4>
+                <p>
+                  A Laboratory Information Management System is a capitalization problem with
+                  two halves that fall under <em>two different standards</em>—and getting one
+                  right doesn&apos;t get you the other.
+                </p>
+                <table style={{ marginTop: 14 }}>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>The hardware</th>
+                      <th>The software I built</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Standard</strong></td>
+                      <td>ASC 360 — PP&amp;E</td>
+                      <td>ASC 350-40 — internal-use software</td>
+                    </tr>
+                    <tr>
+                      <td><strong>What lands in basis</strong></td>
+                      <td>
+                        Purchase price + freight + installation + testing + site prep +
+                        non-recoverable sales/use tax
+                      </td>
+                      <td>
+                        Application-development stage only: coding, configuration, testing
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>What&apos;s expensed</strong></td>
+                      <td>Routine maintenance, calibration, consumables</td>
+                      <td>
+                        Preliminary-stage scoping, training, data conversion,
+                        post-implementation maintenance
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Then what</strong></td>
+                      <td>Depreciate over useful life</td>
+                      <td>Amortize over useful life, as an intangible</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
-              <p style={{ marginTop: 18 }}>
-                Candidates for the second example:
-              </p>
-              <ul style={{ marginTop: 8 }}>
-                <li>A repair-vs-improvement call on equipment (extended useful life vs. routine maintenance)</li>
-                <li>A Sieyant capitalize/expense decision (software, infrastructure, tools)</li>
-                <li>Another ForensisGroup situation unrelated to Salesforce</li>
-              </ul>
+              <div className="note" style={{ marginTop: 18 }}>
+                <strong>The contrast with Example 1 is the whole point.</strong> Both examples
+                run through ASC 350-40, and they come out in different places. Salesforce is a
+                hosted service contract—capitalizable implementation cost becomes a
+                prepaid-type asset that amortizes into the same operating line as the
+                subscription. The LIMS is software the organization builds and controls—it
+                becomes an <em>intangible asset</em> on the balance sheet with its own
+                amortization. Same code section. Different asset. Different P&amp;L line.
+              </div>
 
-              <div className="field" style={{ marginTop: 24 }}>
+              <div className="field" style={{ marginTop: 22 }}>
                 <h4>Goals / requirements</h4>
-                <p>[TBD: to confirm]</p>
+                <p>
+                  The lab needed to track patient samples through their full lifecycle:
+                  chain of custody, physical location down to the freezer and shelf position,
+                  and the equipment those samples depended on. That last requirement is the
+                  one that matters here—the system had to know what equipment existed, where
+                  it was, and what condition it was in.
+                </p>
+                <p style={{ marginTop: 10 }}>
+                  <em>
+                    [Fill: which employer/client, roughly what year, and what triggered the
+                    project — a compliance requirement, a growth problem, a failed audit?]
+                  </em>
+                </p>
+              </div>
+
+              <div className="field">
+                <h4>The judgment calls</h4>
+                <ul>
+                  <li>
+                    <strong>Unit of account on the equipment.</strong> Is a freezer plus its
+                    temperature-monitoring system one asset or two? It changes the useful life
+                    you depreciate over and whether a monitoring upgrade later is a component
+                    replacement or a repair.
+                  </li>
+                  <li>
+                    <strong>Repair vs. improvement.</strong> Servicing a freezer to keep it
+                    running is maintenance—expense it. A compressor replacement or a controls
+                    retrofit that extends useful life or increases capacity is a
+                    betterment—capitalize it. Same vendor, same invoice format, opposite
+                    treatment.
+                  </li>
+                  <li>
+                    <strong>Threshold discipline.</strong> Individually cheap lab equipment
+                    below the capitalization threshold gets expensed even when it lasts
+                    years—and that&apos;s correct, but only if the threshold is a written
+                    policy applied consistently rather than a judgment made invoice by
+                    invoice.
+                  </li>
+                </ul>
               </div>
 
               <div className="field">
                 <h4>My direct contribution</h4>
-                <p>[TBD: to confirm]</p>
+                <p>
+                  I built the system, including the asset-management module—which is worth
+                  naming plainly: <strong>that module is a fixed-asset subledger</strong>.
+                  Asset identity, location, acquisition data, condition, and status, tied to
+                  the operations that depend on it. I wasn&apos;t only accounting for fixed
+                  assets; I built the system of record that a fixed-asset roll-forward gets
+                  reconciled against.
+                </p>
+                <p style={{ marginTop: 10 }}>
+                  <em>
+                    [Fill: your specific role in any purchase or booking decisions — did you
+                    recommend treatment, prepare the entries, or design the fields that
+                    captured the data accounting needed? Any dollar ranges you can cite.]
+                  </em>
+                </p>
               </div>
 
               <div className="field">
                 <h4>Result</h4>
-                <p>[TBD: to confirm]</p>
+                <p>
+                  The lab got a single source of truth for both samples and the equipment
+                  supporting them. From an accounting standpoint, the value is that asset
+                  data was captured <em>at the point of acquisition</em>, in a structured
+                  system—rather than reconstructed from invoices at year-end, which is where
+                  fixed-asset registers usually go wrong.
+                </p>
+                <p style={{ marginTop: 10 }}>
+                  <em>[Fill: a concrete outcome — time saved, audit finding avoided, sample
+                  volume handled, headcount it supported.]</em>
+                </p>
               </div>
 
               <div className="field">
                 <h4>Lessons learned / what I&apos;d do differently</h4>
-                <p>[TBD: to confirm]</p>
+                <ul>
+                  <li>
+                    <strong>Design the subledger to answer the accounting question, not just
+                    the operational one.</strong> The system tracked where equipment was. It
+                    should also have carried in-service date, capitalized cost, and useful
+                    life—so the operational register and the fixed-asset register are the
+                    same register instead of two things that drift apart.
+                  </li>
+                  <li>
+                    <strong>Decide unit of account before the first purchase, not after the
+                    tenth.</strong> Componentization decided asset-by-asset produces a
+                    register nobody can defend two years later.
+                  </li>
+                  <li>
+                    <strong>The repair-vs-improvement call belongs at intake.</strong> Same
+                    lesson as Example 1, same lesson I&apos;d bring to Ramp at Vast: the
+                    person who knows what the work actually was is the person approving the
+                    invoice—not the person reclassing it at close three weeks later.
+                  </li>
+                </ul>
               </div>
             </section>
           </div>
