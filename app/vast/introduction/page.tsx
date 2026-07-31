@@ -39,7 +39,10 @@ export default function IntroductionPage() {
               </p>
               <p>
                 Salesforce and QuickBooks certified along the way, which is what put me in
-                the room to build the systems I used to just audit.
+                the room to build the systems I used to just audit: a LIMS for lab sample
+                and asset tracking, a project management system built on Salesforce, a
+                custom QuickBooks-to-Salesforce AP/AR and payment sync, and a survey
+                platform written in Apex.
               </p>
             </div>
 

@@ -146,9 +146,50 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="band" id="projects">
+        <div className="wrap">
+          <div className="mono">03 — Projects</div>
+          <h2>Systems I&apos;ve built. Demos available.</h2>
+          <div className="grid grid-2" style={{ marginTop: 28 }}>
+            <div className="card">
+              <h3>LIMS</h3>
+              <p>
+                Laboratory Information Management System — patient sample tracking,
+                freezer location management, and asset management for lab
+                operations.
+              </p>
+            </div>
+            <div className="card">
+              <h3>PMify — PMIS</h3>
+              <p>
+                Project Management Information System built natively on
+                Salesforce.
+              </p>
+            </div>
+            <div className="card">
+              <h3>AP/AR &amp; Payment Sync</h3>
+              <p>
+                Custom QuickBooks Online ↔ Salesforce integration syncing
+                accounts payable, accounts receivable, and payments between the
+                CRM and the ledger — no manual re-keying, no drift between
+                systems.
+              </p>
+            </div>
+            <div className="card">
+              <h3>Survey Platform</h3>
+              <p>
+                Custom survey solution built in Apex — create surveys from
+                Salesforce with no rebuild time, auto-deliver to the right
+                clients, hosted on the main website.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="band">
         <div className="wrap">
-          <div className="mono">03 — Outside the ledger</div>
+          <div className="mono">04 — Outside the ledger</div>
           <h2>For fun.</h2>
           <p>
             I write and record music — guitar and vocals — and I&apos;m slowly working
