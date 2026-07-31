@@ -44,24 +44,103 @@ export default function Topic1Page() {
               <div className="field">
                 <h4>Goals / requirements</h4>
                 <p>
-                  [TBD: What was the firm trying to solve? What was the scale? Was there a
-                  consultant involved, or was this internal configuration?]
+                  ForensisGroup runs its practice on Salesforce. Two builds sat on top of
+                  that subscription: <strong>PMify</strong>, a project management
+                  information system, and a <strong>custom survey platform written in
+                  Apex</strong> that lets the firm spin up client surveys without a rebuild
+                  each time. Roughly four months of development across both.
+                </p>
+                <p style={{ marginTop: 10 }}>
+                  No outside consultant, no implementation invoice, no statement of work.
+                  The entire cost of the build was <em>my own time as an employee</em>—which
+                  is exactly what makes this a real judgment call instead of a bookkeeping
+                  exercise.
+                </p>
+              </div>
+
+              <div className="field">
+                <h4>The question that had to be answered</h4>
+                <p>
+                  ASC 350-40 does <strong>not</strong> limit capitalizable implementation
+                  cost to third-party invoices. Payroll for employees directly associated
+                  with and devoting time to the application-development stage is
+                  capitalizable too. So &ldquo;we didn&apos;t pay anyone&rdquo; is not, by
+                  itself, an answer. Four months of internal configuration, customization,
+                  and testing is precisely the activity the standard points at.
                 </p>
               </div>
 
               <div className="field">
                 <h4>My direct contribution</h4>
-                <p>[TBD: What did you personally decide or recommend?]</p>
+                <p>
+                  I built both systems. The accounting analysis is the part I want to be
+                  judged on, and I&apos;ll be straight about the sequence: the cost flowed
+                  through payroll and was expensed as incurred. There was no capitalization
+                  discussion at the time.
+                </p>
+                <p style={{ marginTop: 10 }}>
+                  What I can defend is the <em>conclusion</em>, and I&apos;ve since worked
+                  through why it holds:
+                </p>
+                <ul style={{ marginTop: 10 }}>
+                  <li>
+                    <strong>Measurement reliability.</strong> There were no contemporaneous
+                    time records separating application-development work from everything
+                    else I did. Without that, any capitalized number would have been a
+                    reconstruction, not a measurement.
+                  </li>
+                  <li>
+                    <strong>Stage mix.</strong> A large share of those four months was
+                    preliminary-stage scoping and post-implementation refinement and user
+                    training—expensed under the standard regardless.
+                  </li>
+                  <li>
+                    <strong>Materiality.</strong> At the scale of a firm that size, the
+                    capitalizable slice would not have changed any reader&apos;s view of the
+                    financials.
+                  </li>
+                </ul>
               </div>
 
               <div className="field">
                 <h4>Result</h4>
-                <p>[TBD: How was it actually treated?]</p>
+                <p>
+                  Expensed as incurred. I believe that was the correct outcome—but it was
+                  reached by default rather than by analysis, and those are not the same
+                  thing. A defensible answer arrived at without documentation is still an
+                  undocumented answer.
+                </p>
               </div>
 
               <div className="field">
                 <h4>Lessons learned / what I&apos;d do differently</h4>
-                <p>[TBD: Looking back, what would you do the same or differently?]</p>
+                <ul>
+                  <li>
+                    <strong>Track hours to the project while it&apos;s happening.</strong>{" "}
+                    Not to force a capitalization—to preserve the option. Once the quarter
+                    closes, the ability to measure is gone.
+                  </li>
+                  <li>
+                    <strong>Write the memo even when the answer is &ldquo;expense.&rdquo;</strong>{" "}
+                    A short materiality memo costs an hour and turns a default into a
+                    documented position an auditor can follow.
+                  </li>
+                  <li>
+                    <strong>Recognize when scale flips the answer.</strong> The same analysis
+                    at a company with real implementation invoices and dedicated engineering
+                    time comes out the other way. The framework doesn&apos;t change; the
+                    materiality does.
+                  </li>
+                </ul>
+              </div>
+
+              <div className="note" style={{ marginTop: 18 }}>
+                <strong>Why this example is worth your time:</strong> the treatment
+                here isn&apos;t &ldquo;fixed asset&rdquo; <em>or</em> &ldquo;expense.&rdquo;
+                A capitalized CCA implementation cost is a third thing—a prepaid-type asset
+                that amortizes into the same operating expense line as the subscription
+                itself, never into depreciation. Coding it to a fixed-asset account would be
+                wrong even when capitalizing is right.
               </div>
             </section>
 
