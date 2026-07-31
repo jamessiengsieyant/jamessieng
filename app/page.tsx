@@ -14,7 +14,8 @@ export default function Home() {
             then I build the system.
           </h1>
           <p className="lede">
-            CPA-credentialed accountant and California sales &amp; use tax auditor.
+            Accountant and California sales &amp; use tax auditor — CPA exams
+            passed, completing the experience requirement for licensure.
             I spend my days testing whether transactions were recorded and taxed
             correctly — and my nights building the software that gets it right the
             first time.
@@ -33,12 +34,12 @@ export default function Home() {
       <section className="band" id="credentials">
         <div className="wrap">
           <div className="mono">01 — Credentials</div>
-          <h2>Licensed, credentialed, certified.</h2>
+          <h2>Credentialed and certified.</h2>
           <div className="grid grid-3" style={{ marginTop: 28 }}>
             <div className="card">
               <div className="cred">
-                <span className="k">CPA</span>
-                <span className="v">Certified Public Accountant</span>
+                <span className="k">CPA (Passed)</span>
+                <span className="v">All exams passed — experience requirement in progress</span>
               </div>
             </div>
             <div className="card">
@@ -85,8 +86,17 @@ export default function Home() {
             </div>
             <div className="card">
               <div className="cred">
-                <span className="k">Education</span>
-                <span className="v">[School, degree, year — to confirm]</span>
+                <span className="k">UC Irvine</span>
+                <span className="v">
+                  B.S. Biomedical Engineering · B.A. Business Economics
+                  (2010–2014)
+                </span>
+              </div>
+            </div>
+            <div className="card">
+              <div className="cred">
+                <span className="k">WGU</span>
+                <span className="v">B.S. Accounting (2024)</span>
               </div>
             </div>
             <div className="card">

@@ -4,7 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "James Sieng",
-  description: "CPA-credentialed accountant, tax auditor, and builder.",
+  description:
+    "Accountant, tax auditor, and builder — CPA exams passed, Enrolled Agent.",
 };
 
 export default function RootLayout({

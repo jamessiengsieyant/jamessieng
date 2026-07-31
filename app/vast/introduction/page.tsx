@@ -35,7 +35,12 @@ export default function IntroductionPage() {
             <div className="field">
               <h4>Past — how I got here</h4>
               <p>
-                [CPA credential, education details, school, year — to confirm and fill in]
+                Two degrees from UC Irvine — Biomedical Engineering and Business
+                Economics, 2010 to 2014 — then a Bachelor&apos;s in Accounting from
+                Western Governors University in 2024. I&apos;ve passed all four CPA
+                exams and I&apos;m completing the experience requirement now, along
+                with the Enrolled Agent credential — admitted to practice before the
+                IRS.
               </p>
               <p>
                 Salesforce and QuickBooks certified along the way, which is what put me in
