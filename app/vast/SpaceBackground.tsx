@@ -455,8 +455,8 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
     function tick() {
       const t = (performance.now() - startTime) / 1000;
 
-      earth.rotation.y = t * 0.018;
-      clouds.rotation.y = t * 0.025;
+      earth.rotation.y = t * 0.07;
+      clouds.rotation.y = t * 0.09;
       (starsFar.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
       (starsNear.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
 
@@ -508,23 +508,34 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
           justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            width: "min(80vmin, 900px)",
-            height: "min(80vmin, 900px)",
-            borderRadius: "50%",
-            boxShadow: [
-              "0 0 0 9999px #0b0d12",
-              "inset 0 0 46px 16px rgba(0,0,0,0.6)",
-              "inset 0 0 0 3px rgba(215,224,236,0.4)",
-              "inset 0 0 0 9px rgba(20,24,32,0.9)",
-              "inset 0 0 0 13px rgba(170,182,200,0.28)",
-              "0 0 0 15px rgba(40,45,54,0.95)",
-              "0 0 0 17px rgba(190,200,214,0.18)",
-              "0 30px 90px rgba(0,0,0,0.7)",
-            ].join(", "),
-          }}
-        />
+        <div style={{ position: "relative", width: "min(80vmin, 900px)", height: "min(80vmin, 900px)" }}>
+          <div
+            style={{
+              position: "absolute", inset: 0,
+              borderRadius: "50%",
+              boxShadow: [
+                "0 0 0 9999px #0b0d12",
+                "inset 0 0 46px 16px rgba(0,0,0,0.6)",
+                "inset 0 0 0 3px rgba(215,224,236,0.4)",
+                "inset 0 0 0 9px rgba(20,24,32,0.9)",
+                "inset 0 0 0 13px rgba(170,182,200,0.28)",
+                "0 0 0 15px rgba(40,45,54,0.95)",
+                "0 0 0 17px rgba(190,200,214,0.18)",
+                "0 30px 90px rgba(0,0,0,0.7)",
+              ].join(", "),
+            }}
+          />
+          {/* curved-glass sheen, like light catching the dome */}
+          <div
+            style={{
+              position: "absolute", inset: 0,
+              borderRadius: "50%",
+              overflow: "hidden",
+              background: "radial-gradient(circle at 30% 24%, rgba(255,255,255,0.24), rgba(255,255,255,0.06) 28%, transparent 52%)",
+              mixBlendMode: "screen",
+            }}
+          />
+        </div>
       </div>
     </>
   );
