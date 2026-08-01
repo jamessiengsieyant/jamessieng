@@ -199,23 +199,52 @@ function makeEarthTexture(): THREE.Texture {
   return tex;
 }
 
+function cloudPuff(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, alpha: number) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, `rgba(255,255,255,${alpha})`);
+  g.addColorStop(0.6, `rgba(255,255,255,${alpha * 0.5})`);
+  g.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function cloudSpiral(ctx: CanvasRenderingContext2D, cx: number, cy: number, maxR: number, turns: number) {
+  const steps = 70;
+  for (let i = 0; i < steps; i++) {
+    const t = i / steps;
+    const r = maxR * (1 - t * 0.92);
+    const a = t * turns * Math.PI * 2;
+    const x = cx + Math.cos(a) * r;
+    const y = cy + Math.sin(a) * r * 0.62;
+    cloudPuff(ctx, x, y, 7 + (1 - t) * 20, 0.35 + Math.random() * 0.35);
+  }
+}
+
 function makeCloudTexture(): THREE.Texture {
   const w = 1536, h = 768;
   const c = document.createElement("canvas");
   c.width = w; c.height = h;
   const ctx = c.getContext("2d")!;
   ctx.clearRect(0, 0, w, h);
-  for (let i = 0; i < 100; i++) {
-    const x = Math.random() * w, y = Math.random() * h * 0.85 + h * 0.05;
-    const r = 24 + Math.random() * 90;
-    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, `rgba(255,255,255,${0.22 + Math.random() * 0.38})`);
-    g.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
+
+  // banded weather patterns — denser near the equator and mid-latitude storm tracks
+  for (let i = 0; i < 190; i++) {
+    const band = Math.random();
+    let y: number;
+    if (band < 0.35) y = h * (0.46 + (Math.random() - 0.5) * 0.22); // equatorial (ITCZ)
+    else if (band < 0.68) y = h * (0.22 + (Math.random() - 0.5) * 0.16); // N mid-lat
+    else y = h * (0.74 + (Math.random() - 0.5) * 0.16); // S mid-lat
+    const x = Math.random() * w;
+    cloudPuff(ctx, x, y, 20 + Math.random() * 60, 0.2 + Math.random() * 0.35);
   }
+
+  // a handful of cyclone-style swirls for recognizable weather-map character
+  for (let i = 0; i < 5; i++) {
+    cloudSpiral(ctx, Math.random() * w, h * (0.18 + Math.random() * 0.64), 55 + Math.random() * 45, 2.2 + Math.random() * 1.4);
+  }
+
   const tex = new THREE.CanvasTexture(c);
   tex.needsUpdate = true;
   return tex;
@@ -318,7 +347,10 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
 
     const clouds = new THREE.Mesh(
       new THREE.SphereGeometry(EARTH_R * 1.008, 64, 64),
-      new THREE.MeshStandardMaterial({ map: makeCloudTexture(), transparent: true, roughness: 1, depthWrite: false })
+      new THREE.MeshStandardMaterial({
+        map: makeCloudTexture(), transparent: true, roughness: 1, depthWrite: false,
+        emissive: 0xffffff, emissiveIntensity: 0.22,
+      })
     );
     earthGroup.add(clouds);
 
@@ -463,6 +495,7 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
   return (
     <>
       <canvas ref={ref} style={{ position: "fixed", inset: 0, zIndex: 0 }} />
+      {/* the porthole: a real circular cutout onto the canvas, box-shadow fills the "cabin wall" outside it */}
       <div
         aria-hidden="true"
         style={{
@@ -470,11 +503,29 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
           inset: 0,
           zIndex: 0,
           pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse 78% 78% at 50% 58%, transparent 52%, rgba(4,6,11,0.55) 76%, rgba(2,3,7,0.94) 100%)",
-          boxShadow: "inset 0 0 0 3px rgba(180,195,215,0.06)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
+      >
+        <div
+          style={{
+            width: "min(80vmin, 900px)",
+            height: "min(80vmin, 900px)",
+            borderRadius: "50%",
+            boxShadow: [
+              "0 0 0 9999px #0b0d12",
+              "inset 0 0 46px 16px rgba(0,0,0,0.6)",
+              "inset 0 0 0 3px rgba(215,224,236,0.4)",
+              "inset 0 0 0 9px rgba(20,24,32,0.9)",
+              "inset 0 0 0 13px rgba(170,182,200,0.28)",
+              "0 0 0 15px rgba(40,45,54,0.95)",
+              "0 0 0 17px rgba(190,200,214,0.18)",
+              "0 30px 90px rgba(0,0,0,0.7)",
+            ].join(", "),
+          }}
+        />
+      </div>
     </>
   );
 }
