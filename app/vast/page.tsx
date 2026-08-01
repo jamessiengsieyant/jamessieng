@@ -7,14 +7,15 @@ export default function VastIndex() {
         <div className="wrap">
           <div className="mono">Final Round — Vast Space</div>
           <h1>
-            Not a slide deck.
+            The slides talk less
             <br />
-            A working system.
+            than I do.
           </h1>
           <p className="lede">
-            You asked for a presentation. I built the presentation as software —
-            behind an authenticated portal, deployed on the same stack I&apos;d bring
-            to the accounting problems below. How I work is part of the answer.
+            Built as software, not a deck file — behind an authenticated portal, deployed on
+            the same stack I&apos;d bring to the accounting problems below. Headlines on
+            screen, the story from me. Full detail lives on the Script page, for before the
+            room — not during it.
           </p>
         </div>
       </header>
@@ -37,6 +38,11 @@ export default function VastIndex() {
               <span className="mono">Part 03</span>
               <h3>The First 90 Days →</h3>
               <p>A 30/60/90 plan, and one idea for Ramp → NetSuite.</p>
+            </Link>
+            <Link href="/vast/script" className="card" style={{ textDecoration: "none" }}>
+              <span className="mono">Leave-behind</span>
+              <h3>Full Script →</h3>
+              <p>Every example, in full — for rereading before the room, not during it.</p>
             </Link>
           </div>
         </div>

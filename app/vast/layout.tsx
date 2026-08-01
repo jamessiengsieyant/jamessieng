@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import SpaceBackground from "./SpaceBackground";
 
 export default function VastLayout({
   children,
@@ -10,7 +11,8 @@ export default function VastLayout({
 }) {
   return (
     <>
-      <nav className="nav">
+      <SpaceBackground />
+      <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
         <div className="nav-inner">
           <Link href="/vast" className="nav-name">
             James Sieng <span style={{ color: "var(--muted)" }}>/ Vast</span>
@@ -19,12 +21,13 @@ export default function VastLayout({
             <Link href="/vast/introduction">Introduction</Link>
             <Link href="/vast/topic-1">Topic 1</Link>
             <Link href="/vast/topic-2">Topic 2</Link>
+            <Link href="/vast/script">Script</Link>
             <UserButton />
           </div>
         </div>
       </nav>
-      {children}
-      <footer className="site">
+      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+      <footer className="site" style={{ position: "relative", zIndex: 1 }}>
         <div className="wrap">
           Prepared for the final-round presentation. ·{" "}
           <Link href="/">← jamessieng.com</Link>

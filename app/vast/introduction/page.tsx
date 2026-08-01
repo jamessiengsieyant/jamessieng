@@ -1,77 +1,73 @@
+import s from "../space.module.css";
+
 export default function IntroductionPage() {
   return (
-    <>
-      <article className="band">
-        <div className="wrap narrow">
-          <div className="mono">Part 01 — ~15 min, practiced to memory</div>
-          <h1 style={{ marginTop: 12 }}>Introduction</h1>
+    <div className={s.page}>
+      <section className={s.slide}>
+        <div className={s.kicker}>Part 01 · Introduction</div>
+        <h1 className={s.h1}>James Sieng</h1>
+        <p className={s.sub}>Two ways to read a balance sheet.</p>
+      </section>
 
-          <div style={{ marginTop: 44 }}>
-            <div className="field">
-              <h4>The hook</h4>
-              <p>
-                Two ways to read a balance sheet: as the auditor asking "prove it," or as the
-                person building the system that has to prove itself. I&apos;ve spent my career
-                doing both — sometimes in the same week.
-              </p>
-            </div>
+      <section className={s.slide}>
+        <div className={s.kicker}>The hook</div>
+        <h2 className={s.h2}>&ldquo;Prove it&rdquo; vs. &ldquo;make it provable.&rdquo;</h2>
+        <p className={s.sub}>I&rsquo;ve done both — sometimes in the same week.</p>
+      </section>
 
-            <div className="field">
-              <h4>Present — what I do now</h4>
-              <p>
-                By day, I&apos;m a sales and use tax auditor for the California Department of
-                Tax and Fee Administration — I go into businesses&apos; books and test whether
-                transactions were taxed correctly under California&apos;s Revenue &amp;
-                Taxation Code, including capital equipment purchases, which is a direct line
-                into the capitalization topic we&apos;ll cover next.
-              </p>
-              <p>
-                Outside of that, I work with ForensisGroup, a forensic and expert-witness
-                accounting firm, building out Salesforce and AI tooling for the practice. And
-                I&apos;m the founder of Sieyant, a tax preparation software business.
-              </p>
-            </div>
+      <section className={s.slide}>
+        <div className={s.kicker}>Present · three chairs</div>
+        <ul className={s.slideList}>
+          <li>
+            <b>CDTFA</b> — sales &amp; use tax auditor
+            <span>Testing whether businesses taxed capital purchases correctly under CA law.</span>
+          </li>
+          <li>
+            <b>ForensisGroup</b> — Salesforce &amp; AI tooling
+            <span>Building the systems that produce the records I used to just audit.</span>
+          </li>
+          <li>
+            <b>Sieyant</b> — founder
+            <span>Tax preparation software, shipped end to end.</span>
+          </li>
+        </ul>
+      </section>
 
-            <div className="field">
-              <h4>Past — how I got here</h4>
-              <p>
-                Two degrees from UC Irvine — Biomedical Engineering and Business
-                Economics, 2010 to 2014 — then a Bachelor&apos;s in Accounting from
-                Western Governors University in 2024. I&apos;ve passed all four CPA
-                exams and I&apos;m completing the experience requirement now, along
-                with the Enrolled Agent credential — admitted to practice before the
-                IRS.
-              </p>
-              <p>
-                Salesforce and QuickBooks certified along the way, which is what put me in
-                the room to build the systems I used to just audit: a LIMS for lab sample
-                and asset tracking, a project management system built on Salesforce, a
-                custom QuickBooks-to-Salesforce AP/AR and payment sync, and a survey
-                platform written in Apex.
-              </p>
-            </div>
+      <section className={s.slide}>
+        <div className={s.kicker}>Past · how I got here</div>
+        <ul className={s.slideList}>
+          <li>
+            <b>UC Irvine</b>, 2010–2014
+            <span>Biomedical Engineering &amp; Business Economics.</span>
+          </li>
+          <li>
+            <b>Western Governors University</b>, 2024
+            <span>B.S. Accounting.</span>
+          </li>
+          <li>
+            <b>CPA</b> — all four exams passed
+            <span>Completing the experience requirement, alongside the Enrolled Agent credential — admitted to practice before the IRS.</span>
+          </li>
+          <li>
+            <b>Salesforce &amp; QuickBooks certified</b>
+            <span>Built a LIMS, a Salesforce PM system (PMify), a QuickBooks↔Salesforce AP/AR sync, and an Apex survey platform.</span>
+          </li>
+        </ul>
+      </section>
 
-            <div className="field">
-              <h4>Future — why Vast</h4>
-              <p>
-                Every role I&apos;ve had comes down to the same skill: translating between a
-                rigid system of rules — tax code, GAAP, a chart of accounts — and the messy
-                reality of a fast-moving business. That&apos;s exactly the seam Vast is
-                scaling through right now.
-              </p>
-            </div>
+      <section className={s.slide}>
+        <div className={s.kicker}>Future · why Vast</div>
+        <h2 className={s.h2}>Rules meet reality.</h2>
+        <p className={s.sub}>
+          Tax code. GAAP. A chart of accounts. Then a company moving faster than any of them — the seam Vast is scaling through right now.
+        </p>
+      </section>
 
-            <div className="field">
-              <h4>For fun</h4>
-              <p>
-                I write and record music — guitar and vocals. Building albums is a lot like
-                building accounting systems: structured constraints where the interesting work
-                happens.
-              </p>
-            </div>
-          </div>
-        </div>
-      </article>
-    </>
+      <section className={s.slide}>
+        <div className={s.kicker}>For fun</div>
+        <h2 className={s.h2}>Guitar, vocals, unfinished songs.</h2>
+        <p className={s.sub}>Building an album is a lot like building an accounting system: structure that makes room for the interesting work.</p>
+      </section>
+    </div>
   );
 }
