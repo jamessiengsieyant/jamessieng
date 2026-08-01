@@ -25,6 +25,7 @@
   color: #ffb25e;
   margin-bottom: 20px;
   font-weight: 600;
+  text-shadow: 0 2px 20px rgba(2, 3, 7, 0.9);
 }
 .h1 {
   font-size: clamp(38px, 7vw, 72px);
@@ -33,6 +34,7 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #f2f4f8;
+  text-shadow: 0 4px 30px rgba(2, 3, 7, 0.85);
 }
 .h2 {
   font-size: clamp(26px, 4.4vw, 42px);
@@ -41,6 +43,7 @@
   font-weight: 750;
   letter-spacing: -0.02em;
   color: #f2f4f8;
+  text-shadow: 0 4px 30px rgba(2, 3, 7, 0.85);
 }
 .h3 {
   font-size: clamp(18px, 2.4vw, 24px);
@@ -48,6 +51,7 @@
   margin: 0 0 14px;
   font-weight: 700;
   color: #ffb25e;
+  text-shadow: 0 2px 20px rgba(2, 3, 7, 0.85);
 }
 .sub {
   color: #98a2b3;

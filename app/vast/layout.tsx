@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import SpaceBackground from "./SpaceBackground";
 
@@ -9,9 +10,13 @@ export default function VastLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isScript = pathname === "/vast/script";
+  const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
+
   return (
     <>
-      <SpaceBackground />
+      {!isScript && <SpaceBackground variant={variant} />}
       <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
         <div className="nav-inner">
           <Link href="/vast" className="nav-name">
