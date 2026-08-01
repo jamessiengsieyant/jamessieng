@@ -1,4 +1,5 @@
 import s from "../space.module.css";
+import MockupClip from "../MockupClip";
 
 export default function Topic2Page() {
   return (
@@ -55,6 +56,13 @@ export default function Topic2Page() {
           <div className={s.step}>Approved coding syncs to NetSuite</div>
         </div>
         <p className={s.sub} style={{ marginTop: 20 }}>Small build. Fewer reclass entries at close, a cleaner audit trail.</p>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>What it looks like</div>
+        <h3 className={s.h3}>Not a real screen recording — a mockup of the flow.</h3>
+        <MockupClip />
+        <p className={s.sub} style={{ marginTop: 20 }}>The point isn&rsquo;t the pixels. It&rsquo;s that the flag happens the moment the invoice lands — not three weeks later at close.</p>
       </section>
 
       <section className={s.slide}>

@@ -3,7 +3,8 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProtectedRoute = createRouteMatcher(["/vast(.*)"]);
 
 export const proxy = clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect();
+  const bypassAuth = process.env.NODE_ENV !== "production";
+  if (!bypassAuth && isProtectedRoute(req)) await auth.protect();
 });
 
 export const config = {
