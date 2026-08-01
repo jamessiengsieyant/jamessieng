@@ -4,116 +4,500 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>James Sieng // Vast Space — Final Round</title>
-<link rel="stylesheet" href="../style.css">
+<style>
+  :root{
+    --bg:#05070d; --ink:#f2f4f8; --dim:#98a2b3; --line:rgba(255,255,255,.14);
+    --accent:#ffb25e; --accent2:#7db2ff; --card:rgba(12,16,26,.68);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:400 18px/1.5 "Segoe UI",system-ui,sans-serif;overflow-x:hidden;
+    text-shadow:0 2px 22px rgba(5,7,13,.92)}
+  #space{position:fixed;inset:0;z-index:0}
+
+  /* ---- slide scaffolding ---- */
+  main{position:relative;z-index:1;scroll-snap-type:y mandatory;
+    height:100vh;overflow-y:scroll;scroll-behavior:smooth}
+  .slide{min-height:100vh;scroll-snap-align:center;display:flex;flex-direction:column;
+    justify-content:center;padding:9vh 7vw;max-width:1100px;margin:0 auto}
+  .kicker{letter-spacing:.3em;text-transform:uppercase;font-size:11.5px;
+    color:var(--accent);margin-bottom:22px;font-weight:600}
+  .kicker.b{color:var(--accent2)}
+  h1{font-size:clamp(46px,9vw,104px);line-height:.98;margin:0 0 20px;
+    font-weight:800;letter-spacing:-.03em}
+  h2{font-size:clamp(34px,6.2vw,68px);line-height:1.04;margin:0 0 26px;
+    font-weight:750;letter-spacing:-.022em}
+  h3{font-size:clamp(22px,3.2vw,32px);line-height:1.15;margin:0 0 18px;
+    font-weight:700;color:var(--accent);letter-spacing:-.01em}
+  .sub{color:var(--dim);font-size:clamp(17px,2.1vw,23px);max-width:26em;margin:0}
+  .tiny{color:var(--dim);font-size:14px;margin-top:32px;letter-spacing:.04em}
+  .divider h2{font-size:clamp(40px,8vw,86px)}
+
+  /* big bullet lines — few words, large type */
+  ul{list-style:none;padding:0;margin:6px 0 0}
+  li{font-size:clamp(19px,2.7vw,30px);line-height:1.34;padding:13px 0 13px 30px;
+    position:relative;border-top:1px solid var(--line);max-width:22em}
+  li:last-child{border-bottom:1px solid var(--line)}
+  li::before{content:"";position:absolute;left:2px;top:calc(50% - 3px);
+    width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  li b{color:var(--accent);font-weight:700}
+  li span{display:block;font-size:.62em;color:var(--dim);margin-top:3px;line-height:1.4}
+
+  /* two-column compare */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .two > div{border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+    background:var(--card);backdrop-filter:blur(8px)}
+  .two h4{margin:0 0 12px;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .two .cap h4{color:var(--accent)} .two .exp h4{color:var(--accent2)}
+  .two p{margin:0;font-size:clamp(15px,1.9vw,19px);line-height:1.55;color:var(--ink)}
+
+  /* three-up */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+  .three > div{border:1px solid var(--line);border-radius:14px;padding:22px;
+    background:var(--card);backdrop-filter:blur(8px)}
+  .three .n{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+  .three h4{margin:0 0 12px;font-size:clamp(17px,2.1vw,22px);color:var(--accent)}
+  .three p{margin:0 0 9px;font-size:15.5px;line-height:1.5;color:var(--dim)}
+  .three p b{color:var(--ink);font-weight:600}
+
+  /* stat row */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px}
+  .stats div{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--card)}
+  .stats .v{font-size:clamp(20px,2.6vw,30px);font-weight:750;color:var(--accent);line-height:1.1}
+  .stats .k{font-size:12.5px;color:var(--dim);margin-top:7px;line-height:1.35}
+
+  .flow{margin-top:14px;max-width:34em}
+  .step{border:1px solid var(--line);border-radius:11px;padding:13px 18px;margin:9px 0;
+    background:var(--card);font-size:clamp(15px,1.9vw,19px)}
+  .step.hit{border-color:var(--accent);color:var(--accent)}
+  .arrow{color:var(--accent2);padding:1px 18px;font-size:14px}
+  .branch{border-left:2px dashed var(--accent2);margin-left:16px;padding-left:16px}
+
+  .note{border-left:3px solid var(--accent);background:rgba(255,178,94,.08);
+    padding:14px 18px;border-radius:0 10px 10px 0;font-size:15px;color:var(--dim);
+    margin-top:26px;max-width:40em}
+
+  /* chrome */
+  .hud{position:fixed;z-index:5;bottom:20px;right:24px;font-size:12.5px;color:var(--dim);
+    letter-spacing:.14em;background:rgba(5,7,13,.6);padding:7px 13px;border-radius:999px;
+    border:1px solid var(--line);backdrop-filter:blur(8px)}
+  .hint{position:fixed;z-index:5;bottom:20px;left:24px;font-size:12px;color:var(--dim);
+    letter-spacing:.1em;opacity:.75}
+  .hint a{color:var(--accent2)}
+  .bar{position:fixed;z-index:5;top:0;left:0;height:2px;background:var(--accent);width:0;
+    transition:width .25s ease}
+
+  .an{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .slide.on .an{opacity:1;transform:none}
+  .slide.on .an:nth-child(2){transition-delay:.08s}
+  .slide.on .an:nth-child(3){transition-delay:.16s}
+  .slide.on .an:nth-child(4){transition-delay:.24s}
+  .slide.on .an:nth-child(5){transition-delay:.32s}
+
+  @media(max-width:820px){
+    .two,.three{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .slide{padding:8vh 8vw}
+  }
+  @media(prefers-reduced-motion:reduce){.an{opacity:1;transform:none;transition:none}}
+</style>
 </head>
 <body>
-<div class="wrap">
+<canvas id="space"></canvas>
+<div class="bar" id="bar"></div>
+<div class="hud"><span id="cur">1</span> / <span id="tot">21</span></div>
+<div class="hint">← → to move · <a href="script.html">script</a></div>
 
-<header class="hero">
-  <div class="kicker">Final Round — Vast Space</div>
-  <h1>James Sieng</h1>
-  <p class="sub">Not a slide deck. A repository — because the way I build things is part of the pitch.</p>
-  <nav class="toc">
-    <a href="#intro">Introduction</a>
-    <a href="#topic1">Topic 1 — Capitalize or Expense</a>
-    <a href="#topic2">Topic 2 — First 90 Days</a>
-  </nav>
-</header>
+<main id="deck">
 
-<section id="intro">
-  <div class="label">~15 min · practiced to memory</div>
-  <h2>Introduction</h2>
-
-  <div class="card">
-    <h4>The hook</h4>
-    <p>Two ways to read a balance sheet: as the auditor asking "prove it," or as the person building the system that has to prove itself. I've spent my career doing both — sometimes in the same week.</p>
-
-    <h4>Present</h4>
-    <p>By day, I'm a sales and use tax auditor for the California Department of Tax and Fee Administration — I go into businesses' books and test whether transactions were taxed correctly under California's Revenue &amp; Taxation Code, including capital equipment purchases, which is a direct line into Topic 1.</p>
-    <p>Outside of that, I work with ForensisGroup, a forensic / expert-witness accounting firm, building out Salesforce and AI tooling for the practice. And I'm the founder of Sieyant.</p>
-
-    <h4>Past</h4>
-    <p>[CPA credential + education — school, year, anything worth naming]. Salesforce and QuickBooks certified along the way, which is what put me in the room to build the systems I used to just audit.</p>
-
-    <h4>Future — why Vast</h4>
-    <p>Every role I've had comes down to the same skill: translating between a rigid system of rules — tax code, GAAP, a chart of accounts — and the messy reality of a fast-moving business. That's exactly the seam Vast is scaling through right now.</p>
-  </div>
-  <div class="note"><strong>Draft note —</strong> bracketed lines above still need your fact-check: education specifics, and whether a personal "for fun" detail goes in the room.</div>
+<!-- 1 -->
+<section class="slide">
+  <div class="kicker an">Final Round · Vast Space</div>
+  <h1 class="an">James&nbsp;Sieng</h1>
+  <p class="sub an">Staff Accountant — Fixed Assets &amp; General Ledger</p>
+  <div class="tiny an">This isn't a slide file. It's a site, in a git repo, that I wrote.</div>
 </section>
 
-<section id="topic1">
-  <div class="label">Topic 1</div>
-  <h2>Capitalize or Expense?</h2>
-  <p>Two real situations where I had to make, or defend, that call.</p>
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker an">The hook</div>
+  <h2 class="an">Two ways to read<br>a balance sheet.</h2>
+  <ul class="an">
+    <li><b>Prove it.</b><span>The auditor's question.</span></li>
+    <li><b>Make it provable.</b><span>The builder's job.</span></li>
+  </ul>
+  <p class="sub an" style="margin-top:26px">I do both. Some weeks, in the same week.</p>
+</section>
 
-  <div class="card">
-    <h3>Example 1 — ForensisGroup, Salesforce</h3>
-    <p>The technical spine: a Salesforce subscription is a Cloud Computing Arrangement under <strong>ASC 350-40</strong> (as amended by <strong>ASU 2018-15</strong>) — the subscription fee itself is never an asset, it's always a straight period expense, like rent. The real judgment call lives in the <em>implementation</em> costs: configuration, customization, and testing get capitalized as a prepaid asset and expensed ratably over the contract term; training and data conversion get expensed immediately, even though they feel like "setup work" too.</p>
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker an">Part 01 · Background</div>
+  <h2 class="an">Three chairs.</h2>
+  <ul class="an">
+    <li><b>CDTFA</b> — Sales &amp; use tax auditor<span>Inside other companies' books. Testing whether it holds up.</span></li>
+    <li><b>ForensisGroup</b> — Salesforce &amp; AI tooling<span>Building the systems that produce the records.</span></li>
+    <li><b>Sieyant</b> — Founder<span>Shipping software end to end.</span></li>
+  </ul>
+</section>
 
-    <table>
-      <tr><th>Capitalize</th><td>Configuration, customization, scripting, testing</td></tr>
-      <tr><th>Expense</th><td>Subscription/hosting fees, training, data conversion</td></tr>
-    </table>
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker an">Education &amp; credentials</div>
+  <h2 class="an">Licensed to doubt.<br>Certified to build.</h2>
+  <ul class="an">
+    <li><b>[CPA]</b><span>[credential status — your wording]</span></li>
+    <li><b>[School · Degree · Year]</b></li>
+    <li><b>Salesforce</b> certified · <b>QuickBooks</b> certified</li>
+  </ul>
+  <div class="note an"><strong>Fill these in.</strong> Exact school, degree, year, and how you want the CPA line phrased.</div>
+</section>
 
-    <h4>Goals / requirements</h4>
-    <p>—</p>
-    <h4>My direct contribution</h4>
-    <p>—</p>
-    <h4>Result</h4>
-    <p>—</p>
-    <h4>Lessons learned / what I'd do differently</h4>
-    <p>—</p>
+<!-- 5 -->
+<section class="slide">
+  <div class="kicker an">For fun</div>
+  <h2 class="an">Guitar, vocals,<br>and unfinished songs.</h2>
+  <p class="sub an">Plus the usual builder's disease: things get made whether or not anyone asked.</p>
+  <div class="note an"><strong>Your call.</strong> Keep the music, swap it, or add a second detail.</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker an">Why Vast</div>
+  <h2 class="an">Rules meet reality.</h2>
+  <p class="sub an">Tax code. GAAP. A chart of accounts. Then a company moving faster than any of them.</p>
+  <p class="sub an" style="margin-top:20px;color:var(--ink)">Every job I've had lives in that seam.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide divider">
+  <div class="kicker an">Part 02 · Topic 1</div>
+  <h2 class="an">Capitalize<br>or expense?</h2>
+  <p class="sub an">Two calls I had to make — and defend.</p>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker an">Example 1</div>
+  <h2 class="an">Salesforce at<br>ForensisGroup.</h2>
+  <p class="sub an">We're paying real money for a system we'll use for years.<br>So what, exactly, is the asset?</p>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="kicker an">The rule · ASC 350-40 / ASU 2018-15</div>
+  <h3 class="an">A subscription is never an asset.<br>The setup might be.</h3>
+  <div class="two an">
+    <div class="cap"><h4>Capitalize</h4><p>Configuration<br>Customization<br>Scripting &amp; testing</p></div>
+    <div class="exp"><h4>Expense</h4><p>Subscription &amp; hosting<br>Training<br>Data conversion</p></div>
   </div>
-  <div class="note"><strong>Needs from James —</strong> did ForensisGroup pay a consultant/agency for implementation, or was this your own configuration work with no separately billed cost? What was the dollar scale? What did you personally decide or recommend, and what did the firm actually do?</div>
+  <p class="sub an" style="margin-top:24px">Training feels like setup. It isn't. That's the whole trap.</p>
+</section>
 
-  <div class="card">
-    <h3>Example 2 — TBD</h3>
-    <p>CDTFA audit files are off the table — confidential taxpayer information under the CA Revenue &amp; Taxation Code, not usable even anonymized.</p>
-    <p>Candidates: a repair-vs-improvement call on equipment somewhere in your work · a Sieyant capitalize/expense decision · another ForensisGroup call unrelated to Salesforce.</p>
+<!-- 10 -->
+<section class="slide">
+  <div class="kicker an">Example 1 · Walk-through</div>
+  <h3 class="an">Goal → Contribution → Result → Lesson</h3>
+  <ul class="an">
+    <li><b>Goal</b><span>[what the firm needed]</span></li>
+    <li><b>I did</b><span>[your call / what you built or recommended]</span></li>
+    <li><b>Result</b><span>[the number or the outcome]</span></li>
+    <li><b>Next time</b><span>[what you'd change]</span></li>
+  </ul>
+  <div class="note an"><strong>Needs you.</strong> Was implementation billed by an outside consultant, or your own build? Dollar scale? What did the firm actually book?</div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="kicker an">Example 2</div>
+  <h2 class="an">[Second example]</h2>
+  <ul class="an">
+    <li><b>Goal</b></li><li><b>I did</b></li><li><b>Result</b></li><li><b>Next time</b></li>
+  </ul>
+  <div class="note an"><strong>Off the table:</strong> CDTFA audit files — confidential taxpayer info, unusable even anonymized.<br><strong>Candidates:</strong> a repair-vs-improvement call · a Sieyant capex decision · another ForensisGroup call.</div>
+</section>
+
+<!-- 12 -->
+<section class="slide divider">
+  <div class="kicker an">Part 03 · Topic 2</div>
+  <h2 class="an">The first<br>90 days.</h2>
+  <p class="sub an">Learn it. Plan it. Ship it.</p>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="kicker an">Before day one</div>
+  <h2 class="an">I read your job post<br>like an audit file.</h2>
+  <ul class="an">
+    <li><b>Your asset classes</b><span>Leasehold improvements · Machinery &amp; equipment · Furniture &amp; fixtures · Vehicles</span></li>
+    <li><b>Your pain</b><span>Capex actuals vs. forecast. Annual capex budget. Impairment review.</span></li>
+    <li><b>Your rooms</b><span>IT · Facilities · Engineering · Operations · Procurement</span></li>
+  </ul>
+  <p class="sub an" style="margin-top:22px">So I built a hypothesis of your register. Day one, I go test it.</p>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="kicker an">What I think you're buying</div>
+  <h3 class="an">From the public record.</h3>
+  <div class="stats an">
+    <div><div class="v">189,690</div><div class="k">sq ft Long Beach campus — leasehold improvements at scale</div></div>
+    <div><div class="v">In-house</div><div class="k">CNC shop machining flight panels — machinery &amp; equipment</div></div>
+    <div><div class="v">Mojave</div><div class="k">test stand — plus Hawthorne. Assets across three-plus sites</div></div>
+    <div><div class="v">10&nbsp;kW</div><div class="k">Hall thruster, vacuum-chamber tested in-house</div></div>
+  </div>
+  <div class="note an">Public sources only — press, your careers page, your own updates. I have no view into your books, and I'd say so in the room.</div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <div class="kicker an">The call that matters here</div>
+  <h2 class="an">It isn't the threshold.<br>It's <em style="color:var(--accent);font-style:normal">alternative future use.</em></h2>
+  <div class="two an">
+    <div class="exp"><h4>Expense · ASC 730</h4><p>Built for one flight article.<br>No life after the program.</p></div>
+    <div class="cap"><h4>Capitalize</h4><p>Tooling, fixtures, test stands<br>that outlive the program.</p></div>
+  </div>
+  <p class="sub an" style="margin-top:24px">Haven Demo deorbited in March. Anything on the register went with it.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <div class="kicker an">Days 1–30 · Learn</div>
+  <h2 class="an">Learn the machine<br>before touching it.</h2>
+  <ul class="an">
+    <li><b>Read the policy</b><span>Threshold, asset classes, useful lives, CIP-to-in-service triggers</span></li>
+    <li><b>Walk the process</b><span>Requisition → PO → receipt → bill → payment → asset tag</span></li>
+    <li><b>Tie it out by hand, once</b><span>FA subledger to GL, myself, so I know where it breaks</span></li>
+    <li><b>Sit through close</b><span>And write down every manual reclass I see</span></li>
+  </ul>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <div class="kicker an">Days 31–60 · Plan</div>
+  <h2 class="an">Turn the pattern<br>into a number.</h2>
+  <ul class="an">
+    <li><b>Quantify the rework</b><span>How many reclasses, which vendors, how many hours</span></li>
+    <li><b>Find the repeat offenders</b><span>The same five judgment calls, every single month</span></li>
+    <li><b>Draft the fix</b><span>Written policy someone new can apply without asking</span></li>
+    <li><b>Get buy-in first</b><span>Controller, procurement, engineering — before I build anything</span></li>
+  </ul>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <div class="kicker an">Days 61–90 · Implement</div>
+  <h2 class="an">Ship one thing.<br>Prove it worked.</h2>
+  <ul class="an">
+    <li><b>Pilot narrow</b><span>One or two vendor categories. Not the whole ledger.</span></li>
+    <li><b>Measure before and after</b><span>Reclass volume, close timing, post-close adjustments</span></li>
+    <li><b>Hand it off</b><span>Documented and owned by the team — not by me</span></li>
+  </ul>
+  <p class="sub an" style="margin-top:22px">A tool only one person can run isn't an improvement.</p>
+</section>
+
+<!-- 19 -->
+<section class="slide">
+  <div class="kicker an">The idea</div>
+  <h2 class="an">Ask the engineer.<br>Not the accountant.</h2>
+  <p class="sub an">The person who knows whether a part has a life after this program is the person requisitioning it — on the day they requisition it.</p>
+  <p class="sub an" style="margin-top:20px;color:var(--ink)">Not accounting, three months later, at close.</p>
+</section>
+
+<!-- 20 -->
+<section class="slide">
+  <div class="kicker an">The idea · How it works</div>
+  <h3 class="an">One required field. That's it.</h3>
+  <div class="flow an">
+    <div class="step">Engineer opens a requisition</div>
+    <div class="arrow">↓ one required question</div>
+    <div class="step hit">"Consumed on a flight article, or reusable across programs?"</div>
+    <div class="arrow">↓ answer + program tag rides the PO</div>
+    <div class="branch">
+      <div class="step">Consumed → R&amp;D expense, documented at source</div>
+      <div class="step">Reusable → capex queue with useful life</div>
+    </div>
+    <div class="arrow">↓</div>
+    <div class="step">Lands in NetSuite already classified</div>
   </div>
 </section>
 
-<section id="topic2">
-  <div class="label">Topic 2</div>
-  <h2>The First 90 Days at Vast</h2>
-
-  <div class="grid90">
-    <div class="card">
-      <h3>30 days</h3>
-      <p>Map the chart of accounts and capitalization threshold. Learn how Ramp is configured — category mappings, AI-coding accuracy, dimensions in use. Shadow month-end close, flag where manual reclasses happen most.</p>
-    </div>
-    <div class="card">
-      <h3>60 days</h3>
-      <p>Tighten GL coding rules for the recurring judgment calls — CCA/SaaS implementation costs, capex thresholds. Help document the capitalization policy crisply. Start quantifying the manual-reclass problem.</p>
-    </div>
-    <div class="card">
-      <h3>90 days</h3>
-      <p>Pilot the idea below on a narrow slice of spend, with a before/after on reclass volume. Bring a lightweight business case, not just a demo.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>The idea</h3>
-    <p><strong>Route the capitalize-vs-expense decision to the point of transaction entry in Ramp, not to close.</strong></p>
-    <p>AI-assisted coding in Ramp is tuned for speed and general category accuracy — not purpose-built to catch the two calls that create rework later: an invoice crossing the capitalization threshold, or a SaaS vendor bill blending capitalizable implementation work with costs that must stay expensed on the same invoice.</p>
-
-    <div class="flow">
-      <div class="step">Transaction hits Ramp</div>
-      <div class="arrow">↓ AI category + rules</div>
-      <div class="branch">
-        <div class="step">Below threshold, routine → auto-code as expense</div>
-        <div class="step">Above threshold, tangible asset → route to capex review queue</div>
-        <div class="step">CCA / SaaS implementation vendor → split: capitalize config &amp; testing, expense training &amp; data conversion</div>
-      </div>
-      <div class="arrow">↓</div>
-      <div class="step">Approved coding syncs to NetSuite</div>
-    </div>
-
-    <p>Small build, immediate payoff: fewer reclass journal entries at close, a cleaner audit trail, and a policy that used to live in someone's head now lives in the system.</p>
-  </div>
+<!-- 21 -->
+<section class="slide">
+  <div class="kicker an">The idea · Why it pays</div>
+  <h3 class="an">Contemporaneous evidence beats reconstructed memory.</h3>
+  <ul class="an">
+    <li><b>Audit-proof</b><span>Intent documented the day it existed — not reverse-engineered later</span></li>
+    <li><b>Capex actuals vs. forecast</b><span>Falls out for free, by program</span></li>
+    <li><b>Fewer reclasses</b><span>The judgment happens once, where the answer is obvious</span></li>
+  </ul>
+  <p class="sub an" style="margin-top:22px">Small build. And I can build it.</p>
 </section>
 
-<footer>Built for the final-round presentation. <a href="../">← James Sieng</a></footer>
-</div>
+<!-- 22 -->
+<section class="slide divider">
+  <div class="kicker an">Close</div>
+  <h2 class="an">Auditor's skepticism.<br>Builder's toolkit.</h2>
+  <p class="sub an">Thank you. Questions?</p>
+</section>
+
+</main>
+
+<script type="module">
+import * as THREE from './three.module.js';
+
+/* ---------------- background: black hole + quasar jets ---------------- */
+const canvas = document.getElementById('space');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x05070d);
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, .1, 400);
+camera.position.set(0, 1.2, 26);
+
+function makeStars(count, spread, size, hue){
+  const g = new THREE.BufferGeometry();
+  const pos = new Float32Array(count*3);
+  for(let i=0;i<count*3;i++) pos[i] = (Math.random()-.5)*spread;
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  return new THREE.Points(g, new THREE.PointsMaterial({color:hue, size,
+    sizeAttenuation:true, transparent:true, opacity:.9, depthWrite:false}));
+}
+const starsFar  = makeStars(4200, 280, .22, 0xbfd0ff);
+const starsNear = makeStars(1200, 160, .36, 0xfff2dd);
+scene.add(starsFar, starsNear);
+
+const hole = new THREE.Group();
+hole.add(new THREE.Mesh(new THREE.SphereGeometry(3.1, 48, 48),
+  new THREE.MeshBasicMaterial({color:0x000000})));
+
+const ringMat = new THREE.ShaderMaterial({
+  transparent:true, side:THREE.DoubleSide, depthWrite:false,
+  blending:THREE.AdditiveBlending, uniforms:{uTime:{value:0}},
+  vertexShader:`varying vec2 vUv; void main(){ vUv=uv;
+    gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`varying vec2 vUv; uniform float uTime;
+    void main(){
+      float d = distance(vUv, vec2(.5));
+      float ring = smoothstep(.5,.34,d) * smoothstep(.20,.30,d);
+      float flicker = .9 + .1*sin(uTime*.4 + d*18.0);
+      vec3 col = mix(vec3(1.,.55,.18), vec3(1.,.85,.55), smoothstep(.25,.42,d));
+      gl_FragColor = vec4(col, ring*flicker);
+    }`
+});
+const ring = new THREE.Mesh(new THREE.PlaneGeometry(16,16), ringMat);
+ring.rotation.x = -1.15; hole.add(ring);
+
+const N = 2600;
+const diskGeo = new THREE.BufferGeometry();
+const dp = new Float32Array(N*3), ang = new Float32Array(N),
+      rad = new Float32Array(N), spd = new Float32Array(N);
+for(let i=0;i<N;i++){
+  rad[i] = 3.8 + Math.pow(Math.random(),1.6)*6.5;
+  ang[i] = Math.random()*Math.PI*2;
+  spd[i] = 0.16/Math.sqrt(rad[i]);          // slow, Keplerian-ish
+}
+diskGeo.setAttribute('position', new THREE.BufferAttribute(dp,3));
+const disk = new THREE.Points(diskGeo, new THREE.PointsMaterial({color:0xffc07a,
+  size:.09, transparent:true, opacity:.85, blending:THREE.AdditiveBlending, depthWrite:false}));
+disk.rotation.x = -1.15; hole.add(disk);
+
+const jetMat = new THREE.ShaderMaterial({
+  transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+  uniforms:{uTime:{value:0}},
+  vertexShader:`varying vec2 vUv; void main(){ vUv=uv;
+    gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`varying vec2 vUv; uniform float uTime;
+    void main(){
+      float core = smoothstep(.5,.16,abs(vUv.x-.5));
+      float fade = pow(1.0-vUv.y, 1.7);
+      float pulse = .85 + .15*sin(uTime*.35 + vUv.y*9.0);
+      vec3 col = mix(vec3(.42,.68,1.), vec3(.86,.94,1.), core);
+      gl_FragColor = vec4(col, core*fade*pulse*.42);
+    }`
+});
+const jets = new THREE.Group(); jets.rotation.x = -1.15;
+for(const dir of [1,-1]){
+  const j = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 22), jetMat);
+  j.rotation.x = Math.PI/2; j.position.z = dir*12.2;
+  if(dir<0) j.rotation.z = Math.PI;
+  jets.add(j);
+  const j2 = j.clone(); j2.rotation.y = Math.PI/2; jets.add(j2);
+}
+hole.add(jets);
+scene.add(hole);
+
+/* ---------------- deck navigation ---------------- */
+const deck = document.getElementById('deck');
+const slides = [...document.querySelectorAll('.slide')];
+document.getElementById('tot').textContent = slides.length;
+let idx = 0;
+
+function goTo(i){
+  idx = Math.max(0, Math.min(slides.length-1, i));
+  slides[idx].scrollIntoView({behavior:'smooth'});
+}
+addEventListener('keydown', e => {
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); goTo(idx+1); }
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); goTo(idx-1); }
+  if(e.key === 'Home'){ e.preventDefault(); goTo(0); }
+  if(e.key === 'End'){ e.preventDefault(); goTo(slides.length-1); }
+});
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){
+    e.target.classList.add('on');
+    idx = slides.indexOf(e.target);
+    document.getElementById('cur').textContent = idx+1;
+    document.getElementById('bar').style.width = ((idx+1)/slides.length*100)+'%';
+  }
+}), {threshold:.5});
+slides.forEach(s => io.observe(s));
+
+/* ---------------- render loop ---------------- */
+let mx=0, my=0, prog=0;
+addEventListener('pointermove', e => {
+  mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5;
+});
+function resize(){
+  renderer.setSize(innerWidth, innerHeight, false);
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  ringMat.uniforms.uTime.value = t;
+  jetMat.uniforms.uTime.value = t;
+
+  const arr = diskGeo.attributes.position.array;
+  for(let i=0;i<N;i++){
+    const a = ang[i] + t*spd[i];
+    arr[i*3]   = Math.cos(a)*rad[i];
+    arr[i*3+1] = Math.sin(a)*rad[i];
+    arr[i*3+2] = Math.sin(a*3+i)*.12;
+  }
+  diskGeo.attributes.position.needsUpdate = true;
+
+  starsFar.rotation.y  =  t*.0012;
+  starsNear.rotation.y = -t*.0020;
+
+  // ease toward the current slide so the hole drifts as you present
+  const target = reduced ? 0 : idx/(slides.length-1);
+  prog += (target - prog) * .035;
+
+  const narrow = innerWidth < 820;
+  hole.position.x = (narrow ? 1.5 : 9)  - prog*(narrow ? 9 : 24);
+  hole.position.y = (narrow ? 6  : 3.5) - prog*3;
+  hole.position.z = narrow ? -30 : -18;
+
+  camera.position.x = mx*1.1;
+  camera.position.y = 1.2 - my*.7;
+  camera.lookAt(0, 0, -14);
+
+  renderer.render(scene, camera);
+});
+</script>
 </body>
 </html>
