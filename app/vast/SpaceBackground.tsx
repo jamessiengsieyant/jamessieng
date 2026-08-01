@@ -230,18 +230,18 @@ function makeCloudTexture(): THREE.Texture {
   ctx.clearRect(0, 0, w, h);
 
   // banded weather patterns — denser near the equator and mid-latitude storm tracks
-  for (let i = 0; i < 190; i++) {
+  for (let i = 0; i < 340; i++) {
     const band = Math.random();
     let y: number;
     if (band < 0.35) y = h * (0.46 + (Math.random() - 0.5) * 0.22); // equatorial (ITCZ)
     else if (band < 0.68) y = h * (0.22 + (Math.random() - 0.5) * 0.16); // N mid-lat
     else y = h * (0.74 + (Math.random() - 0.5) * 0.16); // S mid-lat
     const x = Math.random() * w;
-    cloudPuff(ctx, x, y, 20 + Math.random() * 60, 0.2 + Math.random() * 0.35);
+    cloudPuff(ctx, x, y, 24 + Math.random() * 70, 0.24 + Math.random() * 0.38);
   }
 
   // a handful of cyclone-style swirls for recognizable weather-map character
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 7; i++) {
     cloudSpiral(ctx, Math.random() * w, h * (0.18 + Math.random() * 0.64), 55 + Math.random() * 45, 2.2 + Math.random() * 1.4);
   }
 
@@ -314,6 +314,8 @@ function makeStars(count: number, spread: number, size: number, hue: THREE.Color
 
 export default function SpaceBackground({ variant = "orbit" }: { variant?: Variant }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const cabinRef = useRef<HTMLDivElement>(null);
+  const rimRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -337,7 +339,8 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
     /* ---- Earth ---- */
     const EARTH_R = 6.2;
     const earthGroup = new THREE.Group();
-    earthGroup.position.set(0, -7, -9);
+    // far enough that the limb (curved horizon) arcs through the porthole with space above
+    earthGroup.position.set(0, -8.2, -16);
 
     const earth = new THREE.Mesh(
       new THREE.SphereGeometry(EARTH_R, 64, 64),
@@ -349,7 +352,7 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
       new THREE.SphereGeometry(EARTH_R * 1.008, 64, 64),
       new THREE.MeshStandardMaterial({
         map: makeCloudTexture(), transparent: true, roughness: 1, depthWrite: false,
-        emissive: 0xffffff, emissiveIntensity: 0.22,
+        emissive: 0xffffff, emissiveIntensity: 0.34,
       })
     );
     earthGroup.add(clouds);
@@ -447,16 +450,18 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
     // the station is translating along its orbit — same as a real nadir-pointing window
     const baseY = variant === "closeup" ? -0.4 : -1.0;
     const baseZ = variant === "closeup" ? 3.6 : 2.6;
-    const lookY = earthGroup.position.y + (variant === "closeup" ? 2.6 : 1.2);
+    // aim just above the limb so the horizon curves across the lower porthole
+    const lookY = earthGroup.position.y + EARTH_R + (variant === "closeup" ? 0.9 : 0.4);
+    // body stays outside the porthole; only a panel tip sweeps through the view
     const stationOffset = variant === "closeup"
-      ? new THREE.Vector3(1.6, -0.5, -2.9)
-      : new THREE.Vector3(3.2, -1.6, -6.4);
+      ? new THREE.Vector3(1.7, 0.8, -3.4)
+      : new THREE.Vector3(3.3, 1.6, -6.2);
 
     function tick() {
       const t = (performance.now() - startTime) / 1000;
 
-      earth.rotation.y = t * 0.07;
-      clouds.rotation.y = t * 0.09;
+      earth.rotation.y = t * 0.028;
+      clouds.rotation.y = t * 0.038;
       (starsFar.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
       (starsNear.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
 
@@ -478,6 +483,18 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
       starsFar.rotation.y = t * 0.0008;
       starsNear.rotation.y = -t * 0.0014;
 
+      // walking up to the window: the opening grows as you scroll
+      const holeR = 30 + prog * 15; // vmin
+      if (cabinRef.current) {
+        const m = `radial-gradient(circle at 50% 50%, transparent ${holeR}vmin, rgba(0,0,0,1) ${holeR + 1.1}vmin)`;
+        cabinRef.current.style.maskImage = m;
+        cabinRef.current.style.setProperty("-webkit-mask-image", m);
+      }
+      if (rimRef.current) {
+        rimRef.current.style.width = `${holeR * 2}vmin`;
+        rimRef.current.style.height = `${holeR * 2}vmin`;
+      }
+
       renderer.render(scene, camera);
       raf = requestAnimationFrame(tick);
     }
@@ -492,40 +509,77 @@ export default function SpaceBackground({ variant = "orbit" }: { variant?: Varia
     };
   }, [variant]);
 
+  const maskInit = "radial-gradient(circle at 50% 50%, transparent 30vmin, rgba(0,0,0,1) 31.1vmin)";
+
   return (
     <>
       <canvas ref={ref} style={{ position: "fixed", inset: 0, zIndex: 0 }} />
-      {/* the porthole: a real circular cutout onto the canvas, box-shadow fills the "cabin wall" outside it */}
+
+      {/* Haven-1's actual cabin: cream dome ceiling, diagonal LED strips, wood-slat arch —
+          masked with a circular opening that grows as you scroll, like walking up to the window */}
       <div
+        ref={cabinRef}
         aria-hidden="true"
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 0,
           pointerEvents: "none",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          overflow: "hidden",
+          maskImage: maskInit,
+          WebkitMaskImage: maskInit,
+          background: "radial-gradient(ellipse 85% 65% at 50% 12%, #ddd3c1 0%, #beb29b 32%, #93876f 60%, #5f5646 88%, #46402f 100%)",
         }}
       >
-        <div style={{ position: "relative", width: "min(80vmin, 900px)", height: "min(80vmin, 900px)" }}>
-          <div
-            style={{
-              position: "absolute", inset: 0,
-              borderRadius: "50%",
-              boxShadow: [
-                "0 0 0 9999px #0b0d12",
-                "inset 0 0 46px 16px rgba(0,0,0,0.6)",
-                "inset 0 0 0 3px rgba(215,224,236,0.4)",
-                "inset 0 0 0 9px rgba(20,24,32,0.9)",
-                "inset 0 0 0 13px rgba(170,182,200,0.28)",
-                "0 0 0 15px rgba(40,45,54,0.95)",
-                "0 0 0 17px rgba(190,200,214,0.18)",
-                "0 30px 90px rgba(0,0,0,0.7)",
-              ].join(", "),
-            }}
-          />
-          {/* curved-glass sheen, like light catching the dome */}
+        <div style={{ position: "absolute", left: "50%", top: 0, bottom: "36%", width: 1, background: "rgba(0,0,0,0.16)" }} />
+        <div
+          style={{
+            position: "absolute", left: "-4%", top: "20%", width: "44%", height: 3,
+            background: "linear-gradient(90deg, transparent, #fff3d6 55%, transparent)",
+            boxShadow: "0 0 16px 3px rgba(255,224,160,0.5)",
+            transform: "rotate(-26deg)", transformOrigin: "right center",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute", right: "-4%", top: "20%", width: "44%", height: 3,
+            background: "linear-gradient(90deg, transparent, #fff3d6 55%, transparent)",
+            boxShadow: "0 0 16px 3px rgba(255,224,160,0.5)",
+            transform: "rotate(26deg)", transformOrigin: "left center",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute", left: "50%", bottom: "-32%", width: "130%", height: "60%",
+            transform: "translateX(-50%)",
+            borderTop: "6px solid rgba(232,226,212,0.55)",
+            borderRadius: "50% 50% 0 0 / 22% 22% 0 0",
+            background: "repeating-linear-gradient(90deg, #8a6338 0 16px, #6f4d29 16px 18px)",
+            boxShadow: "0 -30px 70px rgba(0,0,0,0.45) inset",
+          }}
+        />
+      </div>
+
+      {/* metal rim + glass sheen, sized each frame to track the growing opening */}
+      <div
+        aria-hidden="true"
+        style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <div
+          ref={rimRef}
+          style={{
+            position: "relative", width: "60vmin", height: "60vmin", borderRadius: "50%",
+            boxShadow: [
+              "inset 0 0 46px 16px rgba(0,0,0,0.6)",
+              "inset 0 0 0 3px rgba(215,224,236,0.4)",
+              "inset 0 0 0 9px rgba(20,24,32,0.9)",
+              "inset 0 0 0 13px rgba(170,182,200,0.28)",
+              "0 0 0 6px rgba(40,45,54,0.95)",
+              "0 0 0 8px rgba(190,200,214,0.18)",
+              "0 30px 90px rgba(0,0,0,0.7)",
+            ].join(", "),
+          }}
+        >
           <div
             style={{
               position: "absolute", inset: 0,
