@@ -20,13 +20,19 @@ const SECTIONS: Section[] = [
         cue: "Present — the day job",
         opener: "By day, I'm a sales and use tax auditor for the State of California.",
         rest:
-          "CDTFA — the Department of Tax and Fee Administration. I test whether transactions were taxed correctly under California law — including capital equipment purchases, which is exactly where Topic 1 lives.\n\nI'm also the founder of Sieyant, a tax prep software company.",
+          "CDTFA — the Department of Tax and Fee Administration. I test whether transactions were taxed correctly under California law — including capital equipment purchases, which is exactly where Topic 1 lives.\n\nThe rest of my time goes into building software — most of it accounting-adjacent.",
       },
       {
         cue: "Past — how I got here",
         opener: "Two degrees from UC Irvine — Biomedical Engineering and Business Economics.",
         rest:
           "Then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement now — plus the Enrolled Agent credential, admitted to practice before the IRS.\n\nAlong the way: Salesforce and QuickBooks certifications, and systems work for ForensisGroup, a forensic accounting firm — I built their project management system, a survey platform in Apex, a QuickBooks-to-Salesforce sync, and a lab system with asset tracking.",
+      },
+      {
+        cue: "The NetSuite question",
+        opener: "I haven't lived in NetSuite yet — and here's why that doesn't worry me.",
+        rest:
+          "Salesforce and NetSuite are the same kind of animal: cloud platforms you configure and build on. Records, workflows, permissions, reports.\n\nAnd I didn't just use Salesforce — I built accounting on it. PMify for project management. Survey Builder. And an automated AR/AP payment sync into QuickBooks — real accounting and reporting, running through a system I built. The ledger concepts don't change between platforms. Only the menus move.",
       },
       {
         cue: "Future — why Vast",

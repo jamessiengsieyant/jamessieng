@@ -16,19 +16,20 @@ export default function IntroductionPage() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Three chairs</div>
+        <div className={s.kicker}>Experience</div>
+        <h2 className={s.h2}>What I bring to this role.</h2>
         <ul className={s.slideList}>
           <li>
-            <b>CDTFA</b> — sales &amp; use tax auditor
-            <span>Testing whether businesses taxed capital purchases correctly under CA law.</span>
+            <b>CDTFA</b> — sales &amp; use tax auditor <span style={{ display: "inline", color: "#7db2ff", fontSize: "0.65em" }}>· current</span>
+            <span>Capital purchases, use tax, audit procedure — daily.</span>
           </li>
           <li>
-            <b>ForensisGroup</b> — Salesforce &amp; AI tooling
-            <span>Built the systems that produce the records I used to audit.</span>
+            <b>ForensisGroup</b> — systems &amp; accounting tooling
+            <span>Built the Salesforce systems that produce the records I used to audit.</span>
           </li>
           <li>
-            <b>Sieyant</b> — founder
-            <span>Tax preparation software, shipped end to end.</span>
+            <b>Independent software builds</b>
+            <span>Full-stack, accounting-adjacent — shipped end to end.</span>
           </li>
         </ul>
       </section>
@@ -53,6 +54,12 @@ export default function IntroductionPage() {
             <span>Built a LIMS, a Salesforce PM system (PMify), a QuickBooks↔Salesforce AP/AR sync, and an Apex survey platform.</span>
           </li>
         </ul>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>The NetSuite question</div>
+        <h2 className={s.h2}>Platforms transfer.</h2>
+        <p className={s.sub}>I didn&rsquo;t just use Salesforce — I built accounting on it: AR/AP payments syncing into QuickBooks. NetSuite is the same kind of animal. The ledger concepts don&rsquo;t change; only the menus move.</p>
       </section>
 
       <section className={s.slide}>

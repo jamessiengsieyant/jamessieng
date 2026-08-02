@@ -26,13 +26,13 @@ const SLIDES: SlideDef[] = [
     notes: "Open with the hook, slow: two ways to read a balance sheet — the auditor asking “prove it,” or the builder whose system has to prove itself. I've done both, sometimes in the same week.",
   },
   {
-    t: "list", kick: "Three chairs", title: "Where I sit.",
+    t: "list", kick: "Experience", title: "What I bring to this role.",
     items: [
-      { lead: "CDTFA — sales & use tax auditor", sub: "Testing whether businesses taxed capital purchases correctly under California law." },
-      { lead: "ForensisGroup — Salesforce & AI tooling", sub: "Built the systems that produce the records I used to audit." },
-      { lead: "Sieyant — founder", sub: "Tax preparation software, shipped end to end." },
+      { lead: "CDTFA — sales & use tax auditor · current", sub: "Capital purchases, use tax, audit procedure — daily." },
+      { lead: "ForensisGroup — systems & accounting tooling", sub: "Built the Salesforce systems that produce the records I used to audit." },
+      { lead: "Independent software builds", sub: "Full-stack, accounting-adjacent — shipped end to end." },
     ],
-    notes: "By day I'm a sales and use tax auditor for the State of California — CDTFA. Capital equipment purchases are part of what I test — a direct line into Topic 1. I'm also the founder of Sieyant, a tax prep software company. And I did systems work for ForensisGroup, a forensic accounting firm.",
+    notes: "By day I'm a sales and use tax auditor for the State of California — CDTFA. Capital equipment purchases are part of what I test — a direct line into Topic 1. Before that framing goes further: ForensisGroup is past work — I built their Salesforce systems. The rest of my time goes into building software, most of it accounting-adjacent.",
   },
   {
     t: "list", kick: "How I got here", title: "Education & credentials.",
@@ -43,6 +43,11 @@ const SLIDES: SlideDef[] = [
       { lead: "Salesforce & QuickBooks certified", sub: "PMify · Survey Builder (Apex) · QuickBooks↔Salesforce AP/AR sync · LIMS with asset tracking." },
     ],
     notes: "Two degrees from UC Irvine, then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement — plus the Enrolled Agent credential, admitted to practice before the IRS. Salesforce and QuickBooks certified; the builds are on screen.",
+  },
+  {
+    t: "statement", kick: "The NetSuite question", title: "Platforms transfer.",
+    sub: "I didn’t just use Salesforce — I built accounting on it: AR/AP payments syncing into QuickBooks. NetSuite is the same kind of animal.",
+    notes: "I haven't lived in NetSuite yet — and here's why that doesn't worry me. Salesforce and NetSuite are the same kind of animal: cloud platforms you configure and build on. And I didn't just use Salesforce — I built accounting on it: PMify, Survey Builder, and an automated AR/AP payment sync into QuickBooks. Real accounting and reporting through a system I built. The ledger concepts don't change between platforms. Only the menus move.",
   },
   {
     t: "statement", kick: "Why Vast", title: "Rules meet reality.",
