@@ -14,31 +14,31 @@ const SECTIONS: Section[] = [
         cue: "The hook",
         opener: "Two ways to read a balance sheet.",
         rest:
-          "As the auditor asking “prove it” — or as the person building the system that has to prove itself. I've spent my career doing both. Sometimes in the same week.",
+          "As the auditor asking “prove it” — or as the builder whose system has to prove itself. I've done both. Sometimes in the same week.",
       },
       {
         cue: "Present — the day job",
         opener: "By day, I'm a sales and use tax auditor for the State of California.",
         rest:
-          "CDTFA — the Department of Tax and Fee Administration. I go into businesses' books and test whether transactions were taxed correctly under California law — including capital equipment purchases, which is a direct line into the first topic today.\n\nOutside of that, I'm the founder of Sieyant, a tax preparation software business.",
+          "CDTFA — the Department of Tax and Fee Administration. I test whether transactions were taxed correctly under California law — including capital equipment purchases, which is exactly where Topic 1 lives.\n\nI'm also the founder of Sieyant, a tax prep software company.",
       },
       {
         cue: "Past — how I got here",
         opener: "Two degrees from UC Irvine — Biomedical Engineering and Business Economics.",
         rest:
-          "2010 to 2014. Then a Bachelor's in Accounting from Western Governors University in 2024. I've passed all four CPA exams and I'm completing the experience requirement now, along with the Enrolled Agent credential — admitted to practice before the IRS.\n\nAlong the way I picked up Salesforce and QuickBooks certifications, and I did systems work for ForensisGroup, a forensic and expert-witness accounting firm — built out their Salesforce platform and AI tooling: a project management system, a custom survey platform written in Apex, a QuickBooks-to-Salesforce AP/AR sync, and a lab information system with an asset-tracking module.",
+          "Then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement now — plus the Enrolled Agent credential, admitted to practice before the IRS.\n\nAlong the way: Salesforce and QuickBooks certifications, and systems work for ForensisGroup, a forensic accounting firm — I built their project management system, a survey platform in Apex, a QuickBooks-to-Salesforce sync, and a lab system with asset tracking.",
       },
       {
         cue: "Future — why Vast",
         opener: "Every role I've had comes down to one skill.",
         rest:
-          "Translating between a rigid system of rules — tax code, GAAP, a chart of accounts — and the messy reality of a fast-moving business. That's exactly the seam Vast is scaling through right now.",
+          "Translating between rigid rules — tax code, GAAP, a chart of accounts — and a business moving faster than any of them. That's the seam Vast is scaling through right now.",
       },
       {
         cue: "For fun",
         opener: "I write and record music — guitar and vocals.",
         rest:
-          "Building an album is a lot like building an accounting system: structured constraints where the interesting work happens.",
+          "Albums and accounting systems are alike: the constraints are where the interesting work happens.",
       },
     ],
   },
@@ -48,51 +48,51 @@ const SECTIONS: Section[] = [
     beats: [
       {
         cue: "Setup — inside an audit",
-        opener: "For my first example, I want to take you inside an actual audit.",
+        opener: "First example — let me take you inside a real audit.",
         rest:
-          "This is from my current work at CDTFA — I've disguised the details, so no names, and some specifics are changed. But the decision is real, and it's the kind of decision I make on a regular basis.",
+          "From my CDTFA work. Details disguised, no names. But the decision is real, and it's one I make regularly.",
       },
       {
         cue: "The purchases exam",
-        opener: "People assume a sales tax audit only looks at sales. It doesn't.",
+        opener: "People think a sales tax audit only looks at sales. It doesn't.",
         rest:
-          "A standard part of every field audit is examining purchases. And the very first thing you do with purchases is split them into two piles: fixed assets, and expense items. That split matters because the tax treatment follows from it — and here's the thing I want you to catch: that split is a capitalization review. Same question you'd ask at Vast. Is this an asset, or is this an expense? I just come at it from the enforcement side.",
+          "Every field audit examines purchases too — and step one is splitting them into two piles: fixed assets, and expense items. That split is a capitalization review. Same question you ask at Vast — is this an asset, or an expense? I just come at it from the enforcement side.",
       },
       {
         cue: "The find",
         opener: "Auto body shop. I'm going through repairs and maintenance, line by line.",
         rest:
-          "The reason it's standard procedure to look there is that R&M is where assets go to hide. Not because people are cheating — because of how bookkeeping actually happens, which I'll come back to.\n\nAnd in this R&M account, there's an invoice for about twenty thousand dollars. Out-of-state vendor. No tax charged on the invoice. And it's for a spray booth — the equipment itself, the freight, and the installation, all on one invoice.\n\nCoded to repairs and maintenance. And when I pull the depreciation schedule — it's not there.",
+          "R&M is where assets go to hide — not because people cheat, but because of how bookkeeping happens. I'll come back to that.\n\nAnd there it is: a twenty-thousand-dollar invoice. Out-of-state vendor. No tax charged. A spray booth — equipment, freight, and installation on one invoice. Coded to repairs. And not on the depreciation schedule.",
       },
       {
         cue: "The decision — three factors",
-        opener: "So now I have a decision to make, and I have to be able to defend it.",
+        opener: "Now I have a call to make — and I have to defend it.",
         rest:
-          "Is this a repair — expense it, done — or is this a capital asset? Because if it's a capital asset, two things are true: it should have been capitalized on their books, and use tax is due on the purchase, self-assessed — and it never was.\n\nFirst — did this restore something that broke, or add capability the shop didn't have? It added capability. This wasn't fixing a booth; it was acquiring one. Second — useful life. A spray booth lasts years, not months. Third — and this is my favorite part — the taxpayer's own books contradicted themselves. Expensed in R&M, but absent from the depreciation schedule they already maintained for other equipment. Their own records told on them.",
+          "Repair, or capital asset? If it's an asset, two things follow: it belonged on their books as equipment, and use tax was due — never paid.\n\nThree factors. It added capability — they weren't fixing a booth, they were acquiring one. Useful life in years, not months. And my favorite: their own books contradicted themselves — expensed in R&M, missing from the depreciation schedule they kept for everything else. Their own records told on them.",
       },
       {
         cue: "The measure",
-        opener: "I classified it as a capital asset and computed the measure.",
+        opener: "I called it a capital asset and computed the measure.",
         rest:
-          "That's the full purchase price plus freight plus installation — because those costs are part of putting the asset in service. Same principle as GAAP, by the way: under ASC 360, freight and installation go into basis. Tax and book agree on that one. And I scheduled the assessment.",
+          "Purchase price, plus freight, plus installation — the cost of putting the asset in service. Same rule as ASC 360 basis. Tax and book agree on that one.",
       },
       {
         cue: "It cuts both ways",
-        opener: "But that same account had real repair invoices in it — and I did not assess those.",
+        opener: "But the same account had real repairs — and I left those alone.",
         rest:
-          "Compressor service. Filter replacements. Routine maintenance. I looked at every one and left them alone, because they're genuinely expenses. If the call only ever goes one direction, it's not judgment, it's a shakedown. A defensible position has to cut both ways.",
+          "Compressor service. Filters. Genuinely expenses. If the call only ever goes one direction, it's not judgment — it's a shakedown. A defensible position cuts both ways.",
       },
       {
         cue: "Result",
-        opener: "At the exit conference, I walked the owner and their CPA through the reasoning.",
+        opener: "At the exit conference, I walked the owner and their CPA through it.",
         rest:
-          "Useful life, added capability, the freight and install in the measure. The classification held. The assessment stood. And the fix going forward was the right one: the booth went on the books as an asset and started depreciating, and they set up a use-tax accrual process so the next big purchase gets caught when it happens.",
+          "Useful life. Added capability. The full measure. The classification held, the assessment stood — and going forward, the booth went on the books and a use-tax accrual process was set up to catch the next big purchase.",
       },
       {
         cue: "Lesson — point of entry",
-        opener: "Nobody at that shop was trying to get away with anything.",
+        opener: "Nobody at that shop was cheating.",
         rest:
-          "The invoice came from a vendor whose name sounded like a repair vendor, the bookkeeper filed it where invoices from repair vendors go, and nobody ever looked at it again. For three years. Until I did.\n\nThe capitalize-versus-expense decision got made by default, at the moment of data entry, by the person with the least context. The lesson isn't “hire better bookkeepers.” The lesson is: the classification decision has to happen at the point of entry, on purpose, under a written policy — not get reconstructed years later by whoever comes checking.\n\nHold that thought — in Topic 2, I'll show you exactly how I'd build that into Ramp at Vast.",
+          "The invoice came from a vendor that sounded like a repair vendor, got filed where repair invoices go, and sat there wrong for three years — until I showed up.\n\nThe capitalize-or-expense call was made by default, at data entry, by the person with the least context. The fix isn't better bookkeepers. It's making the call at the point of entry — on purpose, under a written policy. Hold that thought for Topic 2.",
       },
     ],
   },
@@ -104,61 +104,61 @@ const SECTIONS: Section[] = [
         cue: "The opposite chair",
         opener: "My second example is the same question from the opposite chair.",
         rest:
-          "In the first story, I was the auditor catching someone else's classification. In this one, the cost was my own time — and I want to be straight with you about how the decision actually got made, because that's where the lesson is.",
+          "First story: I caught someone else's classification. This time, the cost was my own time — and I'll be straight about how the decision actually got made. That's where the lesson is.",
       },
       {
         cue: "Context — the builds",
-        opener: "ForensisGroup is a forensic and expert-witness firm that runs its practice on Salesforce.",
+        opener: "ForensisGroup runs its practice on Salesforce.",
         rest:
-          "I did systems work for them — and on top of that subscription, I built two systems. PMify, a project management system for the practice. And Survey Builder — a custom survey platform I wrote in Apex, so the firm can spin up client surveys without rebuilding each time. Roughly four months of development across the two.",
+          "I did systems work for them — built two things on top of that subscription. PMify, a project management system. And Survey Builder, a survey platform I wrote in Apex. About four months of development.",
       },
       {
         cue: "The rule — ASC 350-40",
-        opener: "A Salesforce subscription is a cloud computing arrangement — ASC 350-40, as amended by ASU 2018-15.",
+        opener: "A Salesforce subscription is a cloud computing arrangement — ASC 350-40.",
         rest:
-          "The subscription fee itself is never an asset. It's rent. Always expense. But the implementation costs — configuration, customization, coding, testing — those are capitalizable. And here's the part most people miss: the standard doesn't say “capitalizable if you paid a consultant.” Internal payroll counts. An employee's time in the application-development stage is exactly the cost the standard points at.",
+          "The subscription fee is never an asset — it's rent. But implementation costs — configuration, customization, coding, testing — those are capitalizable. And here's what most people miss: internal payroll counts. The standard doesn't require a consultant's invoice.",
       },
       {
         cue: "“The invoice was me”",
         opener: "There was no consultant invoice — the invoice was me.",
         rest:
-          "Four months of my time, configuring and customizing and testing. Which means “we didn't pay anyone” is not an answer. The question was real: should some of that cost have gone on the balance sheet?",
+          "Four months of configuring, customizing, testing. So “we didn't pay anyone” isn't an answer. The question was real: should some of that cost sit on the balance sheet?",
       },
       {
         cue: "What actually happened",
-        opener: "Here's what actually happened, and I'm not going to dress it up.",
+        opener: "Here's what actually happened — no dressing it up.",
         rest:
-          "The cost flowed through payroll and was expensed as incurred. There was no capitalization discussion at the time. Nobody asked the question — including me. The decision got made by default.",
+          "It ran through payroll and got expensed as incurred. No capitalization discussion. Nobody asked the question — including me. The decision was made by default.",
       },
       {
         cue: "Three tests",
-        opener: "What I can stand behind is the conclusion — because I've since worked it properly, the way I'd work it as an auditor.",
+        opener: "What I can stand behind is the conclusion — I've since worked it like an auditor would.",
         rest:
-          "First, measurement. There were no contemporaneous time records separating application-development work from everything else I did. Without that, any capitalized number is a reconstruction, not a measurement — and I'd never accept a reconstructed number from a taxpayer, so I won't accept one from myself.\n\nSecond, the stage mix. A big share of those months was preliminary-stage scoping up front and training and refinement at the end. The standard expenses both of those regardless. The truly capitalizable middle was a slice, not the whole.\n\nThird, materiality. At the scale of a firm that size, that slice doesn't change any reader's view of the financials.",
+          "Measurement: no time records separating dev work from everything else — so any capitalized number would be a reconstruction. I'd never accept one from a taxpayer, so I won't accept one from me.\n\nStage mix: heavy on scoping up front and training at the end — both expensed under the standard anyway.\n\nMateriality: at that firm's size, the capitalizable slice changes nobody's view of the financials.",
       },
       {
         cue: "The key sentence",
-        opener: "So: expense was the right answer. But it was the right answer reached the wrong way.",
+        opener: "Expense was the right answer — reached the wrong way.",
         rest:
-          "A defensible answer without documentation is still an undocumented answer. If an auditor like me had walked in, the position holds — but nobody could have handed them the memo that proves it. That's the gap.",
+          "A defensible answer without documentation is still an undocumented answer. If an auditor walked in, the position holds — but nobody could hand them the memo that proves it. That's the gap.",
       },
       {
         cue: "What I'd do differently",
         opener: "Three things I'd do differently.",
         rest:
-          "One: track hours to the project while it's happening. Not to force capitalization — to preserve the option. Once the quarter closes, the ability to measure is gone forever.\n\nTwo: write the memo even when the answer is “expense.” It costs an hour, and it turns a default into a documented position.\n\nThree — and this is the one that matters for this room: recognize when scale flips the answer. At a firm that size, expense. At a company like Vast — real implementation invoices, dedicated engineering time, material dollars — the same framework comes out the other way. And you've lived this: when Vast implemented NetSuite and Ramp, somebody had to decide which implementation costs to capitalize. It's this exact analysis.",
+          "Track hours while it's happening — not to force capitalization, to preserve the option. Once the quarter closes, the ability to measure is gone.\n\nWrite the memo even when the answer is “expense.” One hour turns a default into a position.\n\nAnd know when scale flips the answer. At Vast — real invoices, dedicated engineers, material dollars — the same framework lands the other way. You've lived this: someone had to make this exact call on the NetSuite and Ramp implementations.",
       },
       {
         cue: "The twist — prepaid, not PP&E",
-        opener: "One last twist, because it's a trap I'd want to catch at Vast.",
+        opener: "One last twist — a trap I'd want to catch at Vast.",
         rest:
-          "When a CCA implementation cost is capitalized, it doesn't become a fixed asset. It's a prepaid-type asset that amortizes into the same operating expense line as the subscription. Never depreciation. Coding it to PP&E would be wrong even when capitalizing is right. The classification question doesn't end at “capitalize or expense” — it ends at “which asset, which line.”",
+          "A capitalized CCA cost isn't a fixed asset. It's a prepaid-type asset, amortized into the same opex line as the subscription — never depreciation. Coding it to PP&E is wrong even when capitalizing is right.",
       },
       {
         cue: "Topic 1 close — two chairs",
-        opener: "So, two examples, two chairs.",
+        opener: "Two examples. Two chairs.",
         rest:
-          "An auditor finding a twenty-thousand-dollar asset hiding in a repairs account. And a builder whose own four months of work turned out to be the accounting question. Same principle both times: the classification has to be made on purpose, at the source, with the documentation to prove it. Which brings me to what I'd actually do at Vast.",
+          "An auditor finding an asset hidden in a repairs account. A builder whose own four months became the accounting question. Same principle: classify on purpose, at the source, with proof. Which brings me to what I'd do at Vast.",
       },
     ],
   },
@@ -169,44 +169,43 @@ const SECTIONS: Section[] = [
       {
         cue: "The frame",
         opener: "Topic two: my first ninety days.",
-        rest:
-          "Three phases — learn it, plan it, ship it. And I'll end with one idea I think is genuinely worth your time.",
+        rest: "Learn it. Plan it. Ship it. And one idea at the end that I think is worth your time.",
       },
       {
         cue: "Days 1–30 · Learn",
-        opener: "The first month, I'm learning the machine before I touch it.",
+        opener: "Month one: learn the machine before touching it.",
         rest:
-          "Map the chart of accounts and the capitalization policy — what's the dollar threshold, and is it documented or tribal knowledge? Learn how Ramp is configured: the category mappings, how accurate the AI coding actually is, which vendors trigger reclasses most. And shadow a month-end close, writing down every manual reclass I see — because that friction is the opportunity.",
+          "Map the chart of accounts and the capitalization policy — what's the threshold, and is it written down or tribal knowledge? Learn how Ramp is configured and which vendors trigger the most reclasses. And shadow a close, writing down every manual reclass — that friction is the opportunity.",
       },
       {
         cue: "Days 30–60 · Plan",
-        opener: "The second month, I turn the pattern into a number.",
+        opener: "Month two: turn the pattern into a number.",
         rest:
-          "Quantify the reclass problem — how many per month, how much time they cost. Tighten the GL coding rules for the judgment calls that recur most: SaaS implementation costs, capex threshold edge cases. And document the capitalization policy crisply with the controller — before building anything.",
+          "How many reclasses a month, and what they cost in hours. Tighten the coding rules for the repeat offenders — SaaS implementation costs, threshold edge cases. And get the policy documented with the controller before building anything.",
       },
       {
         cue: "Days 60–90 · Ship",
-        opener: "The third month, I ship something and prove it worked.",
+        opener: "Month three: ship something and prove it worked.",
         rest:
-          "Two deliverables. Pilot the Ramp coding rules on a narrow slice of spend, with a before-and-after on reclass volume. And deliver the international consolidation map — how Japan and France actually flow into the US-GAAP close today.",
+          "Two deliverables. Pilot the Ramp coding rules on a narrow slice of spend, with before-and-after reclass numbers. And deliver the international consolidation map — how Japan and France actually reach the US-GAAP close today.",
       },
       {
         cue: "Quick win — point of entry",
         opener: "Route the capitalize call to the point of entry.",
         rest:
-          "Ramp's AI coding is fast and generally accurate — but it isn't built to catch the two patterns that create rework: an invoice crossing the capitalization threshold, and a SaaS bill that blends capitalizable setup with training costs on one invoice. The fix is a lightweight rules layer: flag those two patterns before they sync to NetSuite, and route them to a short review queue.\n\nFewer reclasses at close, a cleaner audit trail — and remember the spray booth. This is exactly the system that would have caught it on day one.",
+          "Ramp's AI coding is fast — but it isn't built to catch the two patterns that cause rework: an invoice crossing the capitalization threshold, and a SaaS bill mixing capitalizable setup with training costs.\n\nThe fix is a thin rules layer: flag those two patterns before they sync to NetSuite, route them to a short review queue. Fewer reclasses, cleaner audit trail — and remember the spray booth. This catches it on day one.",
       },
       {
         cue: "The brilliant idea",
         opener: "The international bridge — before it's a fire drill.",
         rest:
-          "Vast isn't a single-entity company anymore. Vast Japan GK in Tokyo. A French operation tied to flying French astronauts to LEO. Four real accounting problems stack up.\n\nCurrency translation under ASC 830 — the CTA runs through OCI, not the income statement, and that's easy to code wrong and expensive to unwind. Multi-entity consolidation — either OneWorld with eliminations built in, or someone is doing it by hand, and manual consolidation is the first thing that breaks as volume grows. Transfer pricing — arm's-length documentation that survives both a Section 482 exam and a French or Japanese authority's review. And indirect tax — VAT and Consumption Tax, which is the same discipline I run daily on California sales and use tax: does this transaction carry the tax it should, documented at the point of entry.",
+          "Vast isn't a single entity anymore: Vast Japan GK, plus a French operation flying French astronauts to LEO. That stacks up four real accounting problems.\n\nCurrency translation — ASC 830, and the CTA runs through OCI, not income. Consolidation — OneWorld with eliminations, or someone's doing it by hand. Transfer pricing — documentation that survives a Section 482 exam and a foreign authority's review. And indirect tax — VAT and Consumption Tax, the same discipline I run daily on California sales and use tax.",
       },
       {
         cue: "The pitch",
-        opener: "Within ninety days: a documented map of how Japan and France flow into the US-GAAP close today.",
+        opener: "Within ninety days: a documented map of how Japan and France reach the US-GAAP close.",
         rest:
-          "Not a redesign. Making sure the multi-entity structure already running Ramp and NetSuite domestically holds to the same standard internationally — before a gap becomes a restatement.",
+          "Not a redesign. Just holding the international side to the standard the domestic stack already meets — before a gap becomes a restatement.",
       },
       {
         cue: "The close",
@@ -229,6 +228,7 @@ const BASE_TIER = [3, 2, 1, 0];
 export default function ScriptPage() {
   const [level, setLevel] = useState(0);
   const [peek, setPeek] = useState<Record<string, number>>({});
+  const [showPrompt, setShowPrompt] = useState(false);
 
   function tierFor(key: string) {
     return Math.min(3, BASE_TIER[level] + (peek[key] ?? 0));
@@ -254,7 +254,49 @@ export default function ScriptPage() {
           let the rest flex — then fade the cues until you can run it from bare numbers.
         </p>
 
-        <div className="note" style={{ marginTop: 24 }}>
+        <div className="card" style={{ marginTop: 24 }}>
+          <button
+            onClick={() => setShowPrompt(!showPrompt)}
+            className="mono"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, textAlign: "left" }}
+          >
+            The assignment — verbatim from Vast {showPrompt ? "▾" : "▸"}
+          </button>
+          {showPrompt && (
+            <div style={{ marginTop: 14, fontSize: 14, color: "var(--text)", lineHeight: 1.6 }}>
+              <p style={{ margin: 0 }}>
+                &ldquo;Please put together a 30-45 min. presentation that goes over the following:
+              </p>
+              <ul style={{ margin: "10px 0 0 18px", padding: 0 }}>
+                <li style={{ marginBottom: 8 }}>
+                  Your background/career with history/projects or programs worked on. Education,
+                  what you like to do for fun, etc.
+                </li>
+                <li style={{ marginBottom: 8 }}>
+                  Topic 1: Walk us through 2 examples of times when you had to decide whether
+                  something should be capitalized as a fixed asset vs expensed, and why you believe
+                  the treatment for that transaction was done appropriately.
+                  <ul style={{ margin: "6px 0 0 18px", padding: 0 }}>
+                    <li>
+                      The walk through should include the goals/requirements, your direct
+                      contributions, results, and lessons learned/what you&apos;d do differently.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Topic 2: Give a 30/60/90 day plan of what you would do if you were hired at Vast.
+                  Please include one brilliant idea that you believe would benefit Vast!&rdquo;
+                </li>
+              </ul>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)" }}>
+                Send 24–48 hours before the onsite to Kimani Glass, Andre Carbajal, and
+                guest@vastspace.com · Accepted formats: PDF, PowerPoint.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="note" style={{ marginTop: 18 }}>
           <strong>The method.</strong> ① Each beat is one idea anchored to one slide — the deck is
           your memory palace. ② Openers are sacred; everything else is yours to rephrase. ③ Rehearse
           out loud, standing, and fade: Full → Openers → Cues → Test. Stuck? Click a beat to peek one
@@ -329,7 +371,7 @@ export default function ScriptPage() {
 
         <div className="note" style={{ marginTop: 40 }}>
           <strong>Delivery marks.</strong> Slow down on: &ldquo;their own records told on
-          them&rdquo; · &ldquo;it has to cut both ways&rdquo; · &ldquo;the invoice was me&rdquo; ·
+          them&rdquo; · &ldquo;it cuts both ways&rdquo; · &ldquo;the invoice was me&rdquo; ·
           &ldquo;the right answer reached the wrong way.&rdquo; Eye contact on the NetSuite/Ramp
           line — that&apos;s the moment you stop reciting standards and start talking about
           <em> their</em> books.
