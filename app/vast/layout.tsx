@@ -27,13 +27,13 @@ export default function VastLayout({
             James Sieng <span style={{ color: "var(--muted)" }}>/ Vast</span>
           </Link>
           <div className="nav-links">
+            <Link href="/vast/role">Role</Link>
+            <Link href="/vast/prompt">Prompt</Link>
             <Link href="/vast/introduction">Introduction</Link>
             <Link href="/vast/topic-1">Topic 1</Link>
             <Link href="/vast/topic-2">Topic 2</Link>
             <Link href="/vast/script">Script</Link>
             <Link href="/vast/powerpoint">PowerPoint</Link>
-            <Link href="/vast/role">The Role</Link>
-            <Link href="/vast/prompt">Prompt</Link>
             <UserButton />
           </div>
         </div>
