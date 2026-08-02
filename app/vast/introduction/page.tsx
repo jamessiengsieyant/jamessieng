@@ -16,7 +16,7 @@ export default function IntroductionPage() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Present · three chairs</div>
+        <div className={s.kicker}>Three chairs</div>
         <ul className={s.slideList}>
           <li>
             <b>CDTFA</b> — sales &amp; use tax auditor
@@ -24,7 +24,7 @@ export default function IntroductionPage() {
           </li>
           <li>
             <b>ForensisGroup</b> — Salesforce &amp; AI tooling
-            <span>Building the systems that produce the records I used to just audit.</span>
+            <span>Built the systems that produce the records I used to audit.</span>
           </li>
           <li>
             <b>Sieyant</b> — founder

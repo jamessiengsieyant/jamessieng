@@ -1,576 +1,340 @@
+"use client";
+
+import { useState } from "react";
+
+type Beat = { cue: string; opener: string; rest: string };
+type Section = { kicker: string; title: string; beats: Beat[] };
+
+const SECTIONS: Section[] = [
+  {
+    kicker: "Part 01 — ~10 min",
+    title: "Introduction",
+    beats: [
+      {
+        cue: "The hook",
+        opener: "Two ways to read a balance sheet.",
+        rest:
+          "As the auditor asking “prove it” — or as the person building the system that has to prove itself. I've spent my career doing both. Sometimes in the same week.",
+      },
+      {
+        cue: "Present — the day job",
+        opener: "By day, I'm a sales and use tax auditor for the State of California.",
+        rest:
+          "CDTFA — the Department of Tax and Fee Administration. I go into businesses' books and test whether transactions were taxed correctly under California law — including capital equipment purchases, which is a direct line into the first topic today.\n\nOutside of that, I'm the founder of Sieyant, a tax preparation software business.",
+      },
+      {
+        cue: "Past — how I got here",
+        opener: "Two degrees from UC Irvine — Biomedical Engineering and Business Economics.",
+        rest:
+          "2010 to 2014. Then a Bachelor's in Accounting from Western Governors University in 2024. I've passed all four CPA exams and I'm completing the experience requirement now, along with the Enrolled Agent credential — admitted to practice before the IRS.\n\nAlong the way I picked up Salesforce and QuickBooks certifications, and I did systems work for ForensisGroup, a forensic and expert-witness accounting firm — built out their Salesforce platform and AI tooling: a project management system, a custom survey platform written in Apex, a QuickBooks-to-Salesforce AP/AR sync, and a lab information system with an asset-tracking module.",
+      },
+      {
+        cue: "Future — why Vast",
+        opener: "Every role I've had comes down to one skill.",
+        rest:
+          "Translating between a rigid system of rules — tax code, GAAP, a chart of accounts — and the messy reality of a fast-moving business. That's exactly the seam Vast is scaling through right now.",
+      },
+      {
+        cue: "For fun",
+        opener: "I write and record music — guitar and vocals.",
+        rest:
+          "Building an album is a lot like building an accounting system: structured constraints where the interesting work happens.",
+      },
+    ],
+  },
+  {
+    kicker: "Part 02 — Topic 1 · Example 1",
+    title: "The spray booth in the repairs account",
+    beats: [
+      {
+        cue: "Setup — inside an audit",
+        opener: "For my first example, I want to take you inside an actual audit.",
+        rest:
+          "This is from my current work at CDTFA — I've disguised the details, so no names, and some specifics are changed. But the decision is real, and it's the kind of decision I make on a regular basis.",
+      },
+      {
+        cue: "The purchases exam",
+        opener: "People assume a sales tax audit only looks at sales. It doesn't.",
+        rest:
+          "A standard part of every field audit is examining purchases. And the very first thing you do with purchases is split them into two piles: fixed assets, and expense items. That split matters because the tax treatment follows from it — and here's the thing I want you to catch: that split is a capitalization review. Same question you'd ask at Vast. Is this an asset, or is this an expense? I just come at it from the enforcement side.",
+      },
+      {
+        cue: "The find",
+        opener: "Auto body shop. I'm going through repairs and maintenance, line by line.",
+        rest:
+          "The reason it's standard procedure to look there is that R&M is where assets go to hide. Not because people are cheating — because of how bookkeeping actually happens, which I'll come back to.\n\nAnd in this R&M account, there's an invoice for about twenty thousand dollars. Out-of-state vendor. No tax charged on the invoice. And it's for a spray booth — the equipment itself, the freight, and the installation, all on one invoice.\n\nCoded to repairs and maintenance. And when I pull the depreciation schedule — it's not there.",
+      },
+      {
+        cue: "The decision — three factors",
+        opener: "So now I have a decision to make, and I have to be able to defend it.",
+        rest:
+          "Is this a repair — expense it, done — or is this a capital asset? Because if it's a capital asset, two things are true: it should have been capitalized on their books, and use tax is due on the purchase, self-assessed — and it never was.\n\nFirst — did this restore something that broke, or add capability the shop didn't have? It added capability. This wasn't fixing a booth; it was acquiring one. Second — useful life. A spray booth lasts years, not months. Third — and this is my favorite part — the taxpayer's own books contradicted themselves. Expensed in R&M, but absent from the depreciation schedule they already maintained for other equipment. Their own records told on them.",
+      },
+      {
+        cue: "The measure",
+        opener: "I classified it as a capital asset and computed the measure.",
+        rest:
+          "That's the full purchase price plus freight plus installation — because those costs are part of putting the asset in service. Same principle as GAAP, by the way: under ASC 360, freight and installation go into basis. Tax and book agree on that one. And I scheduled the assessment.",
+      },
+      {
+        cue: "It cuts both ways",
+        opener: "But that same account had real repair invoices in it — and I did not assess those.",
+        rest:
+          "Compressor service. Filter replacements. Routine maintenance. I looked at every one and left them alone, because they're genuinely expenses. If the call only ever goes one direction, it's not judgment, it's a shakedown. A defensible position has to cut both ways.",
+      },
+      {
+        cue: "Result",
+        opener: "At the exit conference, I walked the owner and their CPA through the reasoning.",
+        rest:
+          "Useful life, added capability, the freight and install in the measure. The classification held. The assessment stood. And the fix going forward was the right one: the booth went on the books as an asset and started depreciating, and they set up a use-tax accrual process so the next big purchase gets caught when it happens.",
+      },
+      {
+        cue: "Lesson — point of entry",
+        opener: "Nobody at that shop was trying to get away with anything.",
+        rest:
+          "The invoice came from a vendor whose name sounded like a repair vendor, the bookkeeper filed it where invoices from repair vendors go, and nobody ever looked at it again. For three years. Until I did.\n\nThe capitalize-versus-expense decision got made by default, at the moment of data entry, by the person with the least context. The lesson isn't “hire better bookkeepers.” The lesson is: the classification decision has to happen at the point of entry, on purpose, under a written policy — not get reconstructed years later by whoever comes checking.\n\nHold that thought — in Topic 2, I'll show you exactly how I'd build that into Ramp at Vast.",
+      },
+    ],
+  },
+  {
+    kicker: "Part 02 — Topic 1 · Example 2",
+    title: "Four months of my own time",
+    beats: [
+      {
+        cue: "The opposite chair",
+        opener: "My second example is the same question from the opposite chair.",
+        rest:
+          "In the first story, I was the auditor catching someone else's classification. In this one, the cost was my own time — and I want to be straight with you about how the decision actually got made, because that's where the lesson is.",
+      },
+      {
+        cue: "Context — the builds",
+        opener: "ForensisGroup is a forensic and expert-witness firm that runs its practice on Salesforce.",
+        rest:
+          "I did systems work for them — and on top of that subscription, I built two systems. PMify, a project management system for the practice. And Survey Builder — a custom survey platform I wrote in Apex, so the firm can spin up client surveys without rebuilding each time. Roughly four months of development across the two.",
+      },
+      {
+        cue: "The rule — ASC 350-40",
+        opener: "A Salesforce subscription is a cloud computing arrangement — ASC 350-40, as amended by ASU 2018-15.",
+        rest:
+          "The subscription fee itself is never an asset. It's rent. Always expense. But the implementation costs — configuration, customization, coding, testing — those are capitalizable. And here's the part most people miss: the standard doesn't say “capitalizable if you paid a consultant.” Internal payroll counts. An employee's time in the application-development stage is exactly the cost the standard points at.",
+      },
+      {
+        cue: "“The invoice was me”",
+        opener: "There was no consultant invoice — the invoice was me.",
+        rest:
+          "Four months of my time, configuring and customizing and testing. Which means “we didn't pay anyone” is not an answer. The question was real: should some of that cost have gone on the balance sheet?",
+      },
+      {
+        cue: "What actually happened",
+        opener: "Here's what actually happened, and I'm not going to dress it up.",
+        rest:
+          "The cost flowed through payroll and was expensed as incurred. There was no capitalization discussion at the time. Nobody asked the question — including me. The decision got made by default.",
+      },
+      {
+        cue: "Three tests",
+        opener: "What I can stand behind is the conclusion — because I've since worked it properly, the way I'd work it as an auditor.",
+        rest:
+          "First, measurement. There were no contemporaneous time records separating application-development work from everything else I did. Without that, any capitalized number is a reconstruction, not a measurement — and I'd never accept a reconstructed number from a taxpayer, so I won't accept one from myself.\n\nSecond, the stage mix. A big share of those months was preliminary-stage scoping up front and training and refinement at the end. The standard expenses both of those regardless. The truly capitalizable middle was a slice, not the whole.\n\nThird, materiality. At the scale of a firm that size, that slice doesn't change any reader's view of the financials.",
+      },
+      {
+        cue: "The key sentence",
+        opener: "So: expense was the right answer. But it was the right answer reached the wrong way.",
+        rest:
+          "A defensible answer without documentation is still an undocumented answer. If an auditor like me had walked in, the position holds — but nobody could have handed them the memo that proves it. That's the gap.",
+      },
+      {
+        cue: "What I'd do differently",
+        opener: "Three things I'd do differently.",
+        rest:
+          "One: track hours to the project while it's happening. Not to force capitalization — to preserve the option. Once the quarter closes, the ability to measure is gone forever.\n\nTwo: write the memo even when the answer is “expense.” It costs an hour, and it turns a default into a documented position.\n\nThree — and this is the one that matters for this room: recognize when scale flips the answer. At a firm that size, expense. At a company like Vast — real implementation invoices, dedicated engineering time, material dollars — the same framework comes out the other way. And you've lived this: when Vast implemented NetSuite and Ramp, somebody had to decide which implementation costs to capitalize. It's this exact analysis.",
+      },
+      {
+        cue: "The twist — prepaid, not PP&E",
+        opener: "One last twist, because it's a trap I'd want to catch at Vast.",
+        rest:
+          "When a CCA implementation cost is capitalized, it doesn't become a fixed asset. It's a prepaid-type asset that amortizes into the same operating expense line as the subscription. Never depreciation. Coding it to PP&E would be wrong even when capitalizing is right. The classification question doesn't end at “capitalize or expense” — it ends at “which asset, which line.”",
+      },
+      {
+        cue: "Topic 1 close — two chairs",
+        opener: "So, two examples, two chairs.",
+        rest:
+          "An auditor finding a twenty-thousand-dollar asset hiding in a repairs account. And a builder whose own four months of work turned out to be the accounting question. Same principle both times: the classification has to be made on purpose, at the source, with the documentation to prove it. Which brings me to what I'd actually do at Vast.",
+      },
+    ],
+  },
+  {
+    kicker: "Part 03 — Topic 2",
+    title: "The first 90 days",
+    beats: [
+      {
+        cue: "The frame",
+        opener: "Topic two: my first ninety days.",
+        rest:
+          "Three phases — learn it, plan it, ship it. And I'll end with one idea I think is genuinely worth your time.",
+      },
+      {
+        cue: "Days 1–30 · Learn",
+        opener: "The first month, I'm learning the machine before I touch it.",
+        rest:
+          "Map the chart of accounts and the capitalization policy — what's the dollar threshold, and is it documented or tribal knowledge? Learn how Ramp is configured: the category mappings, how accurate the AI coding actually is, which vendors trigger reclasses most. And shadow a month-end close, writing down every manual reclass I see — because that friction is the opportunity.",
+      },
+      {
+        cue: "Days 30–60 · Plan",
+        opener: "The second month, I turn the pattern into a number.",
+        rest:
+          "Quantify the reclass problem — how many per month, how much time they cost. Tighten the GL coding rules for the judgment calls that recur most: SaaS implementation costs, capex threshold edge cases. And document the capitalization policy crisply with the controller — before building anything.",
+      },
+      {
+        cue: "Days 60–90 · Ship",
+        opener: "The third month, I ship something and prove it worked.",
+        rest:
+          "Two deliverables. Pilot the Ramp coding rules on a narrow slice of spend, with a before-and-after on reclass volume. And deliver the international consolidation map — how Japan and France actually flow into the US-GAAP close today.",
+      },
+      {
+        cue: "Quick win — point of entry",
+        opener: "Route the capitalize call to the point of entry.",
+        rest:
+          "Ramp's AI coding is fast and generally accurate — but it isn't built to catch the two patterns that create rework: an invoice crossing the capitalization threshold, and a SaaS bill that blends capitalizable setup with training costs on one invoice. The fix is a lightweight rules layer: flag those two patterns before they sync to NetSuite, and route them to a short review queue.\n\nFewer reclasses at close, a cleaner audit trail — and remember the spray booth. This is exactly the system that would have caught it on day one.",
+      },
+      {
+        cue: "The brilliant idea",
+        opener: "The international bridge — before it's a fire drill.",
+        rest:
+          "Vast isn't a single-entity company anymore. Vast Japan GK in Tokyo. A French operation tied to flying French astronauts to LEO. Four real accounting problems stack up.\n\nCurrency translation under ASC 830 — the CTA runs through OCI, not the income statement, and that's easy to code wrong and expensive to unwind. Multi-entity consolidation — either OneWorld with eliminations built in, or someone is doing it by hand, and manual consolidation is the first thing that breaks as volume grows. Transfer pricing — arm's-length documentation that survives both a Section 482 exam and a French or Japanese authority's review. And indirect tax — VAT and Consumption Tax, which is the same discipline I run daily on California sales and use tax: does this transaction carry the tax it should, documented at the point of entry.",
+      },
+      {
+        cue: "The pitch",
+        opener: "Within ninety days: a documented map of how Japan and France flow into the US-GAAP close today.",
+        rest:
+          "Not a redesign. Making sure the multi-entity structure already running Ramp and NetSuite domestically holds to the same standard internationally — before a gap becomes a restatement.",
+      },
+      {
+        cue: "The close",
+        opener: "Auditor's skepticism. Builder's toolkit.",
+        rest: "That's what I'd bring to Vast. Thank you — I'd love your questions.",
+      },
+    ],
+  },
+];
+
+const LEVELS = [
+  { name: "Full script", desc: "Read it all. First passes." },
+  { name: "Openers", desc: "Opening lines only — recite the rest." },
+  { name: "Cues", desc: "Beat titles only — recite everything." },
+  { name: "Test", desc: "Numbers only. Perform it." },
+];
+// visibility tiers: 0 = hidden, 1 = cue, 2 = cue+opener, 3 = full
+const BASE_TIER = [3, 2, 1, 0];
+
 export default function ScriptPage() {
+  const [level, setLevel] = useState(0);
+  const [peek, setPeek] = useState<Record<string, number>>({});
+
+  function tierFor(key: string) {
+    return Math.min(3, BASE_TIER[level] + (peek[key] ?? 0));
+  }
+  function bump(key: string) {
+    setPeek((p) => {
+      const cur = Math.min(3, BASE_TIER[level] + (p[key] ?? 0));
+      if (cur >= 3) {
+        const { [key]: _drop, ...restP } = p;
+        return restP; // collapse back to the level's baseline
+      }
+      return { ...p, [key]: (p[key] ?? 0) + 1 };
+    });
+  }
+
   return (
-    <>
-      <article className="band">
-        <div className="wrap narrow">
-          <div className="mono">For James — not for the screen</div>
-          <h1 style={{ marginTop: 12 }}>The full script</h1>
-          <p className="lede" style={{ color: "var(--muted)", fontSize: 16 }}>
-            The slides carry headlines. This carries the talking. Read it once, then leave it —
-            the room should watch you, not this page.
-          </p>
+    <article className="band">
+      <div className="wrap narrow">
+        <div className="mono">For James — not for the screen</div>
+        <h1 style={{ marginTop: 12 }}>The script</h1>
+        <p className="lede" style={{ color: "var(--muted)", fontSize: 16 }}>
+          Beats, not words. Memorize each beat&apos;s <strong>opening line word-perfect</strong> and
+          let the rest flex — then fade the cues until you can run it from bare numbers.
+        </p>
 
-          {/* ---------------- INTRODUCTION ---------------- */}
-          <div style={{ marginTop: 56 }}>
-            <div className="mono">Part 01 — ~10 min</div>
-            <h2 style={{ fontSize: 26, marginTop: 8, marginBottom: 20 }}>Introduction</h2>
-
-            <div className="field">
-              <h4>The hook</h4>
-              <p>
-                Two ways to read a balance sheet: as the auditor asking &ldquo;prove it,&rdquo; or as the
-                person building the system that has to prove itself. I&apos;ve spent my career
-                doing both — sometimes in the same week.
-              </p>
-            </div>
-
-            <div className="field">
-              <h4>Present — what I do now</h4>
-              <p>
-                By day, I&apos;m a sales and use tax auditor for the California Department of
-                Tax and Fee Administration — I go into businesses&apos; books and test whether
-                transactions were taxed correctly under California&apos;s Revenue &amp;
-                Taxation Code, including capital equipment purchases, which is a direct line
-                into the capitalization topic we&apos;ll cover next.
-              </p>
-              <p>
-                Outside of that, I work with ForensisGroup, a forensic and expert-witness
-                accounting firm, building out Salesforce and AI tooling for the practice. And
-                I&apos;m the founder of Sieyant, a tax preparation software business.
-              </p>
-            </div>
-
-            <div className="field">
-              <h4>Past — how I got here</h4>
-              <p>
-                Two degrees from UC Irvine — Biomedical Engineering and Business
-                Economics, 2010 to 2014 — then a Bachelor&apos;s in Accounting from
-                Western Governors University in 2024. I&apos;ve passed all four CPA
-                exams and I&apos;m completing the experience requirement now, along
-                with the Enrolled Agent credential — admitted to practice before the
-                IRS.
-              </p>
-              <p>
-                Salesforce and QuickBooks certified along the way, which is what put me in
-                the room to build the systems I used to just audit: a LIMS for lab sample
-                and asset tracking, a project management system built on Salesforce, a
-                custom QuickBooks-to-Salesforce AP/AR and payment sync, and a survey
-                platform written in Apex.
-              </p>
-            </div>
-
-            <div className="field">
-              <h4>Future — why Vast</h4>
-              <p>
-                Every role I&apos;ve had comes down to the same skill: translating between a
-                rigid system of rules — tax code, GAAP, a chart of accounts — and the messy
-                reality of a fast-moving business. That&apos;s exactly the seam Vast is
-                scaling through right now.
-              </p>
-            </div>
-
-            <div className="field">
-              <h4>For fun</h4>
-              <p>
-                I write and record music — guitar and vocals. Building albums is a lot like
-                building accounting systems: structured constraints where the interesting work
-                happens.
-              </p>
-            </div>
-          </div>
-
-          {/* ---------------- TOPIC 1 ---------------- */}
-          <div style={{ marginTop: 72 }}>
-            <div className="mono">Part 02 — Capitalize or Expense?</div>
-            <h2 style={{ fontSize: 26, marginTop: 8, marginBottom: 20 }}>Two real judgment calls I made</h2>
-
-            <section style={{ marginBottom: 60 }}>
-              <h3 style={{ fontSize: 22, marginBottom: 12 }}>Example 1 — ForensisGroup, Salesforce</h3>
-
-              <div className="field">
-                <h4>The technical spine</h4>
-                <p>
-                  A Salesforce subscription is a Cloud Computing Arrangement under{" "}
-                  <strong>ASC 350-40</strong> (as amended by <strong>ASU 2018-15</strong>).
-                  The subscription fee itself is never an asset&mdash;it&apos;s always a straight
-                  period expense, like rent. The real judgment call lives in the{" "}
-                  <em>implementation</em> costs:
-                </p>
-                <table style={{ marginTop: 14 }}>
-                  <thead>
-                    <tr>
-                      <th>Capitalize</th>
-                      <th>Expense immediately</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Configuration, customization, scripting, testing</td>
-                      <td>Training, data conversion, subscription fees</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p style={{ marginTop: 12 }}>
-                  Capitalized costs sit on the balance sheet as a prepaid asset and expense
-                  ratably over the contract term (including likely renewals).
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>Goals / requirements</h4>
-                <p>
-                  ForensisGroup runs its practice on Salesforce. Two builds sat on top of
-                  that subscription: <strong>PMify</strong>, a project management
-                  information system, and a <strong>custom survey platform written in
-                  Apex</strong> that lets the firm spin up client surveys without a rebuild
-                  each time. Roughly four months of development across both.
-                </p>
-                <p style={{ marginTop: 10 }}>
-                  No outside consultant, no implementation invoice, no statement of work.
-                  The entire cost of the build was <em>my own time as an employee</em>&mdash;which
-                  is exactly what makes this a real judgment call instead of a bookkeeping
-                  exercise.
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>The question that had to be answered</h4>
-                <p>
-                  ASC 350-40 does <strong>not</strong> limit capitalizable implementation
-                  cost to third-party invoices. Payroll for employees directly associated
-                  with and devoting time to the application-development stage is
-                  capitalizable too. So &ldquo;we didn&apos;t pay anyone&rdquo; is not, by
-                  itself, an answer. Four months of internal configuration, customization,
-                  and testing is precisely the activity the standard points at.
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>My direct contribution</h4>
-                <p>
-                  I built both systems. The accounting analysis is the part I want to be
-                  judged on, and I&apos;ll be straight about the sequence: the cost flowed
-                  through payroll and was expensed as incurred. There was no capitalization
-                  discussion at the time.
-                </p>
-                <p style={{ marginTop: 10 }}>
-                  What I can defend is the <em>conclusion</em>, and I&apos;ve since worked
-                  through why it holds:
-                </p>
-                <ul style={{ marginTop: 10 }}>
-                  <li>
-                    <strong>Measurement reliability.</strong> There were no contemporaneous
-                    time records separating application-development work from everything
-                    else I did. Without that, any capitalized number would have been a
-                    reconstruction, not a measurement.
-                  </li>
-                  <li>
-                    <strong>Stage mix.</strong> A large share of those four months was
-                    preliminary-stage scoping and post-implementation refinement and user
-                    training&mdash;expensed under the standard regardless.
-                  </li>
-                  <li>
-                    <strong>Materiality.</strong> At the scale of a firm that size, the
-                    capitalizable slice would not have changed any reader&apos;s view of the
-                    financials.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="field">
-                <h4>Result</h4>
-                <p>
-                  Expensed as incurred. I believe that was the correct outcome&mdash;but it was
-                  reached by default rather than by analysis, and those are not the same
-                  thing. A defensible answer arrived at without documentation is still an
-                  undocumented answer.
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>Lessons learned / what I&apos;d do differently</h4>
-                <ul>
-                  <li>
-                    <strong>Track hours to the project while it&apos;s happening.</strong>{" "}
-                    Not to force a capitalization&mdash;to preserve the option. Once the quarter
-                    closes, the ability to measure is gone.
-                  </li>
-                  <li>
-                    <strong>Write the memo even when the answer is &ldquo;expense.&rdquo;</strong>{" "}
-                    A short materiality memo costs an hour and turns a default into a
-                    documented position an auditor can follow.
-                  </li>
-                  <li>
-                    <strong>Recognize when scale flips the answer.</strong> The same analysis
-                    at a company with real implementation invoices and dedicated engineering
-                    time comes out the other way. The framework doesn&apos;t change; the
-                    materiality does.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="note" style={{ marginTop: 18 }}>
-                <strong>Why this example is worth your time:</strong> the treatment
-                here isn&apos;t &ldquo;fixed asset&rdquo; <em>or</em> &ldquo;expense.&rdquo;
-                A capitalized CCA implementation cost is a third thing&mdash;a prepaid-type asset
-                that amortizes into the same operating expense line as the subscription
-                itself, never into depreciation. Coding it to a fixed-asset account would be
-                wrong even when capitalizing is right.
-              </div>
-            </section>
-
-            <section>
-              <h3 style={{ fontSize: 22, marginBottom: 12 }}>
-                Example 2 — The LIMS: freezers, equipment, and software I built
-              </h3>
-
-              <div className="field">
-                <h4>The technical spine</h4>
-                <p>
-                  A Laboratory Information Management System is a capitalization problem with
-                  two halves that fall under <em>two different standards</em>&mdash;and getting one
-                  right doesn&apos;t get you the other.
-                </p>
-                <table style={{ marginTop: 14 }}>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>The hardware</th>
-                      <th>The software I built</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Standard</strong></td>
-                      <td>ASC 360 — PP&amp;E</td>
-                      <td>ASC 350-40 — internal-use software</td>
-                    </tr>
-                    <tr>
-                      <td><strong>What lands in basis</strong></td>
-                      <td>
-                        Purchase price + freight + installation + testing + site prep +
-                        non-recoverable sales/use tax
-                      </td>
-                      <td>
-                        Application-development stage only: coding, configuration, testing
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>What&apos;s expensed</strong></td>
-                      <td>Routine maintenance, calibration, consumables</td>
-                      <td>
-                        Preliminary-stage scoping, training, data conversion,
-                        post-implementation maintenance
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><strong>Then what</strong></td>
-                      <td>Depreciate over useful life</td>
-                      <td>Amortize over useful life, as an intangible</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="note" style={{ marginTop: 18 }}>
-                <strong>The contrast with Example 1 is the whole point.</strong> Both examples
-                run through ASC 350-40, and they come out in different places. Salesforce is a
-                hosted service contract&mdash;capitalizable implementation cost becomes a
-                prepaid-type asset that amortizes into the same operating line as the
-                subscription. The LIMS is software the organization builds and controls&mdash;it
-                becomes an <em>intangible asset</em> on the balance sheet with its own
-                amortization. Same code section. Different asset. Different P&amp;L line.
-              </div>
-
-              <div className="field" style={{ marginTop: 22 }}>
-                <h4>Goals / requirements</h4>
-                <p>
-                  The lab needed to track patient samples through their full lifecycle:
-                  chain of custody, physical location down to the freezer and shelf position,
-                  and the equipment those samples depended on. That last requirement is the
-                  one that matters here&mdash;the system had to know what equipment existed, where
-                  it was, and what condition it was in.
-                </p>
-                <p style={{ marginTop: 10, color: "var(--accent)" }}>
-                  <em>
-                    [Fill: which employer/client, roughly what year, and what triggered the
-                    project — a compliance requirement, a growth problem, a failed audit?]
-                  </em>
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>The judgment calls</h4>
-                <ul>
-                  <li>
-                    <strong>Unit of account on the equipment.</strong> Is a freezer plus its
-                    temperature-monitoring system one asset or two? It changes the useful life
-                    you depreciate over and whether a monitoring upgrade later is a component
-                    replacement or a repair.
-                  </li>
-                  <li>
-                    <strong>Repair vs. improvement.</strong> Servicing a freezer to keep it
-                    running is maintenance&mdash;expense it. A compressor replacement or a controls
-                    retrofit that extends useful life or increases capacity is a
-                    betterment&mdash;capitalize it. Same vendor, same invoice format, opposite
-                    treatment.
-                  </li>
-                  <li>
-                    <strong>Threshold discipline.</strong> Individually cheap lab equipment
-                    below the capitalization threshold gets expensed even when it lasts
-                    years&mdash;and that&apos;s correct, but only if the threshold is a written
-                    policy applied consistently rather than a judgment made invoice by
-                    invoice.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="field">
-                <h4>My direct contribution</h4>
-                <p>
-                  I built the system, including the asset-management module&mdash;which is worth
-                  naming plainly: <strong>that module is a fixed-asset subledger</strong>.
-                  Asset identity, location, acquisition data, condition, and status, tied to
-                  the operations that depend on it. I wasn&apos;t only accounting for fixed
-                  assets; I built the system of record that a fixed-asset roll-forward gets
-                  reconciled against.
-                </p>
-                <p style={{ marginTop: 10, color: "var(--accent)" }}>
-                  <em>
-                    [Fill: your specific role in any purchase or booking decisions — did you
-                    recommend treatment, prepare the entries, or design the fields that
-                    captured the data accounting needed? Any dollar ranges you can cite.]
-                  </em>
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>Result</h4>
-                <p>
-                  The lab got a single source of truth for both samples and the equipment
-                  supporting them. From an accounting standpoint, the value is that asset
-                  data was captured <em>at the point of acquisition</em>, in a structured
-                  system&mdash;rather than reconstructed from invoices at year-end, which is where
-                  fixed-asset registers usually go wrong.
-                </p>
-                <p style={{ marginTop: 10, color: "var(--accent)" }}>
-                  <em>[Fill: a concrete outcome — time saved, audit finding avoided, sample
-                  volume handled, headcount it supported.]</em>
-                </p>
-              </div>
-
-              <div className="field">
-                <h4>Lessons learned / what I&apos;d do differently</h4>
-                <ul>
-                  <li>
-                    <strong>Design the subledger to answer the accounting question, not just
-                    the operational one.</strong> The system tracked where equipment was. It
-                    should also have carried in-service date, capitalized cost, and useful
-                    life&mdash;so the operational register and the fixed-asset register are the
-                    same register instead of two things that drift apart.
-                  </li>
-                  <li>
-                    <strong>Decide unit of account before the first purchase, not after the
-                    tenth.</strong> Componentization decided asset-by-asset produces a
-                    register nobody can defend two years later.
-                  </li>
-                  <li>
-                    <strong>The repair-vs-improvement call belongs at intake.</strong> Same
-                    lesson as Example 1, same lesson I&apos;d bring to Ramp at Vast: the
-                    person who knows what the work actually was is the person approving the
-                    invoice&mdash;not the person reclassing it at close three weeks later.
-                  </li>
-                </ul>
-              </div>
-            </section>
-          </div>
-
-          {/* ---------------- TOPIC 2 ---------------- */}
-          <div style={{ marginTop: 72, marginBottom: 40 }}>
-            <div className="mono">Part 03 — The First 90 Days at Vast</div>
-            <h2 style={{ fontSize: 26, marginTop: 8, marginBottom: 20 }}>A plan, and one idea</h2>
-
-            <section style={{ marginBottom: 52 }}>
-              <h3 style={{ fontSize: 22, marginBottom: 20 }}>The timeline</h3>
-
-              <div style={{ marginBottom: 28 }}>
-                <h4 style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}>Days 1–30: Learn the machine</h4>
-                <ul className="list" style={{ margin: 0 }}>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 1</span>
-                    <span className="body">
-                      Map the current chart of accounts, capitalization policy, and threshold.
-                      What&apos;s Vast&apos;s dollar line between capitalize and expense today?
-                      Is it documented or tribal knowledge?
-                    </span>
-                  </li>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 2–3</span>
-                    <span className="body">
-                      Understand how Ramp is configured: category mappings, AI-suggested coding
-                      accuracy, which dimensions (department/class/location) are in use. Which
-                      vendors trigger reclasses most often?
-                    </span>
-                  </li>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 4</span>
-                    <span className="body">
-                      Shadow month-end close. Where do manual reclasses happen? Where does the
-                      system fail? That friction is the opportunity.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <div style={{ marginBottom: 28 }}>
-                <h4 style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}>Days 30–60: Start contributing</h4>
-                <ul className="list" style={{ margin: 0 }}>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 5–6</span>
-                    <span className="body">
-                      Tighten the GL coding rules for the judgment calls that recur most —
-                      CCA/SaaS implementation costs, capex threshold edge cases. Document the
-                      rationale.
-                    </span>
-                  </li>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 7–8</span>
-                    <span className="body">
-                      Partner with the controller/FP&amp;A on documenting the capitalization
-                      policy crisply, if it isn&apos;t already. Start quantifying the
-                      manual-reclass problem: how many per month, how much time it costs.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: 17, fontWeight: 600, marginBottom: 8 }}>Days 60–90: Ship something</h4>
-                <ul className="list" style={{ margin: 0 }}>
-                  <li style={{ borderBottom: "none" }}>
-                    <span className="yr">Week 9–12</span>
-                    <span className="body">
-                      Ship two things. First, pilot the Ramp coding rules below on a narrow
-                      slice of spend, with a before/after on reclass volume. Second, deliver
-                      the international consolidation map — how Japan and France actually flow
-                      into the US-GAAP close today. A lightweight business case for each, not
-                      just a demo.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <section style={{ marginBottom: 52 }}>
-              <h3 style={{ fontSize: 22, marginBottom: 12 }}>Quick win: route the capitalize call to the point of entry</h3>
-
-              <p style={{ marginTop: 12, fontWeight: 600 }}>
-                Route the capitalize-vs-expense decision to the point of transaction entry in
-                Ramp, not to close.
-              </p>
-
-              <p style={{ marginTop: 16 }}>
-                AI-assisted coding in Ramp is tuned for speed and general category accuracy —
-                not purpose-built to catch the two judgment calls that create rework later:
-              </p>
-              <ol style={{ marginTop: 8, marginLeft: 20 }}>
-                <li>
-                  An invoice that crosses the capitalization threshold (should go to a capex
-                  review queue, not straight to &ldquo;expense&rdquo;)
-                </li>
-                <li>
-                  A SaaS vendor bill that blends capitalizable implementation work (config,
-                  customization, testing) with costs that must stay expensed (training, data
-                  conversion) on the same invoice
-                </li>
-              </ol>
-
-              <p style={{ marginTop: 20 }}>
-                <strong>The fix:</strong> a lightweight rules layer on top of Ramp&apos;s
-                existing categorization that flags those two patterns before they sync to
-                NetSuite, and routes them to a short review queue instead of posting straight
-                through.
-              </p>
-
-              <div className="flow" style={{ marginTop: 20 }}>
-                <div className="step">Transaction hits Ramp</div>
-                <div className="arrow">↓ AI category + rules</div>
-                <div className="branch">
-                  <div className="step">Below threshold, routine → auto-code as expense</div>
-                  <div className="step">Above threshold, tangible asset → route to capex review queue</div>
-                  <div className="step">
-                    CCA / SaaS implementation vendor → split: capitalize config &amp; testing,
-                    expense training &amp; data conversion
-                  </div>
-                </div>
-                <div className="arrow">↓</div>
-                <div className="step">Approved coding syncs to NetSuite</div>
-              </div>
-
-              <p style={{ marginTop: 22 }}>
-                Small build, immediate payoff. Fewer reclass journal entries at close, a
-                cleaner audit trail, and a policy that used to live in someone&apos;s head now
-                lives in the system.
-              </p>
-            </section>
-
-            <section>
-              <h3 style={{ fontSize: 22, marginBottom: 12 }}>The brilliant idea: the international bridge, before it&apos;s a fire drill</h3>
-
-              <p style={{ marginTop: 12 }}>
-                Vast isn&apos;t a single-entity company anymore. There&apos;s{" "}
-                <a href="https://www.vastspace.com/updates/vast-expands-to-japan-appointing-naoko-yamazaki-as-general-manager-of-vast-japan-gk" target="_blank" rel="noopener noreferrer">Vast Japan GK</a>{" "}
-                in Tokyo, and a French operation tied to Vast&apos;s agreement with the French
-                government to fly French astronauts to LEO. Two real subsidiaries means the US
-                consolidation now has company on the same close calendar.
-              </p>
-
-              <p style={{ marginTop: 16, fontWeight: 600 }}>
-                Four things stack up under &ldquo;international,&rdquo; and each is a real
-                accounting problem, not a legal one:
-              </p>
-
-              <ul style={{ marginTop: 12 }}>
-                <li style={{ marginBottom: 10 }}>
-                  <strong>Currency translation (ASC 830).</strong> Japan GK&apos;s functional
-                  currency is JPY, the France entity&apos;s is EUR. Translating both to USD for
-                  consolidation produces a Cumulative Translation Adjustment that runs through
-                  OCI, not the income statement — a distinction that&apos;s easy to code wrong
-                  and expensive to unwind later.
-                </li>
-                <li style={{ marginBottom: 10 }}>
-                  <strong>Multi-entity consolidation.</strong> If Japan and France aren&apos;t
-                  already on NetSuite OneWorld with intercompany elimination built in, that
-                  consolidation is happening by hand somewhere — and manual consolidation is
-                  the first thing that breaks as transaction volume grows.
-                </li>
-                <li style={{ marginBottom: 10 }}>
-                  <strong>Transfer pricing.</strong> Any cost-sharing, management fee, or R&amp;D
-                  allocation between the US parent and the two subs needs arm&apos;s-length
-                  documentation to hold up under both a US Section 482 exam and a French or
-                  Japanese tax authority&apos;s own review.
-                </li>
-                <li>
-                  <strong>Indirect tax.</strong> France runs on VAT, Japan on Consumption Tax —
-                  different mechanics, same underlying discipline I already practice daily
-                  auditing California sales and use tax: does this transaction carry the tax it
-                  should, documented at the point of entry rather than reconstructed at audit.
-                </li>
-              </ul>
-
-              <p style={{ marginTop: 22 }}>
-                <strong>The pitch:</strong> within 90 days, a documented map of exactly how
-                Japan and France flow into the US-GAAP consolidation today — manual or
-                NetSuite-native — and a plan to close whichever gap is biggest first. Not a
-                redesign of what Vast already has. Making sure the multi-entity structure that
-                already runs Ramp and NetSuite domestically is held to the same standard
-                internationally, before the international side gets big enough that a gap
-                becomes a restatement.
-              </p>
-            </section>
-          </div>
+        <div className="note" style={{ marginTop: 24 }}>
+          <strong>The method.</strong> ① Each beat is one idea anchored to one slide — the deck is
+          your memory palace. ② Openers are sacred; everything else is yours to rephrase. ③ Rehearse
+          out loud, standing, and fade: Full → Openers → Cues → Test. Stuck? Click a beat to peek one
+          layer. ④ Three 15-minute passes a day beat one two-hour grind. Record a pass on your phone;
+          listen back on the drive.
         </div>
-      </article>
-    </>
+
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "28px 0 8px" }}>
+          {LEVELS.map((l, i) => (
+            <button
+              key={l.name}
+              onClick={() => { setLevel(i); setPeek({}); }}
+              className="btn"
+              style={
+                i === level
+                  ? { background: "var(--accent)", borderColor: "var(--accent)", color: "var(--ink)", fontWeight: 600 }
+                  : undefined
+              }
+            >
+              {l.name}
+            </button>
+          ))}
+        </div>
+        <p style={{ color: "var(--muted)", fontSize: 13, margin: "4px 0 8px" }}>{LEVELS[level].desc}</p>
+
+        {SECTIONS.map((sec, si) => (
+          <div key={si} style={{ marginTop: 48 }}>
+            <div className="mono">{sec.kicker}</div>
+            <h2 style={{ fontSize: 24, marginTop: 8, marginBottom: 6 }}>{sec.title}</h2>
+            {sec.beats.map((b, bi) => {
+              const key = `${si}-${bi}`;
+              const tier = tierFor(key);
+              return (
+                <div
+                  key={key}
+                  onClick={() => bump(key)}
+                  style={{
+                    borderTop: "1px solid var(--line)",
+                    padding: "14px 0",
+                    cursor: level > 0 ? "pointer" : "default",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+                    <span
+                      className="mono"
+                      style={{ color: "var(--muted)", minWidth: 22, flexShrink: 0 }}
+                    >
+                      {bi + 1}
+                    </span>
+                    {tier >= 1 ? (
+                      <span className="mono">{b.cue}</span>
+                    ) : (
+                      <span style={{ color: "var(--muted)", fontSize: 13 }}>· · ·</span>
+                    )}
+                  </div>
+                  {tier >= 2 && (
+                    <p style={{ margin: "10px 0 0 34px", color: "var(--white)", fontWeight: 600 }}>
+                      {b.opener}
+                    </p>
+                  )}
+                  {tier >= 3 &&
+                    b.rest.split("\n\n").map((para, pi) => (
+                      <p key={pi} style={{ margin: "10px 0 0 34px", color: "var(--text)" }}>
+                        {para}
+                      </p>
+                    ))}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+
+        <div className="note" style={{ marginTop: 40 }}>
+          <strong>Delivery marks.</strong> Slow down on: &ldquo;their own records told on
+          them&rdquo; · &ldquo;it has to cut both ways&rdquo; · &ldquo;the invoice was me&rdquo; ·
+          &ldquo;the right answer reached the wrong way.&rdquo; Eye contact on the NetSuite/Ramp
+          line — that&apos;s the moment you stop reciting standards and start talking about
+          <em> their</em> books.
+        </div>
+      </div>
+    </article>
   );
 }
