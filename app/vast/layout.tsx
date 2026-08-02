@@ -14,7 +14,8 @@ export default function VastLayout({
   const isScript =
     pathname === "/vast/script" ||
     pathname === "/vast/powerpoint" ||
-    pathname === "/vast/role";
+    pathname === "/vast/role" ||
+    pathname === "/vast/prompt";
   const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
 
   return (
@@ -32,6 +33,7 @@ export default function VastLayout({
             <Link href="/vast/script">Script</Link>
             <Link href="/vast/powerpoint">PowerPoint</Link>
             <Link href="/vast/role">The Role</Link>
+            <Link href="/vast/prompt">Prompt</Link>
             <UserButton />
           </div>
         </div>

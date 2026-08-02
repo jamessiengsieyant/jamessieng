@@ -26,7 +26,7 @@ const SECTIONS: Section[] = [
         cue: "Past — how I got here",
         opener: "Two degrees from UC Irvine — Biomedical Engineering and Business Economics.",
         rest:
-          "Then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement now — plus the Enrolled Agent credential, admitted to practice before the IRS.\n\nAlong the way: Salesforce and QuickBooks certifications, and systems work for ForensisGroup, a forensic accounting firm — I built their project management system, a survey platform in Apex, a QuickBooks-to-Salesforce sync, and a lab system with asset tracking.",
+          "Then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement now.\n\nAnd the credential I lean on daily: Enrolled Agent — admitted to practice before the IRS. I prepare business returns up through Form 1120, which means I read small-business books for a living — trial balance to Schedule L, book-to-tax on the M-1. Books to returns is my normal commute.\n\nOn the systems side: seven Salesforce certifications, QuickBooks ProAdvisor, CISSP passed, three CompTIA certs, ISC2's CC. The builds came out of that — PMify, Survey Builder, the QuickBooks sync, a lab system with asset tracking.",
       },
       {
         cue: "The NetSuite question",
@@ -175,43 +175,56 @@ const SECTIONS: Section[] = [
       {
         cue: "The frame",
         opener: "Topic two: my first ninety days.",
-        rest: "Learn it. Plan it. Ship it. And one idea at the end that I think is worth your time.",
+        rest:
+          "Straight up: this is a learning plan and a contribution plan at the same time. You know I haven't done international accounting — so I'll tell you exactly how I get useful fast, and what I bring while I do.",
+      },
+      {
+        cue: "Said plainly",
+        opener: "Let me say the obvious part out loud: I haven't done international accounting.",
+        rest:
+          "What I do have is the standards — FAR tested consolidation and currency translation. ASC 830, eliminations, the CTA through OCI. I know the rules. I lack the reps. The next ninety days are how I get reps without slowing your close down.",
+      },
+      {
+        cue: "The study map",
+        opener: "The terrain has four problems, and I already know their names.",
+        rest:
+          "Currency translation — ASC 830, and the CTA runs through OCI, not income. Consolidation — intercompany and investment eliminations. Transfer pricing — documentation that survives Section 482 and a foreign authority's review. And indirect tax — VAT and Consumption Tax, the same discipline I run daily on California sales and use tax.",
       },
       {
         cue: "Days 1–30 · Learn",
-        opener: "Month one: learn the machine before touching it.",
+        opener: "Month one: walk one close by hand.",
         rest:
-          "Map the chart of accounts and the capitalization policy — what's the threshold, and is it written down or tribal knowledge? Learn how Ramp is configured and which vendors trigger the most reclasses. And shadow a close, writing down every manual reclass — that friction is the opportunity.",
+          "Follow Japan's reporting package all the way through — translation, eliminations, into the consolidated statements — once, manually, so I know where it breaks. Learn the PBC universe: what the auditors asked for last time, and what dragged. And map how OneWorld is configured — entities, currencies, elimination rules.",
       },
       {
-        cue: "Days 30–60 · Plan",
-        opener: "Month two: turn the pattern into a number.",
+        cue: "Days 30–60 · Contribute",
+        opener: "Month two: real close tasks, under review.",
         rest:
-          "How many reclasses a month, and what they cost in hours. Tighten the coding rules for the repeat offenders — SaaS implementation costs, threshold edge cases. And get the policy documented with the controller before building anything.",
+          "Reconciliations, translation entries — mine, checked by someone senior. While I'm in there, I time the close: where do the hours actually go? Then I pick one automation with the controller — highest pain, lowest risk.",
       },
       {
         cue: "Days 60–90 · Ship",
-        opener: "Month three: ship something and prove it worked.",
+        opener: "Month three: own my slice, ship the first automation.",
         rest:
-          "Two deliverables. Pilot the Ramp coding rules on a narrow slice of spend, with before-and-after reclass numbers. And deliver the international consolidation map — how Japan and France actually reach the US-GAAP close today.",
+          "My close tasks fully mine. The automation live, with a before-and-after number. Both documented well enough to survive me.",
       },
       {
-        cue: "Quick win — point of entry",
-        opener: "Route the capitalize call to the point of entry.",
+        cue: "The builder part",
+        opener: "Now the part I bring on day one: the builder part.",
         rest:
-          "Ramp's AI coding is fast — but it isn't built to catch the two patterns that cause rework: an invoice crossing the capitalization threshold, and a SaaS bill mixing capitalizable setup with training costs.\n\nThe fix is a thin rules layer: flag those two patterns before they sync to NetSuite, route them to a short review queue. Fewer reclasses, cleaner audit trail — and remember the spray booth. This catches it on day one.",
+          "Three builds I already know how to make.\n\nA PBC tracker — audit requests tracked like projects, status visible to auditors and stakeholders. I've built exactly this before.\n\nA package pre-check — automated completeness and tie-out checks on subsidiary packages, before a human reviews them.\n\nAnd point-of-entry classification rules in Ramp — remember the spray booth. Cleaner books upstream is a faster close downstream.",
       },
       {
         cue: "The brilliant idea",
-        opener: "The international bridge — before it's a fire drill.",
+        opener: "Which is the real idea: instrument the close.",
         rest:
-          "Vast isn't a single entity anymore: Vast Japan GK, plus a French operation flying French astronauts to LEO. That stacks up four real accounting problems.\n\nCurrency translation — ASC 830, and the CTA runs through OCI, not income. Consolidation — OneWorld with eliminations, or someone's doing it by hand. Transfer pricing — documentation that survives a Section 482 exam and a foreign authority's review. And indirect tax — VAT and Consumption Tax, the same discipline I run daily on California sales and use tax.",
+          "Treat books-to-reports like a pipeline. Measure where the hours go, then remove one manual step every month — small builds, each shipped with a before-and-after number.\n\nMost closes never get faster because nobody owns “faster.” I'm offering to own it.",
       },
       {
         cue: "The pitch",
-        opener: "Within ninety days: a documented map of how Japan and France reach the US-GAAP close.",
+        opener: "So, in ninety days:",
         rest:
-          "Not a redesign. Just holding the international side to the standard the domestic stack already meets — before a gap becomes a restatement.",
+          "My close tasks owned. One automation live, with numbers. And a close that gets a step faster every month after that.",
       },
       {
         cue: "The close",

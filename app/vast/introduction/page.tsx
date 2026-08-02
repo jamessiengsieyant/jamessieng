@@ -38,20 +38,24 @@ export default function IntroductionPage() {
         <div className={s.kicker}>Past · how I got here</div>
         <ul className={s.slideList}>
           <li>
-            <b>UC Irvine</b>, 2010–2014
-            <span>Biomedical Engineering &amp; Business Economics.</span>
+            <b>UC Irvine · WGU</b>
+            <span>B.S. Biomedical Engineering &amp; B.A. Business Economics (2010–2014) · B.S. Accounting (2024).</span>
           </li>
           <li>
-            <b>Western Governors University</b>, 2024
-            <span>B.S. Accounting.</span>
+            <b>CPA — all four exams passed</b>
+            <span>Completing the experience requirement.</span>
           </li>
           <li>
-            <b>CPA</b> — all four exams passed
-            <span>Completing the experience requirement, alongside the Enrolled Agent credential — admitted to practice before the IRS.</span>
+            <b>Enrolled Agent — admitted to practice before the IRS</b>
+            <span>Business returns through Form 1120 — I read small-business books for a living: trial balance, Schedule L, M-1.</span>
           </li>
           <li>
-            <b>Salesforce &amp; QuickBooks certified</b>
-            <span>Built a LIMS, a Salesforce PM system (PMify), a QuickBooks↔Salesforce AP/AR sync, and an Apex survey platform.</span>
+            <b>7× Salesforce certified · QuickBooks ProAdvisor</b>
+            <span>PMify · Survey Builder (Apex) · QuickBooks↔Salesforce AP/AR sync · LIMS with asset tracking.</span>
+          </li>
+          <li>
+            <b>Security &amp; IT</b>
+            <span>CISSP passed · CompTIA A+, Network+, Security+ · ISC2 CC · AWS CCP.</span>
           </li>
         </ul>
       </section>

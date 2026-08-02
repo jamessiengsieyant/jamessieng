@@ -7,43 +7,63 @@ export default function Topic2Page() {
       <section className={`${s.slide} ${s.divider}`}>
         <div className={s.kicker}>Part 03 · Topic 2</div>
         <h1 className={s.h1}>The first 90 days.</h1>
-        <p className={s.sub}>Learn it. Plan it. Ship it.</p>
+        <p className={s.sub}>Learn the job honestly. Contribute like a builder.</p>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>Said plainly</div>
+        <h2 className={s.h2}>I haven&rsquo;t done international accounting.</h2>
+        <p className={s.sub}>But FAR tested consolidation and currency translation — I have the standards. What I lack is reps. The next ninety days are how I get them fast, without slowing your close down.</p>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>The study map</div>
+        <ul className={s.slideList}>
+          <li><b>Currency translation · ASC 830</b><span>JPY and EUR to USD — the CTA runs through OCI, not the income statement.</span></li>
+          <li><b>Consolidation &amp; eliminations</b><span>Intercompany, investment, minority interest — OneWorld or by hand.</span></li>
+          <li><b>Transfer pricing</b><span>Arm&rsquo;s-length documentation for Section 482 and French/Japanese review.</span></li>
+          <li><b>Indirect tax</b><span>VAT and Consumption Tax — the discipline I run daily on CA sales &amp; use tax.</span></li>
+        </ul>
       </section>
 
       <section className={s.slide}>
         <div className={s.kicker}>Days 1–30 · Learn</div>
         <ul className={s.slideList}>
-          <li><b>Map the policy</b><span>Chart of accounts, capitalization threshold — documented or tribal knowledge?</span></li>
-          <li><b>Understand Ramp</b><span>Category mappings, AI-coding accuracy, which vendors trigger reclasses most.</span></li>
-          <li><b>Shadow month-end close</b><span>Where do manual reclasses happen? That friction is the opportunity.</span></li>
+          <li><b>Walk one close by hand</b><span>Follow Japan&rsquo;s package through translation and eliminations into the consolidated statements — once, manually.</span></li>
+          <li><b>Learn the PBC universe</b><span>What the auditors asked for last time, and what dragged.</span></li>
+          <li><b>Map the OneWorld config</b><span>Entities, currencies, elimination rules.</span></li>
         </ul>
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Days 30–60 · Plan</div>
+        <div className={s.kicker}>Days 30–60 · Contribute</div>
         <ul className={s.slideList}>
-          <li><b>Tighten GL coding rules</b><span>For the calls that recur most — CCA/SaaS costs, capex threshold edge cases.</span></li>
-          <li><b>Document the policy crisply</b><span>With the controller / FP&amp;A, if it isn&rsquo;t already.</span></li>
-          <li><b>Quantify the reclass problem</b><span>How many per month, how much time it costs.</span></li>
+          <li><b>Own real close tasks, under review</b><span>Reconciliations, translation entries — mine, checked by someone senior.</span></li>
+          <li><b>Time the close</b><span>Where do the hours actually go?</span></li>
+          <li><b>Pick one automation with the controller</b><span>Highest pain, lowest risk.</span></li>
         </ul>
       </section>
 
       <section className={s.slide}>
         <div className={s.kicker}>Days 60–90 · Ship</div>
         <ul className={s.slideList}>
-          <li><b>Pilot the Ramp coding rules</b><span>On a narrow slice of spend, with a before/after on reclass volume.</span></li>
-          <li><b>Deliver the international consolidation map</b><span>How Japan and France actually flow into the US-GAAP close today.</span></li>
+          <li><b>My close slice, fully owned</b><span>No training wheels.</span></li>
+          <li><b>First automation live</b><span>With a before-and-after number.</span></li>
+          <li><b>Both documented</b><span>Well enough to survive me.</span></li>
         </ul>
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Quick win</div>
-        <h2 className={s.h2}>Route the capitalize call to the point of entry.</h2>
-        <p className={s.sub}>Ramp&rsquo;s AI coding is fast and generally accurate — not built to catch a threshold crossing, or a SaaS invoice blending capitalizable setup with training costs.</p>
+        <div className={s.kicker}>While I learn — the builder part</div>
+        <ul className={s.slideList}>
+          <li><b>1 · A PBC tracker</b><span>Audit requests tracked like projects, status visible to everyone. I&rsquo;ve built exactly this before.</span></li>
+          <li><b>2 · A package pre-check</b><span>Automated completeness and tie-out checks on subsidiary packages, before a human reviews them.</span></li>
+          <li><b>3 · Point-of-entry classification rules</b><span>Remember the spray booth. Cleaner books upstream is a faster close downstream.</span></li>
+        </ul>
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>The fix</div>
+        <div className={s.kicker}>Build 3 · Point of entry</div>
         <div className={s.flowWrap}>
           <div className={s.step}>Transaction hits Ramp</div>
           <div className={s.arrow}>↓ AI category + rules</div>
@@ -55,36 +75,33 @@ export default function Topic2Page() {
           <div className={s.arrow}>↓</div>
           <div className={s.step}>Approved coding syncs to NetSuite</div>
         </div>
-        <p className={s.sub} style={{ marginTop: 20 }}>Small build. Fewer reclass entries at close, a cleaner audit trail.</p>
       </section>
 
       <section className={s.slide}>
         <div className={s.kicker}>What it looks like</div>
         <h3 className={s.h3}>Not a real screen recording — a mockup of the flow.</h3>
         <MockupClip />
-        <p className={s.sub} style={{ marginTop: 20 }}>The point isn&rsquo;t the pixels. It&rsquo;s that the flag happens the moment the invoice lands — not three weeks later at close.</p>
+        <p className={s.sub} style={{ marginTop: 20 }}>The flag happens the moment the invoice lands — not three weeks later at close.</p>
       </section>
 
       <section className={s.slide}>
         <div className={s.kicker}>The brilliant idea</div>
-        <h2 className={s.h2}>The international bridge — before it&rsquo;s a fire drill.</h2>
-        <p className={s.sub}>Vast Japan GK in Tokyo. A French operation tied to flying French astronauts to LEO. Two real subsidiaries on the same close calendar.</p>
+        <h2 className={s.h2}>Instrument the close.</h2>
+        <p className={s.sub}>Treat books-to-reports like a pipeline: measure where the hours go, then remove one manual step every month — each small build shipped with a before-and-after number.</p>
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Four real accounting problems</div>
+        <div className={s.kicker}>Why it works</div>
         <ul className={s.slideList}>
-          <li><b>Currency translation · ASC 830</b><span>JPY and EUR to USD — the CTA runs through OCI, not the income statement.</span></li>
-          <li><b>Multi-entity consolidation</b><span>NetSuite OneWorld with intercompany elimination, or by hand — manual breaks first as volume grows.</span></li>
-          <li><b>Transfer pricing</b><span>Arm&rsquo;s-length documentation for US Section 482 and French/Japanese review.</span></li>
-          <li><b>Indirect tax</b><span>French VAT, Japanese Consumption Tax — same discipline I run daily on CA sales &amp; use tax.</span></li>
+          <li><b>Most closes never get faster</b><span>Because nobody owns &ldquo;faster.&rdquo; I&rsquo;m offering to own it.</span></li>
+          <li><b>The first three builds are already scoped</b><span>PBC tracker · package pre-check · point-of-entry rules.</span></li>
+          <li><b>Every build ships with a number</b><span>Hours saved, requests tracked, reclasses avoided — measured, not claimed.</span></li>
         </ul>
       </section>
 
       <section className={s.slide}>
         <div className={s.kicker}>The pitch</div>
-        <h3 className={s.h3}>Within 90 days: a documented map of how Japan and France flow into the US-GAAP close today.</h3>
-        <p className={s.sub}>Not a redesign — making sure the multi-entity structure already running Ramp and NetSuite domestically holds to the same standard internationally, before a gap becomes a restatement.</p>
+        <h3 className={s.h3}>In 90 days: my close tasks owned, one automation live with numbers — and a close that gets a step faster every month after.</h3>
       </section>
     </div>
   );

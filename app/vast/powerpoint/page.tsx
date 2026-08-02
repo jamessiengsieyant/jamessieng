@@ -37,12 +37,13 @@ const SLIDES: SlideDef[] = [
   {
     t: "list", kick: "How I got here", title: "Education & credentials.",
     items: [
-      { lead: "UC Irvine, 2010–2014", sub: "Biomedical Engineering & Business Economics." },
-      { lead: "Western Governors University, 2024", sub: "B.S. Accounting." },
-      { lead: "CPA — all four exams passed", sub: "Completing the experience requirement; Enrolled Agent — admitted to practice before the IRS." },
-      { lead: "Salesforce & QuickBooks certified", sub: "PMify · Survey Builder (Apex) · QuickBooks↔Salesforce AP/AR sync · LIMS with asset tracking." },
+      { lead: "UC Irvine · WGU", sub: "B.S. Biomedical Engineering & B.A. Business Economics (2010–2014) · B.S. Accounting (2024)." },
+      { lead: "CPA — all four exams passed", sub: "Completing the experience requirement." },
+      { lead: "Enrolled Agent — admitted to practice before the IRS", sub: "Business returns through Form 1120 — I read small-business books for a living: trial balance, Schedule L, M-1." },
+      { lead: "7× Salesforce certified · QuickBooks ProAdvisor", sub: "PMify · Survey Builder (Apex) · QuickBooks↔Salesforce AP/AR sync · LIMS." },
+      { lead: "Security & IT", sub: "CISSP passed · CompTIA A+, Network+, Security+ · ISC2 CC · AWS CCP." },
     ],
-    notes: "Two degrees from UC Irvine, then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement — plus the Enrolled Agent credential, admitted to practice before the IRS. Salesforce and QuickBooks certified; the builds are on screen.",
+    notes: "Two degrees from UC Irvine, then a Bachelor's in Accounting from WGU in 2024. All four CPA exams passed — finishing the experience requirement now. The credential I lean on daily: Enrolled Agent — admitted to practice before the IRS. I prepare business returns up through Form 1120, which means I read small-business books for a living — trial balance to Schedule L, book-to-tax on the M-1. Books to returns is my normal commute. On the systems side: seven Salesforce certifications, QuickBooks ProAdvisor, CISSP passed, three CompTIA certs, ISC2's CC.",
   },
   {
     t: "statement", kick: "The NetSuite question", title: "Platforms transfer.",
@@ -147,64 +148,74 @@ const SLIDES: SlideDef[] = [
   },
   {
     t: "statement", kick: "Part 03 · Topic 2", title: "The first\n90 days.",
-    sub: "Learn it. Plan it. Ship it.",
-    notes: "Topic two: my first ninety days. Learn it, plan it, ship it — and one idea at the end that I think is worth your time.",
+    sub: "Learn the job honestly. Contribute like a builder.",
+    notes: "Topic two: my first ninety days. Straight up — this is a learning plan and a contribution plan at the same time. You know I haven't done international accounting, so I'll tell you exactly how I get useful fast, and what I bring while I do.",
   },
   {
-    t: "list", kick: "Days 1–30 · Learn", title: "Learn the machine before touching it.",
-    items: [
-      { lead: "Map the policy", sub: "Chart of accounts, capitalization threshold — documented or tribal knowledge?" },
-      { lead: "Understand Ramp", sub: "Category mappings, AI-coding accuracy, which vendors trigger reclasses most." },
-      { lead: "Shadow month-end close", sub: "Write down every manual reclass — that friction is the opportunity." },
-    ],
-    notes: "Month one: learn the machine before touching it. Map the chart of accounts and the capitalization policy — written down or tribal knowledge? Learn how Ramp is configured and which vendors trigger reclasses. Shadow a close and write down every manual reclass — that friction is the opportunity.",
+    t: "statement", kick: "Said plainly", title: "I haven’t done\ninternational accounting.",
+    sub: "FAR tested consolidation and translation — I have the standards. I lack the reps. Here’s how I get them fast, without slowing your close down.",
+    notes: "Say the obvious part out loud: I haven't done international accounting. What I do have is the standards — FAR tested consolidation and currency translation. ASC 830, eliminations, the CTA through OCI. I know the rules; I lack the reps. The next ninety days are how I get reps without slowing your close down.",
   },
   {
-    t: "list", kick: "Days 30–60 · Plan", title: "Turn the pattern into a number.",
-    items: [
-      { lead: "Quantify the reclass problem", sub: "How many per month, how much time they cost." },
-      { lead: "Tighten GL coding rules", sub: "SaaS implementation costs, capex threshold edge cases." },
-      { lead: "Document the policy crisply", sub: "With the controller — before building anything." },
-    ],
-    notes: "Month two: turn the pattern into a number. How many reclasses a month and what they cost in hours. Tighten the coding rules for the repeat offenders. Get the policy documented with the controller before building anything.",
-  },
-  {
-    t: "list", kick: "Days 60–90 · Ship", title: "Ship something. Prove it worked.",
-    items: [
-      { lead: "Pilot the Ramp coding rules", sub: "Narrow slice of spend, before/after on reclass volume." },
-      { lead: "Deliver the international consolidation map", sub: "How Japan and France actually flow into the US-GAAP close today." },
-    ],
-    notes: "Month three: ship something and prove it worked. Pilot the Ramp coding rules on a narrow slice of spend with before-and-after numbers. And deliver the international consolidation map — how Japan and France actually reach the US-GAAP close today.",
-  },
-  {
-    t: "statement", kick: "Quick win", title: "Route the capitalize call\nto the point of entry.",
-    sub: "Ramp’s AI coding is fast — but not built to catch a threshold crossing, or a SaaS bill blending setup with training.",
-    notes: "Route the capitalize call to the point of entry. Ramp's AI coding is fast — but it isn't built to catch the two patterns that cause rework: a threshold crossing, and a SaaS bill mixing capitalizable setup with training costs.",
-  },
-  {
-    t: "flow", kick: "The fix", title: "A rules layer in front of NetSuite.",
-    tail: "Remember the spray booth — this catches it on day one.",
-    notes: "A thin rules layer: flag those two patterns before they sync to NetSuite, route them to a short review queue. Fewer reclasses, cleaner audit trail — and remember the spray booth. This catches it on day one.",
-  },
-  {
-    t: "statement", kick: "The brilliant idea", title: "The international bridge —\nbefore it’s a fire drill.",
-    sub: "Vast Japan GK in Tokyo. A French operation flying French astronauts to LEO. Two real subsidiaries, one close calendar.",
-    notes: "The international bridge — before it's a fire drill. Vast isn't a single entity anymore: Vast Japan GK, plus a French operation flying French astronauts to LEO. Two real subsidiaries on the same close calendar.",
-  },
-  {
-    t: "list", kick: "Four real accounting problems", title: "What “international” actually means.",
+    t: "list", kick: "The study map", title: "Four problems, and I know their names.",
     items: [
       { lead: "Currency translation · ASC 830", sub: "JPY and EUR to USD — the CTA runs through OCI, not the income statement." },
-      { lead: "Multi-entity consolidation", sub: "OneWorld with eliminations — or by hand, and manual breaks first as volume grows." },
+      { lead: "Consolidation & eliminations", sub: "Intercompany, investment, minority interest — OneWorld or by hand." },
       { lead: "Transfer pricing", sub: "Arm’s-length documentation for Section 482 and French/Japanese review." },
       { lead: "Indirect tax", sub: "VAT and Consumption Tax — the discipline I run daily on CA sales & use tax." },
     ],
-    notes: "Four real problems: ASC 830 currency translation — the CTA runs through OCI, not income. Consolidation — OneWorld with eliminations, or someone's doing it by hand. Transfer pricing — documentation that survives Section 482 and a foreign authority's review. Indirect tax — VAT and Consumption Tax, the discipline I run daily on California sales and use tax.",
+    notes: "The terrain has four problems, and I already know their names. Currency translation — ASC 830, the CTA through OCI, not income. Consolidation — intercompany and investment eliminations. Transfer pricing — documentation that survives Section 482 and a foreign authority's review. Indirect tax — VAT and Consumption Tax, the same discipline I run daily on California sales and use tax.",
   },
   {
-    t: "statement", kick: "The pitch", title: "A documented map of the\nclose — within 90 days.",
-    sub: "Not a redesign. The standard Vast already holds domestically, extended internationally — before a gap becomes a restatement.",
-    notes: "Within ninety days: a documented map of how Japan and France reach the US-GAAP close. Not a redesign — just holding the international side to the standard the domestic stack already meets, before a gap becomes a restatement.",
+    t: "list", kick: "Days 1–30 · Learn", title: "Walk one close by hand.",
+    items: [
+      { lead: "Follow Japan’s package all the way through", sub: "Translation, eliminations, into the consolidated statements — once, manually." },
+      { lead: "Learn the PBC universe", sub: "What the auditors asked for last time, and what dragged." },
+      { lead: "Map the OneWorld config", sub: "Entities, currencies, elimination rules." },
+    ],
+    notes: "Month one: walk one close by hand. Follow Japan's reporting package all the way through — translation, eliminations, into the consolidated statements — once, manually, so I know where it breaks. Learn the PBC universe: what the auditors asked for last time, and what dragged. Map how OneWorld is configured.",
+  },
+  {
+    t: "list", kick: "Days 30–60 · Contribute", title: "Real close tasks, under review.",
+    items: [
+      { lead: "Own reconciliations & translation entries", sub: "Mine — checked by someone senior." },
+      { lead: "Time the close", sub: "Where do the hours actually go?" },
+      { lead: "Pick one automation with the controller", sub: "Highest pain, lowest risk." },
+    ],
+    notes: "Month two: real close tasks, under review. Reconciliations, translation entries — mine, checked by someone senior. While I'm in there, I time the close: where do the hours actually go? Then I pick one automation with the controller — highest pain, lowest risk.",
+  },
+  {
+    t: "list", kick: "Days 60–90 · Ship", title: "Own my slice. Ship the first automation.",
+    items: [
+      { lead: "My close tasks, fully mine", sub: "No training wheels." },
+      { lead: "First automation live", sub: "With a before-and-after number." },
+      { lead: "Both documented", sub: "Well enough to survive me." },
+    ],
+    notes: "Month three: own my slice, ship the first automation. My close tasks fully mine. The automation live, with a before-and-after number. Both documented well enough to survive me.",
+  },
+  {
+    t: "list", kick: "While I learn — the builder part", title: "Three builds I already know how to make.",
+    items: [
+      { lead: "1 · A PBC tracker", sub: "Audit requests tracked like projects, status visible to everyone. I’ve built exactly this before." },
+      { lead: "2 · A package pre-check", sub: "Automated completeness and tie-out checks on subsidiary packages, before a human reviews." },
+      { lead: "3 · Point-of-entry classification rules", sub: "Remember the spray booth. Cleaner books upstream is a faster close downstream." },
+    ],
+    notes: "Now the part I bring on day one: the builder part. Three builds I already know how to make. A PBC tracker — audit requests tracked like projects; I've built exactly this before. A package pre-check — automated completeness and tie-out checks before a human reviews. And point-of-entry classification rules in Ramp — remember the spray booth. Cleaner books upstream is a faster close downstream.",
+  },
+  {
+    t: "flow", kick: "Build 3 · Point of entry", title: "A rules layer in front of NetSuite.",
+    tail: "Remember the spray booth — this catches it on day one.",
+    notes: "Build three in one picture: flag the two rework patterns before they sync to NetSuite, route them to a short review queue. Fewer reclasses, cleaner audit trail.",
+  },
+  {
+    t: "statement", kick: "The brilliant idea", title: "Instrument\nthe close.",
+    sub: "Books-to-reports as a pipeline: measure where the hours go, then remove one manual step every month — each build shipped with a before/after number.",
+    notes: "Which is the real idea: instrument the close. Treat books-to-reports like a pipeline. Measure where the hours go, then remove one manual step every month — small builds, each shipped with a before-and-after number. Most closes never get faster because nobody owns “faster.” I'm offering to own it. SLOW DOWN on that line.",
+  },
+  {
+    t: "statement", kick: "The pitch", title: "In 90 days:",
+    sub: "My close tasks owned. One automation live, with numbers. And a close that gets a step faster every month after that.",
+    notes: "So, in ninety days: my close tasks owned. One automation live, with numbers. And a close that gets a step faster every month after that.",
   },
   {
     t: "statement", kick: "Close", title: "Auditor’s skepticism.\nBuilder’s toolkit.",
