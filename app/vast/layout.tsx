@@ -11,7 +11,10 @@ export default function VastLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isScript = pathname === "/vast/script" || pathname === "/vast/powerpoint";
+  const isScript =
+    pathname === "/vast/script" ||
+    pathname === "/vast/powerpoint" ||
+    pathname === "/vast/role";
   const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
 
   return (
@@ -28,6 +31,7 @@ export default function VastLayout({
             <Link href="/vast/topic-2">Topic 2</Link>
             <Link href="/vast/script">Script</Link>
             <Link href="/vast/powerpoint">PowerPoint</Link>
+            <Link href="/vast/role">The Role</Link>
             <UserButton />
           </div>
         </div>

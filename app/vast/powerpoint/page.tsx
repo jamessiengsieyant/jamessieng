@@ -223,7 +223,7 @@ function SlideView({ s }: { s: SlideDef }) {
       <div style={{ padding: pad, display: "flex", flexDirection: "column", justifyContent: "center", height: "100%" }}>
         <Kicker>Final Round · Vast Space</Kicker>
         <div style={{ fontSize: "3.6em", fontWeight: 800, color: LIGHT, lineHeight: 1.02, margin: "0.25em 0 0.2em" }}>James Sieng</div>
-        <div style={{ fontSize: "1.05em", color: MUTED }}>Staff Accountant — Fixed Assets &amp; General Ledger</div>
+        <div style={{ fontSize: "1.05em", color: MUTED }}>Staff Accountant — International Accounting &amp; Accounting Operations</div>
       </div>
     );
   }
