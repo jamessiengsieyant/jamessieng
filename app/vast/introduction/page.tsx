@@ -65,8 +65,8 @@ export default function IntroductionPage() {
 
       <section className={s.slide}>
         <div className={s.kicker}>For fun</div>
-        <h2 className={s.h2}>Guitar, vocals, unfinished songs.</h2>
-        <p className={s.sub}>Building an album is a lot like building an accounting system: structure that makes room for the interesting work.</p>
+        <h2 className={s.h2}>I sing.<br />I play guitar.</h2>
+        <p className={s.sub}>Sometimes both at the same time.</p>
       </section>
     </div>
   );

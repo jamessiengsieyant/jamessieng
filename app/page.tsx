@@ -125,10 +125,9 @@ export default function Home() {
           <div className="mono">03 — Outside the ledger</div>
           <h2>For fun.</h2>
           <p>
-            I write and record music — guitar and vocals — and I&apos;m slowly working
-            toward a full album. The through-line with accounting is not as strange as
-            it sounds: both are structured systems where the constraints are the
-            interesting part.
+            I sing, and I play guitar — sometimes both at the same time. The
+            through-line with accounting is not as strange as it sounds: both are
+            structured systems where the constraints are the interesting part.
           </p>
         </div>
       </section>

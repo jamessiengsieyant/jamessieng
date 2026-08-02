@@ -36,9 +36,9 @@ const SECTIONS: Section[] = [
       },
       {
         cue: "For fun",
-        opener: "I write and record music — guitar and vocals.",
+        opener: "I sing, and I play guitar.",
         rest:
-          "Albums and accounting systems are alike: the constraints are where the interesting work happens.",
+          "Sometimes both at the same time.\n\nAnd the through-line with accounting is real: both are structured systems where the constraints are the interesting part.",
       },
     ],
   },
