@@ -70,7 +70,7 @@ vec3 stars(vec3 dir) {
       float d  = length(f - jitter * 0.6);
       float mag = (h - 0.972) / 0.028;
       float tw = 0.75 + 0.25 * sin(uTime * 1.4 + h * 90.0);
-      // slightly varied stellar colours
+      // slightly varied stellar colors
       vec3 tint = mix(vec3(0.72, 0.82, 1.0), vec3(1.0, 0.9, 0.76), hash31(id + 3.0));
       acc += tint * smoothstep(0.45, 0.0, d) * mag * tw * 0.9;
     }

@@ -1,16 +1,25 @@
 import SiteNav from "../components/SiteNav";
+import BrandIcon, { type BrandName } from "../components/BrandIcon";
 
 export const metadata = {
   title: "Specs — James Sieng",
   description: "What this site is built with, and what it deliberately leaves out.",
 };
 
-function Row({ k, v }: { k: string; v: string }) {
+function Row({ icon, k, v }: { icon: BrandName; k: string; v: string }) {
   return (
     <div className="card">
       <div className="cred">
-        <span className="k">{k}</span>
-        <span className="v">{v}</span>
+        <span
+          className="k"
+          style={{ display: "flex", alignItems: "center", gap: 10 }}
+        >
+          <BrandIcon name={icon} />
+          {k}
+        </span>
+        <span className="v" style={{ marginTop: 4 }}>
+          {v}
+        </span>
       </div>
     </div>
   );
@@ -39,12 +48,12 @@ export default function SpecsPage() {
           <div className="mono">01 — Stack</div>
           <h2>The short version.</h2>
           <div className="grid grid-3" style={{ marginTop: 28 }}>
-            <Row k="Next.js 16" v="App Router, React Server Components, Turbopack builds" />
-            <Row k="React 19" v="Server components by default; client components only where state or WebGL demands it" />
-            <Row k="TypeScript 5" v="Strict mode — the build fails before a type error can ship" />
-            <Row k="three.js" v="WebGL scene behind the presentation: Earth, starfield, Haven-1's window" />
-            <Row k="Clerk" v="Authentication, plus a server-side email allowlist for the portal" />
-            <Row k="Netlify" v="Continuous deploy from GitHub — push to master, it's live in about a minute" />
+            <Row icon="next" k="Next.js 16" v="App Router, React Server Components, Turbopack builds" />
+            <Row icon="react" k="React 19" v="Server components by default; client components only where state or WebGL demands it" />
+            <Row icon="typescript" k="TypeScript 5" v="Strict mode — the build fails before a type error can ship" />
+            <Row icon="three" k="three.js" v="WebGL for both scenes: the black hole here, Haven-1's window behind the presentation" />
+            <Row icon="clerk" k="Clerk" v="Authentication, plus a server-side email allowlist for the portal" />
+            <Row icon="netlify" k="Netlify" v="Continuous deploy from GitHub — push to master, it's live in about a minute" />
           </div>
         </div>
       </section>
@@ -88,7 +97,7 @@ export default function SpecsPage() {
               </span>
             </li>
             <li>
-              <span className="yr">Colour</span>
+              <span className="yr">Color</span>
               <span className="body">
                 <strong>Temperature, plus the climb out</strong>
                 <span>
@@ -263,8 +272,9 @@ export default function SpecsPage() {
               <span className="yr">No images</span>
               <span className="body">
                 <span>
-                  Not one raster file in the presentation. Every visual is geometry, shader, or
-                  text.
+                  Not one raster file anywhere. Every visual is geometry, shader, or text — even
+                  the brand marks above are SVG paths written into the page, so nothing is
+                  fetched.
                 </span>
               </span>
             </li>

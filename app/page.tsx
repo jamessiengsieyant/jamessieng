@@ -37,9 +37,9 @@ export default function Home() {
             <div className="grid grid-3" style={{ marginTop: 28 }}>
               <div className="card">
                 <div className="cred">
-                  <span className="k">CPA (Passed)</span>
+                  <span className="k">CPA</span>
                   <span className="v">
-                    All exams passed — experience requirement in progress
+                    All four exams passed — experience requirement in progress
                   </span>
                 </div>
               </div>
@@ -52,28 +52,38 @@ export default function Home() {
               <div className="card">
                 <div className="cred">
                   <span className="k">Salesforce</span>
-                  <span className="v">Administrator &amp; Advanced Administrator</span>
-                </div>
-              </div>
-              <div className="card">
-                <div className="cred">
-                  <span className="k">QuickBooks Certified</span>
-                  <span className="v">ProAdvisor</span>
-                </div>
-              </div>
-              <div className="card">
-                <div className="cred">
-                  <span className="k">Security &amp; Cloud</span>
                   <span className="v">
-                    CISSP (passed) · CompTIA A+/Network+/Security+ · AWS CCP · ISC2 CC
+                    7× certified · Administrator &amp; Advanced Administrator
                   </span>
                 </div>
               </div>
               <div className="card">
                 <div className="cred">
+                  <span className="k">QuickBooks</span>
+                  <span className="v">Certified ProAdvisor</span>
+                </div>
+              </div>
+              <div className="card">
+                <div className="cred">
+                  <span className="k">ISC2</span>
+                  <span className="v">
+                    CISSP (passed) · Certified in Cybersecurity
+                  </span>
+                </div>
+              </div>
+              <div className="card">
+                <div className="cred">
+                  <span className="k">CompTIA &amp; AWS</span>
+                  <span className="v">
+                    A+ · Network+ · Security+ · Cloud Practitioner
+                  </span>
+                </div>
+              </div>
+              <div className="card" style={{ gridColumn: "1 / -1" }}>
+                <div className="cred">
                   <span className="k">Education</span>
                   <span className="v">
-                    UC Irvine — B.S. Biomedical Engineering · B.A. Business
+                    UC Irvine — B.S. Biomedical Engineering &amp; B.A. Business
                     Economics · WGU — B.S. Accounting
                   </span>
                 </div>
