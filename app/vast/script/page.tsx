@@ -59,43 +59,43 @@ const SECTIONS: Section[] = [
           "From my CDTFA work. Details disguised, no names. But the decision is real, and it's one I make regularly.",
       },
       {
-        cue: "The purchases exam",
+        cue: "S · The purchases exam",
         opener: "People think a sales tax audit only looks at sales. It doesn't.",
         rest:
           "Every field audit examines purchases too — and step one is splitting them into two piles: fixed assets, and expense items. That split is a capitalization review. Same question you ask at Vast — is this an asset, or an expense? I just come at it from the enforcement side.",
       },
       {
-        cue: "The find",
+        cue: "S · The find",
         opener: "Auto body shop. I'm going through repairs and maintenance, line by line.",
         rest:
           "R&M is where assets go to hide — not because people cheat, but because of how bookkeeping happens. I'll come back to that.\n\nAnd there it is: a twenty-thousand-dollar invoice. Out-of-state vendor. No tax charged. A spray booth — equipment, freight, and installation on one invoice. Coded to repairs. And not on the depreciation schedule.",
       },
       {
-        cue: "The decision — three factors",
+        cue: "T · The decision — three factors",
         opener: "Now I have a call to make — and I have to defend it.",
         rest:
           "Repair, or capital asset? If it's an asset, two things follow: it belonged on their books as equipment, and use tax was due — never paid.\n\nThree factors. It added capability — they weren't fixing a booth, they were acquiring one. Useful life in years, not months. And my favorite: their own books contradicted themselves — expensed in R&M, missing from the depreciation schedule they kept for everything else. Their own records told on them.",
       },
       {
-        cue: "The measure",
+        cue: "A · The measure",
         opener: "I called it a capital asset and computed the measure.",
         rest:
           "Purchase price, plus freight, plus installation — the cost of putting the asset in service. Same rule as ASC 360 basis. Tax and book agree on that one.",
       },
       {
-        cue: "It cuts both ways",
+        cue: "A · It cuts both ways",
         opener: "But the same account had real repairs — and I left those alone.",
         rest:
           "Compressor service. Filters. Genuinely expenses. If the call only ever goes one direction, it's not judgment — it's a shakedown. A defensible position cuts both ways.",
       },
       {
-        cue: "Result",
+        cue: "R · Result",
         opener: "At the exit conference, I walked the owner and their CPA through it.",
         rest:
           "Useful life. Added capability. The full measure. The classification held, the assessment stood — and going forward, the booth went on the books and a use-tax accrual process was set up to catch the next big purchase.",
       },
       {
-        cue: "Lesson — point of entry",
+        cue: "L · Lesson — point of entry",
         opener: "Nobody at that shop was cheating.",
         rest:
           "The invoice came from a vendor that sounded like a repair vendor, got filed where repair invoices go, and sat there wrong for three years — until I showed up.\n\nThe capitalize-or-expense call was made by default, at data entry, by the person with the least context. The fix isn't better bookkeepers. It's making the call at the point of entry — on purpose, under a written policy. Hold that thought for Topic 2.",
@@ -113,49 +113,49 @@ const SECTIONS: Section[] = [
           "First story: I caught someone else's classification. This time, the cost was my own time — and I'll be straight about how the decision actually got made. That's where the lesson is.",
       },
       {
-        cue: "Context — the builds",
+        cue: "S · Context — the builds",
         opener: "ForensisGroup runs its practice on Salesforce.",
         rest:
           "I did systems work for them — built two things on top of that subscription. PMify, a project management system. And Survey Builder, a survey platform I wrote in Apex. About four months of development.",
       },
       {
-        cue: "The rule — ASC 350-40",
+        cue: "S · The rule — ASC 350-40",
         opener: "A Salesforce subscription is a cloud computing arrangement — ASC 350-40.",
         rest:
           "The subscription fee is never an asset — it's rent. But implementation costs — configuration, customization, coding, testing — those are capitalizable. And here's what most people miss: internal payroll counts. The standard doesn't require a consultant's invoice.",
       },
       {
-        cue: "“The invoice was me”",
+        cue: "T · “The invoice was me”",
         opener: "There was no consultant invoice — the invoice was me.",
         rest:
           "Four months of configuring, customizing, testing. So “we didn't pay anyone” isn't an answer. The question was real: should some of that cost sit on the balance sheet?",
       },
       {
-        cue: "What actually happened",
+        cue: "R · What actually happened",
         opener: "Here's what actually happened — no dressing it up.",
         rest:
           "It ran through payroll and got expensed as incurred. No capitalization discussion. Nobody asked the question — including me. The decision was made by default.",
       },
       {
-        cue: "Three tests",
+        cue: "A · Three tests",
         opener: "What I can stand behind is the conclusion — I've since worked it like an auditor would.",
         rest:
           "Measurement: no time records separating dev work from everything else — so any capitalized number would be a reconstruction. I'd never accept one from a taxpayer, so I won't accept one from me.\n\nStage mix: heavy on scoping up front and training at the end — both expensed under the standard anyway.\n\nMateriality: at that firm's size, the capitalizable slice changes nobody's view of the financials.",
       },
       {
-        cue: "The key sentence",
+        cue: "R · The key sentence",
         opener: "Expense was the right answer — reached the wrong way.",
         rest:
           "A defensible answer without documentation is still an undocumented answer. If an auditor walked in, the position holds — but nobody could hand them the memo that proves it. That's the gap.",
       },
       {
-        cue: "What I'd do differently",
+        cue: "L · What I'd do differently",
         opener: "Three things I'd do differently.",
         rest:
           "Track hours while it's happening — not to force capitalization, to preserve the option. Once the quarter closes, the ability to measure is gone.\n\nWrite the memo even when the answer is “expense.” One hour turns a default into a position.\n\nAnd know when scale flips the answer. At Vast — real invoices, dedicated engineers, material dollars — the same framework lands the other way. You've lived this: someone had to make this exact call on the NetSuite and Ramp implementations.",
       },
       {
-        cue: "The twist — prepaid, not PP&E",
+        cue: "L · The twist — prepaid, not PP&E",
         opener: "One last twist — a trap I'd want to catch at Vast.",
         rest:
           "A capitalized CCA cost isn't a fixed asset. It's a prepaid-type asset, amortized into the same opex line as the subscription — never depreciation. Coding it to PP&E is wrong even when capitalizing is right.",

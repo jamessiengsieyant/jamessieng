@@ -62,7 +62,7 @@ const SLIDES: SlideDef[] = [
   },
   {
     t: "statement", kick: "Part 02 · Topic 1", title: "Capitalize\nor expense?",
-    sub: "Two real calls. Two different chairs.",
+    sub: "Two real calls, two chairs — each told as STAR: situation, task, action, result. Plus lessons.",
     notes: "First example — let me take you inside a real audit. From my CDTFA work. Details disguised, no names. But the decision is real, and it's one I make regularly.",
   },
   {
@@ -71,14 +71,14 @@ const SLIDES: SlideDef[] = [
     notes: "People think a sales tax audit only looks at sales. It doesn't. Every field audit examines purchases too.",
   },
   {
-    t: "cards", kick: "Every audit starts with a split", title: "Purchases go in two piles.",
+    t: "cards", kick: "Situation · Every audit starts with a split", title: "Purchases go in two piles.",
     a: { h: "Fixed assets", lines: "Equipment, machinery,\nimprovements" },
     b: { h: "Expense items", lines: "Repairs, supplies,\nconsumables" },
     tail: "That split is a capitalization review — I just come at it from the enforcement side.",
     notes: "Step one is splitting purchases into two piles: fixed assets, and expense items. That split IS a capitalization review. Same question you ask at Vast — is this an asset, or an expense? I just come at it from the enforcement side.",
   },
   {
-    t: "list", kick: "The find", title: "In repairs & maintenance:",
+    t: "list", kick: "Situation · The find", title: "In repairs & maintenance:",
     items: [
       { lead: "~$20,000 invoice — coded to R&M", sub: "Repairs & maintenance: where assets go to hide." },
       { lead: "Out-of-state vendor, no tax charged", sub: "Use tax never self-assessed." },
@@ -88,7 +88,7 @@ const SLIDES: SlideDef[] = [
     notes: "Auto body shop, R&M line by line — R&M is where assets go to hide. Not because people cheat; because of how bookkeeping happens. And there it is: twenty thousand dollars, out-of-state vendor, no tax charged. A spray booth — equipment, freight, installation, one invoice. Coded to repairs. Not on the depreciation schedule.",
   },
   {
-    t: "list", kick: "The call", title: "Repair — or capital asset?",
+    t: "list", kick: "Task → Action · The call", title: "Repair — or capital asset?",
     items: [
       { lead: "Added capability — didn’t restore it", sub: "Not fixing a booth. Acquiring one." },
       { lead: "Useful life in years", sub: "Not months." },
@@ -97,12 +97,12 @@ const SLIDES: SlideDef[] = [
     notes: "Now I have a call to make — and I have to defend it. If it's an asset, it belonged on their books, and use tax was due — never paid. Three factors: added capability; useful life in years; and their own books contradicted themselves — expensed in R&M, missing from the schedule. Their own records told on them. I computed the measure: price plus freight plus installation.",
   },
   {
-    t: "statement", kick: "The discipline", title: "It has to cut\nboth ways.",
+    t: "statement", kick: "Action · The discipline", title: "It has to cut\nboth ways.",
     sub: "The genuine repairs — compressor service, filters — I left alone. If the call only goes one direction, it isn’t judgment.",
     notes: "The same account had real repairs — and I left those alone. If the call only ever goes one direction, it's not judgment — it's a shakedown. A defensible position cuts both ways. SLOW DOWN HERE.",
   },
   {
-    t: "list", kick: "Result & lesson", title: "What it left behind.",
+    t: "list", kick: "Result & Lessons", title: "What it left behind.",
     items: [
       { lead: "The classification held", sub: "Defended at exit conference; asset capitalized, use-tax accrual set up." },
       { lead: "Nobody was cheating", sub: "The invoice just landed in the wrong pile — for three years." },
@@ -116,14 +116,14 @@ const SLIDES: SlideDef[] = [
     notes: "Second example — same question, opposite chair. First story I caught someone else's classification; this time the cost was my own time. ForensisGroup runs on Salesforce; I built PMify and Survey Builder on top of it. About four months of development.",
   },
   {
-    t: "cards", kick: "The rule · ASC 350-40 / ASU 2018-15", title: "A subscription is never an asset.\nThe setup might be.",
+    t: "cards", kick: "Situation · The rule — ASC 350-40 / ASU 2018-15", title: "A subscription is never an asset.\nThe setup might be.",
     a: { h: "Capitalize", lines: "Configuration\nCustomization\nCoding & testing" },
     b: { h: "Expense", lines: "Subscription fees\nTraining\nData conversion" },
     tail: "Internal payroll counts — “we didn’t pay a vendor” isn’t an answer.",
     notes: "The subscription fee is never an asset — it's rent. But implementation costs are capitalizable, and internal payroll counts. There was no consultant invoice — the invoice was me. So the question was real: should some of that cost sit on the balance sheet?",
   },
   {
-    t: "list", kick: "What actually happened", title: "Honestly.",
+    t: "list", kick: "Result, then Action · What actually happened", title: "Honestly.",
     items: [
       { lead: "Expensed as incurred — by default", sub: "No capitalization discussion at the time. Nobody asked, including me." },
       { lead: "The conclusion still holds", sub: "No time records · scoping- and training-heavy mix · immaterial at that scale." },
@@ -132,7 +132,7 @@ const SLIDES: SlideDef[] = [
     notes: "No dressing it up: it ran through payroll, expensed as incurred, nobody asked — including me. But I've since worked it like an auditor: no time records, so any number is a reconstruction; scoping and training are expensed anyway; and it's immaterial at that scale. Expense was right — reached the wrong way. KEY SENTENCE, slow down.",
   },
   {
-    t: "list", kick: "What I’d do differently", title: "Three things.",
+    t: "list", kick: "Lessons · What I’d do differently", title: "Three things.",
     items: [
       { lead: "Track hours while it’s happening", sub: "Not to force capitalization — to preserve the option." },
       { lead: "Write the memo even when the answer is “expense”", sub: "An hour of work turns a default into a position." },

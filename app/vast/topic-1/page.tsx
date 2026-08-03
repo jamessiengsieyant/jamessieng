@@ -6,7 +6,7 @@ export default function Topic1Page() {
       <section className={`${s.slide} ${s.divider}`}>
         <div className={s.kicker}>Part 02 · Topic 1</div>
         <h1 className={s.h1}>Capitalize or expense?</h1>
-        <p className={s.sub}>Two real calls. Two different chairs.</p>
+        <p className={s.sub}>Two real calls, two chairs — each told as STAR: situation, task, action, result. Plus lessons.</p>
       </section>
 
       <section className={s.slide}>
@@ -16,7 +16,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Every audit starts with a split</div>
+        <div className={s.kicker}>Situation · Every audit starts with a split</div>
         <div className={s.two}>
           <div className={s.cap}>
             <h4>Fixed assets</h4>
@@ -31,7 +31,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>The find</div>
+        <div className={s.kicker}>Situation · The find</div>
         <ul className={s.slideList}>
           <li><b>~$20,000 invoice — in R&amp;M</b><span>Repairs &amp; maintenance: where assets go to hide.</span></li>
           <li><b>Out-of-state vendor, no tax charged</b><span>Use tax never self-assessed.</span></li>
@@ -41,7 +41,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>The call</div>
+        <div className={s.kicker}>Task → Action · The call</div>
         <ul className={s.slideList}>
           <li><b>Added capability — didn&rsquo;t restore it</b><span>Not fixing a booth. Acquiring one.</span></li>
           <li><b>Useful life in years</b><span>Not months.</span></li>
@@ -50,13 +50,13 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>The discipline</div>
+        <div className={s.kicker}>Action · The discipline</div>
         <h2 className={s.h2}>It has to cut both ways.</h2>
         <p className={s.sub}>The genuine repairs in that account — compressor service, filters — I left alone. If the call only goes one direction, it isn&rsquo;t judgment.</p>
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Result &amp; lesson</div>
+        <div className={s.kicker}>Result &amp; Lessons</div>
         <ul className={s.slideList}>
           <li><b>The classification held</b><span>Defended at exit conference; asset capitalized, use-tax accrual set up.</span></li>
           <li><b>Nobody was cheating</b><span>The invoice just landed in the wrong pile — for three years.</span></li>
@@ -71,7 +71,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>The rule · ASC 350-40 / ASU 2018-15</div>
+        <div className={s.kicker}>Situation · The rule — ASC 350-40 / ASU 2018-15</div>
         <h3 className={s.h3}>A subscription is never an asset. The setup might be.</h3>
         <div className={s.two}>
           <div className={s.cap}>
@@ -87,7 +87,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>What actually happened</div>
+        <div className={s.kicker}>Result, then Action · What actually happened</div>
         <ul className={s.slideList}>
           <li><b>Expensed as incurred — by default</b><span>No capitalization discussion at the time. Nobody asked, including me.</span></li>
           <li><b>The conclusion still holds</b><span>No contemporaneous time records · scoping &amp; training-heavy mix · immaterial at that scale.</span></li>
@@ -96,7 +96,7 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>What I&rsquo;d do differently</div>
+        <div className={s.kicker}>Lessons · What I&rsquo;d do differently</div>
         <ul className={s.slideList}>
           <li><b>Track hours while it&rsquo;s happening</b><span>Not to force capitalization — to preserve the option.</span></li>
           <li><b>Write the memo even when the answer is &ldquo;expense&rdquo;</b><span>An hour of work turns a default into a position.</span></li>
