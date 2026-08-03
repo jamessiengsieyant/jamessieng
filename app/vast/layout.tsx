@@ -23,9 +23,14 @@ export default function VastLayout({
       {!isScript && <SpaceBackground variant={variant} />}
       <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
         <div className="nav-inner">
-          <Link href="/vast" className="nav-name">
-            James Sieng <span style={{ color: "var(--muted)" }}>/ Vast</span>
-          </Link>
+          <span className="nav-name">
+            <Link href="/" className="nav-name" style={{ textDecoration: "none" }}>
+              James Sieng
+            </Link>{" "}
+            <Link href="/vast" style={{ color: "var(--muted)", textDecoration: "none" }}>
+              / Vast
+            </Link>
+          </span>
           <div className="nav-links">
             <Link href="/vast/role">Role</Link>
             <Link href="/vast/prompt">Prompt</Link>
