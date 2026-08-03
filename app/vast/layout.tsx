@@ -1,58 +1,23 @@
-"use client";
+import { currentUser } from "@clerk/nextjs/server";
+import { isAllowedEmail, isOwnerEmail } from "./owner";
+import AccessDenied from "./AccessDenied";
+import VastChrome from "./VastChrome";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { UserButton, useUser } from "@clerk/nextjs";
-import SpaceBackground from "./SpaceBackground";
-import { isOwnerEmail } from "./owner";
-
-export default function VastLayout({
+export default async function VastLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const { user } = useUser();
-  const owner = user?.emailAddresses?.some((e) => isOwnerEmail(e.emailAddress)) ?? false;
-  const isScript =
-    pathname === "/vast/script" ||
-    pathname === "/vast/powerpoint" ||
-    pathname === "/vast/role" ||
-    pathname === "/vast/prompt";
-  const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
+  // Local dev runs without Clerk (see proxy.ts), so treat it as the owner.
+  const devBypass = process.env.NODE_ENV !== "production";
 
-  return (
-    <>
-      {!isScript && <SpaceBackground variant={variant} />}
-      <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
-        <div className="nav-inner">
-          <span className="nav-name">
-            <Link href="/" className="nav-name" style={{ textDecoration: "none" }}>
-              James Sieng
-            </Link>{" "}
-            <Link href="/vast" style={{ color: "var(--muted)", textDecoration: "none" }}>
-              / Vast
-            </Link>
-          </span>
-          <div className="nav-links">
-            <Link href="/vast/role">Role</Link>
-            {owner && <Link href="/vast/prompt">Prompt</Link>}
-            <Link href="/vast/introduction">Introduction</Link>
-            <Link href="/vast/topic-1">Topic 1</Link>
-            <Link href="/vast/topic-2">Topic 2</Link>
-            {owner && <Link href="/vast/script">Script</Link>}
-            <Link href="/vast/powerpoint">PowerPoint</Link>
-            <UserButton />
-          </div>
-        </div>
-      </nav>
-      <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
-      <footer className="site" style={{ position: "relative", zIndex: 1 }}>
-        <div className="wrap">
-          Prepared for the final-round presentation. ·{" "}
-          <Link href="/">← jamessieng.com</Link>
-        </div>
-      </footer>
-    </>
-  );
+  const user = devBypass ? null : await currentUser();
+  const emails = user?.emailAddresses?.map((e) => e.emailAddress) ?? [];
+
+  const allowed = devBypass || emails.some(isAllowedEmail);
+  const owner = devBypass || emails.some(isOwnerEmail);
+
+  if (!allowed) return <AccessDenied email={emails[0]} />;
+
+  return <VastChrome owner={owner}>{children}</VastChrome>;
 }
