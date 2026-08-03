@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const BG = "#05070d";
 const CARD = "#141b2b";
@@ -321,34 +321,118 @@ function SlideView({ s }: { s: SlideDef }) {
   );
 }
 
+const PACES = [
+  { label: "Manual", sec: 0 },
+  { label: "60s", sec: 60 },
+  { label: "90s", sec: 90 },
+  { label: "2 min", sec: 120 },
+];
+const TARGET_MIN = 40; // midpoint of the 30–45 minute ask
+
+function clock(total: number) {
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
 export default function PowerPointPage() {
   const [i, setI] = useState(0);
   const [notes, setNotes] = useState(false);
+  const [pace, setPace] = useState(0); // index into PACES
+  const [elapsed, setElapsed] = useState(0);
+  const [running, setRunning] = useState(false);
+  const stageRef = useRef<HTMLDivElement>(null);
   const last = SLIDES.length - 1;
 
+  const go = useCallback(
+    (fn: (n: number) => number) => {
+      setI((n) => Math.max(0, Math.min(last, fn(n))));
+    },
+    [last]
+  );
+
+  // keyboard: arrows to move, F fullscreen, N notes, T start/stop the clock
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); setI((n) => Math.min(last, n + 1)); }
-      if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); setI((n) => Math.max(0, n - 1)); }
-      if (e.key === "Home") { e.preventDefault(); setI(0); }
-      if (e.key === "End") { e.preventDefault(); setI(last); }
+      if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) {
+        e.preventDefault();
+        go((n) => n + 1);
+      } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) {
+        e.preventDefault();
+        go((n) => n - 1);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        go(() => 0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        go(() => last);
+      } else if (e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        const el = stageRef.current;
+        if (!document.fullscreenElement) el?.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      } else if (e.key.toLowerCase() === "n") {
+        e.preventDefault();
+        setNotes((v) => !v);
+      } else if (e.key.toLowerCase() === "t") {
+        e.preventDefault();
+        setRunning((v) => !v);
+      }
     }
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
-  }, [last]);
+  }, [go, last]);
+
+  // the talk clock
+  useEffect(() => {
+    if (!running) return;
+    const id = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, [running]);
+
+  // hands-off advance, if a pace is chosen
+  useEffect(() => {
+    const sec = PACES[pace].sec;
+    if (!sec) return;
+    const id = setInterval(() => {
+      setI((n) => (n >= last ? n : n + 1));
+    }, sec * 1000);
+    return () => clearInterval(id);
+  }, [pace, last]);
 
   const s = SLIDES[i];
 
+  // where the clock says we should be by now, versus where we are
+  const expectedSlide = Math.min(last, (elapsed / (TARGET_MIN * 60)) * last);
+  const drift = i - expectedSlide;
+  const paceNote =
+    !running || elapsed < 20
+      ? `target ${TARGET_MIN} min`
+      : Math.abs(drift) < 1.2
+        ? "on pace"
+        : drift > 0
+          ? `${Math.round(drift)} slides ahead`
+          : `${Math.abs(Math.round(drift))} slides behind`;
+
   return (
     <div style={{ position: "relative", zIndex: 1, padding: "28px 16px 60px", maxWidth: 1180, margin: "0 auto" }}>
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
-        <div className="mono">The deck — click or use ← → arrow keys</div>
-        <button className="btn" onClick={() => setNotes(!notes)} style={{ fontSize: 13, padding: "6px 14px" }}>
-          {notes ? "Hide" : "Show"} speaker notes
-        </button>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
+        <div className="mono">← → to move · F fullscreen · N notes · T timer</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <button className="btn" onClick={() => setRunning((v) => !v)} style={{ fontSize: 13, padding: "6px 12px" }}>
+            {running ? "⏸" : "▶"} {clock(elapsed)}
+          </button>
+          <span className="mono" style={{ color: Math.abs(drift) < 1.2 || !running ? "var(--muted)" : "var(--accent)", fontSize: 12 }}>
+            {paceNote}
+          </span>
+          <button className="btn" onClick={() => { setElapsed(0); setRunning(false); }} style={{ fontSize: 13, padding: "6px 12px" }}>
+            Reset
+          </button>
+        </div>
       </div>
 
       <div
+        ref={stageRef}
         style={{
           position: "relative", width: "100%", aspectRatio: "16 / 9", background: BG,
           border: `1px solid ${LINE}`, borderRadius: 10, overflow: "hidden",
@@ -361,17 +445,57 @@ export default function PowerPointPage() {
           {i + 1}
         </div>
         {/* click zones: left third = back, rest = forward */}
-        <div onClick={() => setI((n) => Math.max(0, n - 1))} style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "33%", cursor: i > 0 ? "w-resize" : "default" }} />
-        <div onClick={() => setI((n) => Math.min(last, n + 1))} style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "67%", cursor: i < last ? "e-resize" : "default" }} />
+        <div onClick={() => go((n) => n - 1)} style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "33%", cursor: i > 0 ? "w-resize" : "default" }} />
+        <div onClick={() => go((n) => n + 1)} style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "67%", cursor: i < last ? "e-resize" : "default" }} />
+        {/* progress */}
+        <div style={{ position: "absolute", left: 0, bottom: 0, height: 2, width: `${(i / last) * 100}%`, background: ACCENT, transition: "width .35s ease" }} />
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 14 }}>
-        <button className="btn" onClick={() => setI((n) => Math.max(0, n - 1))} disabled={i === 0} style={{ opacity: i === 0 ? 0.35 : 1 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 14, gap: 12, flexWrap: "wrap" }}>
+        <button className="btn" onClick={() => go((n) => n - 1)} disabled={i === 0} style={{ opacity: i === 0 ? 0.35 : 1 }}>
           ← Prev
         </button>
-        <span className="mono" style={{ color: "var(--muted)" }}>{i + 1} / {SLIDES.length}</span>
-        <button className="btn" onClick={() => setI((n) => Math.min(last, n + 1))} disabled={i === last} style={{ opacity: i === last ? 0.35 : 1 }}>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+          <span className="mono" style={{ color: "var(--muted)", fontSize: 12 }}>Advance</span>
+          {PACES.map((p, idx) => (
+            <button
+              key={p.label}
+              onClick={() => setPace(idx)}
+              className="btn"
+              style={{
+                fontSize: 12,
+                padding: "5px 11px",
+                ...(idx === pace
+                  ? { background: "var(--accent)", borderColor: "var(--accent)", color: "var(--ink)", fontWeight: 600 }
+                  : {}),
+              }}
+            >
+              {p.label}
+            </button>
+          ))}
+          <span className="mono" style={{ color: "var(--muted)", marginLeft: 6 }}>{i + 1} / {SLIDES.length}</span>
+        </div>
+
+        <button className="btn" onClick={() => go((n) => n + 1)} disabled={i === last} style={{ opacity: i === last ? 0.35 : 1 }}>
           Next →
+        </button>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+        <button className="btn" onClick={() => setNotes((v) => !v)} style={{ fontSize: 13, padding: "6px 14px" }}>
+          {notes ? "Hide" : "Show"} speaker notes
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            const el = stageRef.current;
+            if (!document.fullscreenElement) el?.requestFullscreen?.();
+            else document.exitFullscreen?.();
+          }}
+          style={{ fontSize: 13, padding: "6px 14px" }}
+        >
+          Fullscreen
         </button>
       </div>
 
