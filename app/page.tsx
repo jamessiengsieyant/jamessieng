@@ -1,8 +1,13 @@
 import SiteNav from "./components/SiteNav";
+import BlackHole from "./components/BlackHole";
 
 export default function Home() {
   return (
     <>
+      <BlackHole />
+      <div className="bh-scrim" aria-hidden="true" />
+
+      <div className="layer">
       <SiteNav />
 
       <header className="hero">
@@ -31,7 +36,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="band" id="credentials">
+      <section className="band veil" id="credentials">
         <div className="wrap">
           <div className="mono">01 — Credentials</div>
           <h2>Credentialed and certified.</h2>
@@ -79,7 +84,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band" id="work">
+      <section className="band veil" id="work">
         <div className="wrap">
           <div className="mono">02 — Projects</div>
           <h2>Systems I&apos;ve built. Demos available.</h2>
@@ -120,7 +125,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band">
+      <section className="band veil">
         <div className="wrap">
           <div className="mono">03 — Outside the ledger</div>
           <h2>For fun.</h2>
@@ -132,9 +137,10 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site">
+      <footer className="site veil">
         <div className="wrap">© {new Date().getFullYear()} James Sieng</div>
       </footer>
+      </div>
     </>
   );
 }
