@@ -13,6 +13,7 @@ export default function SiteNav() {
         <div className="nav-links">
           <a href="/#credentials">Credentials</a>
           <a href="/#work">Work</a>
+          <Link href="/specs">Specs</Link>
           <Show when="signed-out">
             <Link href="/sign-in" className="btn">
               Portal
