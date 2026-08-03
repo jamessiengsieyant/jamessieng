@@ -1,4 +1,11 @@
-export default function PromptPage() {
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { isOwnerEmail } from "../owner";
+
+export default async function PromptPage() {
+  const user = await currentUser();
+  const owner = user?.emailAddresses?.some((e) => isOwnerEmail(e.emailAddress)) ?? false;
+  if (!owner) redirect("/vast");
   return (
     <article className="band">
       <div className="wrap narrow">

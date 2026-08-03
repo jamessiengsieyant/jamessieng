@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import SpaceBackground from "./SpaceBackground";
+import { isOwnerEmail } from "./owner";
 
 export default function VastLayout({
   children,
@@ -11,6 +12,8 @@ export default function VastLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { user } = useUser();
+  const owner = user?.emailAddresses?.some((e) => isOwnerEmail(e.emailAddress)) ?? false;
   const isScript =
     pathname === "/vast/script" ||
     pathname === "/vast/powerpoint" ||
@@ -33,11 +36,11 @@ export default function VastLayout({
           </span>
           <div className="nav-links">
             <Link href="/vast/role">Role</Link>
-            <Link href="/vast/prompt">Prompt</Link>
+            {owner && <Link href="/vast/prompt">Prompt</Link>}
             <Link href="/vast/introduction">Introduction</Link>
             <Link href="/vast/topic-1">Topic 1</Link>
             <Link href="/vast/topic-2">Topic 2</Link>
-            <Link href="/vast/script">Script</Link>
+            {owner && <Link href="/vast/script">Script</Link>}
             <Link href="/vast/powerpoint">PowerPoint</Link>
             <UserButton />
           </div>
