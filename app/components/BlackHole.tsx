@@ -330,13 +330,6 @@ export default function BlackHole() {
     addEventListener("resize", resize);
     resize();
 
-    let mx = 0, my = 0;
-    function onMove(e: PointerEvent) {
-      mx = e.clientX / innerWidth - 0.5;
-      my = e.clientY / innerHeight - 0.5;
-    }
-    addEventListener("pointermove", onMove);
-
     let scrollT = 0;
     function onScroll() {
       const el = document.documentElement;
@@ -365,8 +358,8 @@ export default function BlackHole() {
 
       // Slow orbit. Viewed nearly edge-on the lensing is at its most dramatic,
       // so the camera starts there and tilts upward as the page scrolls.
-      const azimuth = 0.62 + t * 0.021 + mx * 0.22;
-      const targetInc = 0.085 + scrollT * 0.34 - my * 0.06;
+      const azimuth = 0.62 + t * 0.021;
+      const targetInc = 0.085 + scrollT * 0.34;
       inclination += (targetInc - inclination) * 0.05;
 
       // Scroll is the fall. Easing in matches the shape of real infall: slow to
@@ -406,7 +399,6 @@ export default function BlackHole() {
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("resize", resize);
-      removeEventListener("pointermove", onMove);
       removeEventListener("scroll", onScroll);
       quad.geometry.dispose();
       (quad.material as THREE.Material).dispose();

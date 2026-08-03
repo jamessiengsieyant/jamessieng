@@ -180,7 +180,46 @@ footer.site {
   }
 }
 .layer { position: relative; z-index: 1; }
-.veil { background: rgba(5, 7, 13, 0.78); backdrop-filter: blur(7px); }
+
+/* Panels stay transparent so the black hole reads through the whole page;
+   legibility comes from frosted cards and text shadow instead of a backdrop. */
+.layer section.band { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.layer .card {
+  background: rgba(14, 19, 28, 0.62);
+  backdrop-filter: blur(14px);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.layer h2,
+.layer .lede,
+.layer section.band > .wrap > p,
+.layer .mono { text-shadow: 0 3px 26px rgba(2, 3, 7, 0.95); }
+
+/* auto-advance position indicator */
+.dots {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition: background 0.6s ease, transform 0.6s ease;
+}
+.dot.on {
+  background: var(--accent);
+  transform: scale(1.5);
+}
+@media (max-width: 820px) {
+  .dots { right: 12px; }
+}
 
 /* full-viewport panels that lock to the top of the screen as you scroll */
 .snap {

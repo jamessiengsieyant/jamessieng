@@ -1,11 +1,13 @@
 import SiteNav from "./components/SiteNav";
 import BlackHole from "./components/BlackHole";
+import AutoAdvance from "./components/AutoAdvance";
 
 export default function Home() {
   return (
     <>
       <BlackHole />
       <div className="bh-scrim" aria-hidden="true" />
+      <AutoAdvance />
 
       <div className="layer">
         <SiteNav />
@@ -25,18 +27,10 @@ export default function Home() {
               correctly — and my nights building the software that gets it right
               the first time.
             </p>
-            <div className="hero-actions">
-              <a href="#credentials" className="btn btn-solid">
-                Credentials
-              </a>
-              <a href="#work" className="btn">
-                What I&apos;ve built
-              </a>
-            </div>
           </div>
         </header>
 
-        <section className="band veil snap" id="credentials">
+        <section className="band snap" id="credentials">
           <div className="wrap">
             <div className="mono">01 — Credentials</div>
             <h2>Credentialed and certified.</h2>
@@ -88,7 +82,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="band veil snap" id="work">
+        <section className="band snap" id="work">
           <div className="wrap">
             <div className="mono">02 — Projects</div>
             <h2>Systems I&apos;ve built. Demos available.</h2>
@@ -129,7 +123,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="band veil snap">
+        <section className="band snap">
           <div className="wrap">
             <div className="mono">03 — Outside the ledger</div>
             <h2>For fun.</h2>
