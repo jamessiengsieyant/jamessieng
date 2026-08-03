@@ -5,7 +5,7 @@
 // redeploy to let them in; delete them to revoke access.
 
 // Full access, including Script and Prompt.
-export const OWNER_EMAILS = ["jamessieng@sieyant.com"];
+export const OWNER_EMAILS = ["jsieng92@gmail.com"];
 
 // Presentation only: Role, Introduction, Topic 1, Topic 2, PowerPoint.
 export const GUEST_EMAILS = [
