@@ -1,0 +1,934 @@
+[
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "title"
+    },
+    "beats": [
+      {
+        "cue": "Title card — silence",
+        "opener": "",
+        "rest": "",
+        "marks": "Say nothing here. This is up while you are being introduced and getting settled. Do not talk over your own title card."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "cards",
+      "kick": "Before we start",
+      "title": "None of this\nis accounting.",
+      "a": {
+        "h": "UC Irvine",
+        "lines": "B.S. Biomedical Engineering\nB.A. Business Economics"
+      },
+      "b": {
+        "h": "Certifications",
+        "lines": "7× Salesforce Certified · AWS CCP\nCompTIA A+, Network+, Security+\nISC2 — CISSP exam passed"
+      },
+      "tail": "Let me tell you why it's all the same job."
+    },
+    "beats": [
+      {
+        "cue": "Name the objection",
+        "opener": "Before I get into anything, I want to name the obvious thing about my resume.",
+        "rest": "I have a degree in biomedical engineering. I have seven Salesforce certifications and I passed the CISSP exam.\n\nNone of that is accounting.",
+        "marks": "PAUSE — two beats. Hands still. Let the objection land before you answer it."
+      },
+      {
+        "cue": "But I double majored",
+        "opener": "But I also double majored. Business economics, same four years.",
+        "rest": "And that major had accounting classes in it, which at nineteen I did not think much about at all.\n\nSo the honest version is: I picked both halves of this job when I was nineteen. Engineering, which is how you build the system. And economics, which is what's moving through it. Then I spent about a decade finding out why.\n\nLet me walk you through that decade."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "statement",
+      "kick": "Where it started",
+      "title": "I was the guy\nentering the data.",
+      "sub": "Lab tech. Bench work. Somebody else's software."
+    },
+    "beats": [
+      {
+        "cue": "Lab tech — the unglamorous part",
+        "opener": "My first job out of school was as a lab tech.",
+        "rest": "And I'll be honest about that job, because it matters later — it was not the interesting part. I did bench work. Collected samples, ran assays, and typed numbers into somebody else's software.\n\nI was the guy entering the data.\n\nHold onto that. Almost everything I've done since comes back to it.",
+        "marks": "Plant. Say \"I was the guy entering the data\" plainly — no emphasis. It pays off on the CDTFA slide."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "chain",
+      "kick": "Amgen",
+      "title": "Then I touched Excel.",
+      "sub": "Years of historical preclinical data — toxicology and pharmacology.",
+      "links": [
+        {
+          "from": "Excel",
+          "to": "VBA"
+        },
+        {
+          "from": "VBA",
+          "to": "Relational database"
+        }
+      ],
+      "tail": "Data that had a shape — and a shape that was enforced."
+    },
+    "beats": [
+      {
+        "cue": "The spreadsheet problem",
+        "opener": "Then I got to Amgen, and the actual work turned out to be Excel.",
+        "rest": "They had years of historical preclinical data — drug toxicology and pharmacology studies — sitting in spreadsheets. And a spreadsheet will let you type anything into any cell. Nothing enforces that the number in the box is the right kind of number, or that it belongs to the study you think it belongs to.\n\nSo I wrote VBA to pull all of it out and move it into a relational database. Where the data had a shape, and the shape was enforced."
+      },
+      {
+        "cue": "What I actually liked",
+        "opener": "That's the first time I understood what I actually liked. It wasn't the science.",
+        "rest": "It was that the data was in the wrong shape, and somebody had to fix that.",
+        "marks": "Do NOT say this is what Vast is going through. Let it sit. Cash it in during Topic 2."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "statement",
+      "kick": "The CRO",
+      "title": "Nobody plans to become\na Salesforce admin.",
+      "sub": "Contract research organization — sample collection and processing. I volunteered once. Six months later I was the department."
+    },
+    "beats": [
+      {
+        "cue": "Accidental admin",
+        "opener": "Next was a CRO — a contract research organization. We collected and processed samples for other people's studies.",
+        "rest": "They ran on Salesforce and they needed somebody to administer it. I raised my hand, mostly out of curiosity.\n\nThat's how you become a Salesforce admin, by the way. Nobody applies for it. You volunteer once, and six months later you are the department.",
+        "marks": "FIRST LAUGH. Say it flat and dry — do not sell it. Then hold. Do not walk on the laugh."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "list",
+      "kick": "The build",
+      "title": "I built the system I used to hate using.",
+      "items": [
+        {
+          "lead": "LIMS — laboratory information management, on Salesforce",
+          "sub": "Sample intake · chain of custody · what has been run on what"
+        },
+        {
+          "lead": "I'd used the big ones as a tech",
+          "sub": "They're built for the person signing the purchase order — not the person at the bench with a sample in one hand and a barcode gun in the other."
+        }
+      ],
+      "callout": "And I could only build it because I'd been the one using it."
+    },
+    "beats": [
+      {
+        "cue": "The LIMS",
+        "opener": "The main thing I built there was a LIMS — laboratory information management system.",
+        "rest": "Sample intake, chain of custody, where every sample is, what's been run on it.\n\nHere's the part that matters. I had already used LIMS systems — at Amgen, in the lab, as a tech. I knew exactly what they felt like from the entry side. And the big ones are built for the person who signs the purchase order, not for the person standing at the bench with a sample in one hand and a barcode gun in the other.\n\nSo I built the simplified version that fit how the work actually happened."
+      },
+      {
+        "cue": "The line",
+        "opener": "I built the system I used to hate using.",
+        "rest": "And I could only do that because I had been the one using it.",
+        "marks": "PAUSE after the first line. This is one of the two lines carrying the whole section."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "chain",
+      "kick": "The pattern",
+      "title": "I keep automating\nthe job I just did.",
+      "links": [
+        {
+          "from": "Bench tech",
+          "to": "Built the lab system"
+        },
+        {
+          "from": "Data entry",
+          "to": "Built the database"
+        }
+      ],
+      "tail": "Do the job by hand first. Feel where it hurts. Then build the thing that removes it."
+    },
+    "beats": [
+      {
+        "cue": "The through-line",
+        "opener": "If you've been keeping score, there's a pattern here, and I didn't notice it for years.",
+        "rest": "I did the bench work, then I built the lab system. I did the data entry, then I built the database.\n\nEvery time, the sequence is identical. Do the job by hand first. Feel exactly where it hurts. Then build the thing that takes it away.\n\nI'm going to come back to this at the very end, when I tell you what I'd do in my first ninety days here. Because that plan isn't a theory I came up with for this interview.\n\nIt's just the only way I've ever worked.",
+        "marks": "THROUGH-LINE, pass 1 of 3. Returns at the end of Topic 1, and again at the close."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "list",
+      "kick": "ForensisGroup",
+      "title": "Same move. Bigger.",
+      "items": [
+        {
+          "lead": "PMify",
+          "sub": "Project management for a live practice"
+        },
+        {
+          "lead": "Survey Builder",
+          "sub": "Custom survey platform, written in Apex"
+        },
+        {
+          "lead": "QuickBooks ↔ Salesforce",
+          "sub": "Automated AR/AP payment sync"
+        }
+      ],
+      "callout": "The last one is the one that changed everything."
+    },
+    "beats": [
+      {
+        "cue": "Three builds",
+        "opener": "Then ForensisGroup — an expert witness referral firm that ran its whole practice on Salesforce. Same move, bigger scale.",
+        "rest": "I built PMify, project management for live cases. Survey Builder, a custom survey platform in Apex. And an automated AR/AP payment sync between Salesforce and QuickBooks."
+      },
+      {
+        "cue": "Accounting plumbing",
+        "opener": "That last one changed my life and I had no idea at the time.",
+        "rest": "Because to build it, I had to learn what actually happens to a payment. Not the button — the entry. What gets debited, what gets credited, when it's recognized, and what breaks downstream in the books if I get any of it wrong.\n\nI was building accounting plumbing.\n\nAnd somewhere in there I noticed I cared more about what was moving through the pipe than about the pipe.",
+        "marks": "Slow down on \"than about the pipe.\" That's the turn of the whole talk."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "statement",
+      "kick": "The pivot",
+      "title": "I wanted a skill\nI could use on anybody.",
+      "sub": "Everyone has a return. Everyone has books. I came for the practical part — I stayed for the puzzle."
+    },
+    "beats": [
+      {
+        "cue": "Why accounting — the real reason",
+        "opener": "So — why accounting. I'll give you the real reason, and it's less romantic than it sounds.",
+        "rest": "I wanted a skill I could use on anybody.\n\nBiomedical engineering, I can help you if you're building a device. Salesforce, I can help you if you run Salesforce. Both of those come with conditions attached — you have to already be a certain kind of person before I'm any use to you.\n\nEverybody files a return. Every business has books. So I went for the most practical version of that I could find."
+      },
+      {
+        "cue": "Then I got curious",
+        "opener": "And then I started studying for the CPA exams, and something happened that I didn't plan on.",
+        "rest": "I got curious.\n\nNot about the rules — about the shape of them. Why is it written this way. What was somebody trying to prevent when they drafted this. Who got burned before this existed.\n\nI came for the practical part. I stayed because it turned out to be the most interesting rule system I've ever taken apart.",
+        "marks": "PAUSE two full beats before \"I got curious\" — longer than comfortable. RATE: say the cert list fast, say \"I got curious\" slow. The change IS the emphasis."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "list",
+      "kick": "The rulebook",
+      "title": "So I went and got it.",
+      "items": [
+        {
+          "lead": "WGU — B.S. Accounting, 2024",
+          "sub": "My third bachelor's degree."
+        },
+        {
+          "lead": "Enrolled Agent — admitted to practice before the IRS",
+          "sub": "Business returns through Form 1120. Trial balance to Schedule L, book-to-tax on the M-1."
+        },
+        {
+          "lead": "CPA — all four exams passed",
+          "sub": "Completing the experience requirement."
+        }
+      ],
+      "callout": "Nobody needs a CISSP to reconcile a bank account. I sat for it anyway."
+    },
+    "beats": [
+      {
+        "cue": "The credentials",
+        "opener": "So I went and got the rulebook.",
+        "rest": "Bachelor's in accounting from WGU, 2024. Enrolled Agent — admitted to practice before the IRS. I prepare business returns up through Form 1120, which means I read small-business books for a living. Trial balance to Schedule L, book-to-tax on the M-1. Books to returns is my normal commute.\n\nAnd all four CPA exams passed. I'm finishing the experience requirement now."
+      },
+      {
+        "cue": "Two exams, two waiting rooms",
+        "opener": "Full disclosure on this slide, though. That accounting degree is my third bachelor's.",
+        "rest": "And I passed the CISSP exam — which, same as the CPA, I don't get to put after my name until somebody endorses the experience.\n\nSo I'm currently sitting on two exams and two waiting rooms.\n\nNobody needs a CISSP to reconcile a bank account. I sat for it anyway.",
+        "marks": "SECOND LAUGH. Deadpan. No smile until after they react. Never say \"I love learning\" — the slide makes the point for you."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "statement",
+      "kick": "CDTFA",
+      "title": "Now I'm the one\nasking to see it.",
+      "sub": "Sales & use tax auditor, State of California — capital purchases · use tax · audit procedure."
+    },
+    "beats": [
+      {
+        "cue": "The audit chair",
+        "opener": "Which brings me to now. I'm a sales and use tax auditor for the State of California.",
+        "rest": "The work is what it sounds like. I go into a business, I pull their records, and I test them. Capital equipment purchases are a standing part of what I test. So is use tax — which is the tax almost nobody self-reports correctly."
+      },
+      {
+        "cue": "The payoff",
+        "opener": "Here's the part I didn't expect about this job.",
+        "rest": "I spent about a decade building the systems that produce these records. So now I open somebody's QuickBooks, or their ERP, and I can usually tell how an entry got made. Who made it. What screen they were looking at. Whether anyone ever looked at it again.\n\nI know what it looks like from the inside, because I used to build the inside.",
+        "marks": "PAUSE — do not rush this. The section has walked ten minutes to get here. This is the payoff of slide 2: \"none of this is accounting\" — turns out all of it was."
+      }
+    ]
+  },
+  {
+    "section": "Part 01 — ~10 min",
+    "sectionTitle": "Introduction — how I got here",
+    "visual": {
+      "t": "statement",
+      "kick": "For fun",
+      "title": "I sing.\nI play guitar.",
+      "sub": "Sometimes both at the same time."
+    },
+    "beats": [
+      {
+        "cue": "Music — constraints are the point",
+        "opener": "Last thing before I get into the topics. Outside of work I sing, and I play guitar. Sometimes both at the same time.",
+        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them. The structure isn't in the way of the interesting part — the structure is what makes the interesting part possible.\n\nThat's more or less how I feel about accounting rules. Which I recognize is a strange sentence to say out loud.\n\nSo let's talk about one.",
+        "marks": "PAUSE before \"So let's talk about one.\" That's the transition into Topic 1 — no dead air after it."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
+    "sectionTitle": "Capitalize, or expense?",
+    "visual": {
+      "t": "list",
+      "kick": "Topic 1",
+      "title": "Capitalize, or expense?",
+      "items": [
+        {
+          "lead": "The requirement",
+          "sub": "What the rule actually asked for"
+        },
+        {
+          "lead": "What I did",
+          "sub": "My own contribution, specifically"
+        },
+        {
+          "lead": "How it came out",
+          "sub": "The result, and whether it held"
+        },
+        {
+          "lead": "What I'd change",
+          "sub": "Lessons — said honestly"
+        }
+      ],
+      "callout": "Two calls. One from the audit chair. One from the other chair."
+    },
+    "beats": [
+      {
+        "cue": "Topic 1 setup",
+        "opener": "Topic one. Capitalize, or expense.",
+        "rest": "I'm going to walk you through two calls I've made. For each one I'll give you the same four things: what the requirement actually was, what I personally did about it, how it came out, and what I'd do differently.\n\nThe first call I made from the audit chair. Somebody else's books, and I was the one asking the questions.\n\nThe second one I made from the other chair.\n\nSame question, both times. They did not feel remotely the same.",
+        "marks": "\"The other chair\" stays vague. Do not clarify, do not gesture, do not smile knowingly. You're planting something you won't pay off for ten minutes."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "statement",
+      "kick": "Example 1 · From the audit chair",
+      "title": "The spray booth in\nthe repairs account.",
+      "sub": "A CDTFA field audit — details disguised."
+    },
+    "beats": [
+      {
+        "cue": "S · The purchases exam",
+        "opener": "People think a sales tax audit only looks at sales. It doesn't.",
+        "rest": "Every field audit examines purchases too."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "cards",
+      "kick": "Situation · Every audit starts with a split",
+      "title": "Purchases go in two piles.",
+      "a": {
+        "h": "Fixed assets",
+        "lines": "Equipment, machinery,\nimprovements"
+      },
+      "b": {
+        "h": "Expense items",
+        "lines": "Repairs, supplies,\nconsumables"
+      },
+      "tail": "That split is a capitalization review — I just come at it from the enforcement side."
+    },
+    "beats": [
+      {
+        "cue": "S · Two piles",
+        "opener": "Step one is splitting purchases into two piles: fixed assets, and expense items.",
+        "rest": "That split is a capitalization review. Same question you ask at Vast — is this an asset, or an expense? I just come at it from the enforcement side."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "list",
+      "kick": "Situation · The find",
+      "title": "In repairs & maintenance:",
+      "items": [
+        {
+          "lead": "~$20,000 invoice — coded to R&M",
+          "sub": "Repairs & maintenance: where assets go to hide."
+        },
+        {
+          "lead": "Out-of-state vendor, no tax charged",
+          "sub": "Use tax never self-assessed."
+        },
+        {
+          "lead": "Equipment + freight + installation",
+          "sub": "All on one invoice — a spray booth."
+        },
+        {
+          "lead": "Not on the depreciation schedule",
+          "sub": "Their own records told on them."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "S · The find",
+        "opener": "Auto body shop. I'm going through repairs and maintenance, line by line.",
+        "rest": "R&M is where assets go to hide — not because people cheat, but because of how bookkeeping happens. I'll come back to that.\n\nAnd there it is: a twenty-thousand-dollar invoice. Out-of-state vendor. No tax charged. A spray booth — equipment, freight, and installation on one invoice. Coded to repairs. And not on the depreciation schedule."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "list",
+      "kick": "Task → Action · The call",
+      "title": "Repair — or capital asset?",
+      "items": [
+        {
+          "lead": "Added capability — didn’t restore it",
+          "sub": "Not fixing a booth. Acquiring one."
+        },
+        {
+          "lead": "Useful life in years",
+          "sub": "Not months."
+        },
+        {
+          "lead": "Measure: price + freight + install",
+          "sub": "Same principle as ASC 360 basis — tax and book agree."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "T · The decision — three factors",
+        "opener": "Now I have a call to make — and I have to defend it.",
+        "rest": "Repair, or capital asset? If it's an asset, two things follow: it belonged on their books as equipment, and use tax was due — never paid.\n\nThree factors. It added capability — they weren't fixing a booth, they were acquiring one. Useful life in years, not months. And my favorite: their own books contradicted themselves — expensed in R&M, missing from the depreciation schedule they kept for everything else. Their own records told on them."
+      },
+      {
+        "cue": "A · The measure",
+        "opener": "I called it a capital asset and computed the measure.",
+        "rest": "Purchase price, plus freight, plus installation — the cost of putting the asset in service. Same rule as ASC 360 basis. Tax and book agree on that one."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "statement",
+      "kick": "Action · The discipline",
+      "title": "It has to cut\nboth ways.",
+      "sub": "The genuine repairs — compressor service, filters — I left alone. If the call only goes one direction, it isn’t judgment."
+    },
+    "beats": [
+      {
+        "cue": "A · It cuts both ways",
+        "opener": "But the same account had real repairs — and I left those alone.",
+        "rest": "Compressor service. Filters. Genuinely expenses. If the call only ever goes one direction, it's not judgment — it's a shakedown. A defensible position cuts both ways."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 1",
+    "sectionTitle": "The spray booth in the repairs account",
+    "visual": {
+      "t": "list",
+      "kick": "Result & Lessons",
+      "title": "What it left behind.",
+      "items": [
+        {
+          "lead": "The classification held",
+          "sub": "Defended at exit conference; asset capitalized, use-tax accrual set up."
+        },
+        {
+          "lead": "Nobody was cheating",
+          "sub": "The invoice just landed in the wrong pile — for three years."
+        },
+        {
+          "lead": "The decision belongs at the point of entry",
+          "sub": "On purpose, under a written policy. Hold that thought for Topic 2."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "R · Result",
+        "opener": "At the exit conference, I walked the owner and their CPA through it.",
+        "rest": "Useful life. Added capability. The full measure. The classification held, the assessment stood — and going forward, the booth went on the books and a use-tax accrual process was set up to catch the next big purchase."
+      },
+      {
+        "cue": "L · Lesson — point of entry",
+        "opener": "Nobody at that shop was cheating.",
+        "rest": "The invoice came from a vendor that sounded like a repair vendor, got filed where repair invoices go, and sat there wrong for three years — until I showed up.\n\nThe capitalize-or-expense call was made by default, at data entry, by the person with the least context. The fix isn't better bookkeepers. It's making the call at the point of entry — on purpose, under a written policy. Hold that thought for Topic 2."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 2",
+    "sectionTitle": "Four months of my own time",
+    "visual": {
+      "t": "statement",
+      "kick": "Example 2 · From the builder chair",
+      "title": "Four months of\nmy own time.",
+      "sub": "PMify + Survey Builder, built on ForensisGroup’s Salesforce. No consultant invoice — the invoice was me."
+    },
+    "beats": [
+      {
+        "cue": "The opposite chair",
+        "opener": "My second example is the same question from the opposite chair.",
+        "rest": "First story: I caught someone else's classification. This time, the cost was my own time — and I'll be straight about how the decision actually got made. That's where the lesson is."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 2",
+    "sectionTitle": "Four months of my own time",
+    "visual": {
+      "t": "cards",
+      "kick": "Situation · The rule — ASC 350-40 / ASU 2018-15",
+      "title": "A subscription is never an asset.\nThe setup might be.",
+      "a": {
+        "h": "Capitalize",
+        "lines": "Configuration\nCustomization\nCoding & testing"
+      },
+      "b": {
+        "h": "Expense",
+        "lines": "Subscription fees\nTraining\nData conversion"
+      },
+      "tail": "Internal payroll counts — “we didn’t pay a vendor” isn’t an answer."
+    },
+    "beats": [
+      {
+        "cue": "S · Context — the builds",
+        "opener": "ForensisGroup runs its practice on Salesforce.",
+        "rest": "I did systems work for them — built two things on top of that subscription. PMify, a project management system. And Survey Builder, a survey platform I wrote in Apex. About four months of development."
+      },
+      {
+        "cue": "S · The rule — ASC 350-40",
+        "opener": "A Salesforce subscription is a cloud computing arrangement — ASC 350-40.",
+        "rest": "The subscription fee is never an asset — it's rent. But implementation costs — configuration, customization, coding, testing — those are capitalizable. And here's what most people miss: internal payroll counts. The standard doesn't require a consultant's invoice."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 2",
+    "sectionTitle": "Four months of my own time",
+    "visual": {
+      "t": "list",
+      "kick": "Result, then Action · What actually happened",
+      "title": "Honestly.",
+      "items": [
+        {
+          "lead": "Expensed as incurred — by default",
+          "sub": "No capitalization discussion at the time. Nobody asked, including me."
+        },
+        {
+          "lead": "The conclusion still holds",
+          "sub": "No time records · scoping- and training-heavy mix · immaterial at that scale."
+        },
+        {
+          "lead": "“The right answer reached the wrong way”",
+          "sub": "A defensible answer without documentation is still an undocumented answer."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "T · “The invoice was me”",
+        "opener": "There was no consultant invoice — the invoice was me.",
+        "rest": "Four months of configuring, customizing, testing. So “we didn't pay anyone” isn't an answer. The question was real: should some of that cost sit on the balance sheet?"
+      },
+      {
+        "cue": "R · What actually happened",
+        "opener": "Here's what actually happened — no dressing it up.",
+        "rest": "It ran through payroll and got expensed as incurred. No capitalization discussion. Nobody asked the question — including me. The decision was made by default."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 2",
+    "sectionTitle": "Four months of my own time",
+    "visual": {
+      "t": "list",
+      "kick": "Lessons · What I’d do differently",
+      "title": "Three things.",
+      "items": [
+        {
+          "lead": "Track hours while it’s happening",
+          "sub": "Not to force capitalization — to preserve the option."
+        },
+        {
+          "lead": "Write the memo even when the answer is “expense”",
+          "sub": "An hour of work turns a default into a position."
+        },
+        {
+          "lead": "Scale flips the answer",
+          "sub": "Same framework at Vast — the NetSuite and Ramp implementations lived this exact question."
+        }
+      ],
+      "callout": "The twist: a capitalized CCA cost isn’t a fixed asset — it’s a prepaid-type asset amortizing into the same opex line as the subscription. Never depreciation."
+    },
+    "beats": [
+      {
+        "cue": "A · Three tests",
+        "opener": "What I can stand behind is the conclusion — I've since worked it like an auditor would.",
+        "rest": "Measurement: no time records separating dev work from everything else — so any capitalized number would be a reconstruction. I'd never accept one from a taxpayer, so I won't accept one from me.\n\nStage mix: heavy on scoping up front and training at the end — both expensed under the standard anyway.\n\nMateriality: at that firm's size, the capitalizable slice changes nobody's view of the financials."
+      },
+      {
+        "cue": "R · The key sentence",
+        "opener": "Expense was the right answer — reached the wrong way.",
+        "rest": "A defensible answer without documentation is still an undocumented answer. If an auditor walked in, the position holds — but nobody could hand them the memo that proves it. That's the gap."
+      },
+      {
+        "cue": "L · What I'd do differently",
+        "opener": "Three things I'd do differently.",
+        "rest": "Track hours while it's happening — not to force capitalization, to preserve the option. Once the quarter closes, the ability to measure is gone.\n\nWrite the memo even when the answer is “expense.” One hour turns a default into a position.\n\nAnd know when scale flips the answer. At Vast — real invoices, dedicated engineers, material dollars — the same framework lands the other way. You've lived this: someone had to make this exact call on the NetSuite and Ramp implementations."
+      },
+      {
+        "cue": "L · The twist — prepaid, not PP&E",
+        "opener": "One last twist — a trap I'd want to catch at Vast.",
+        "rest": "A capitalized CCA cost isn't a fixed asset. It's a prepaid-type asset, amortized into the same opex line as the subscription — never depreciation. Coding it to PP&E is wrong even when capitalizing is right."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1 · Example 2",
+    "sectionTitle": "Four months of my own time",
+    "visual": {
+      "t": "statement",
+      "kick": "Topic 1 close",
+      "title": "Two chairs.\nSame principle.",
+      "sub": "Classify on purpose, at the source, with the documentation to prove it."
+    },
+    "beats": [
+      {
+        "cue": "Topic 1 close — two chairs",
+        "opener": "Two examples. Two chairs.",
+        "rest": "An auditor finding an asset hidden in a repairs account. A builder whose own four months became the accounting question. Same principle: classify on purpose, at the source, with proof. Which brings me to what I'd do at Vast."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "Part 03 · Topic 2",
+      "title": "The first\n90 days.",
+      "sub": "Learn the job honestly. Contribute like a builder."
+    },
+    "beats": [
+      {
+        "cue": "The frame",
+        "opener": "Topic two: my first ninety days.",
+        "rest": "Straight up: this is a learning plan and a contribution plan at the same time. You know I haven't done international accounting — so I'll tell you exactly how I get useful fast, and what I bring while I do."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "Said plainly",
+      "title": "I haven’t done\ninternational accounting.",
+      "sub": "FAR tested consolidation and currency translation. I understand the concepts in theory. I just don’t have the reps.  —  Yet."
+    },
+    "beats": [
+      {
+        "cue": "Said plainly — the “yet”",
+        "opener": "Let me say the obvious part out loud: I haven't done international accounting.",
+        "rest": "FAR tested consolidation and currency translation — ASC 830, eliminations, the CTA through OCI. I understand the concepts in theory. I just don't have the reps.\n\nYet.\n\nBut you've already heard how I handle that. I bought the CPA review course before I had the degree. I was handed a tax system I'd never seen and filed two hundred and fifty returns on it in one season.\n\nSo here's what I've already started."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "list",
+      "kick": "The study map",
+      "title": "Four problems, and I know their names.",
+      "items": [
+        {
+          "lead": "Currency translation · ASC 830",
+          "sub": "JPY and EUR to USD — the CTA runs through OCI, not the income statement."
+        },
+        {
+          "lead": "Consolidation & eliminations",
+          "sub": "Intercompany, investment, minority interest — OneWorld or by hand."
+        },
+        {
+          "lead": "Transfer pricing",
+          "sub": "Arm’s-length documentation for Section 482 and French/Japanese review."
+        },
+        {
+          "lead": "Indirect tax",
+          "sub": "VAT and Consumption Tax — the discipline I run daily on CA sales & use tax."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "The study map",
+        "opener": "The terrain has four problems, and I already know their names.",
+        "rest": "Currency translation — ASC 830, and the CTA runs through OCI, not income. Consolidation — intercompany and investment eliminations. Transfer pricing — documentation that survives Section 482 and a foreign authority's review. And indirect tax — VAT and Consumption Tax, the same discipline I run daily on California sales and use tax."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "list",
+      "kick": "Days 1–30 · Learn",
+      "title": "Walk one close by hand.",
+      "items": [
+        {
+          "lead": "Follow Japan’s package all the way through",
+          "sub": "Translation, eliminations, into the consolidated statements — once, manually."
+        },
+        {
+          "lead": "Learn the PBC universe",
+          "sub": "What the auditors asked for last time, and what dragged."
+        },
+        {
+          "lead": "Map the OneWorld config",
+          "sub": "Entities, currencies, elimination rules."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "Days 1–30 · Learn",
+        "opener": "Month one: walk one close by hand.",
+        "rest": "Follow Japan's reporting package all the way through — translation, eliminations, into the consolidated statements — once, manually, so I know where it breaks. Learn the PBC universe: what the auditors asked for last time, and what dragged. And map how OneWorld is configured — entities, currencies, elimination rules."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "list",
+      "kick": "Days 30–60 · Contribute",
+      "title": "Real close tasks, under review.",
+      "items": [
+        {
+          "lead": "Own reconciliations & translation entries",
+          "sub": "Mine — checked by someone senior."
+        },
+        {
+          "lead": "Time the close",
+          "sub": "Where do the hours actually go?"
+        },
+        {
+          "lead": "Pick one automation with the controller",
+          "sub": "Highest pain, lowest risk."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "Days 30–60 · Contribute",
+        "opener": "Month two: real close tasks, under review.",
+        "rest": "Reconciliations, translation entries — mine, checked by someone senior. While I'm in there, I time the close: where do the hours actually go? Then I pick one automation with the controller — highest pain, lowest risk."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "list",
+      "kick": "Days 60–90 · Ship",
+      "title": "Own my slice. Ship the first automation.",
+      "items": [
+        {
+          "lead": "My close tasks, fully mine",
+          "sub": "No training wheels."
+        },
+        {
+          "lead": "First automation live",
+          "sub": "With a before-and-after number."
+        },
+        {
+          "lead": "Both documented",
+          "sub": "Well enough to survive me."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "Days 60–90 · Ship",
+        "opener": "Month three: own my slice, ship the first automation.",
+        "rest": "My close tasks fully mine. The automation live, with a before-and-after number. Both documented well enough to survive me."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "list",
+      "kick": "While I learn — the builder part",
+      "title": "Three builds I already know how to make.",
+      "items": [
+        {
+          "lead": "1 · An audit request tracker",
+          "sub": "Every PBC item an owned task with a status. I’m the auditor who sends those lists — I’ve watched what makes a response fast or slow."
+        },
+        {
+          "lead": "2 · A package pre-check",
+          "sub": "Automated completeness and tie-out checks on subsidiary packages, before a human reviews."
+        },
+        {
+          "lead": "3 · Point-of-entry classification rules",
+          "sub": "Remember the spray booth. Cleaner books upstream is a faster close downstream."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "The builder part",
+        "opener": "Now the part I bring on day one: the builder part.",
+        "rest": "Three builds I already know how to make.\n\nAn audit request tracker. Every audit I run starts with me sending a document request — so I've watched, from the other side, exactly what makes a company slow. It's almost never the accounting. It's the coordination: requests scattered across five inboxes, nobody sure what's still outstanding. Every PBC item becomes an owned task with a status, so “where are we” takes four seconds instead of a meeting.\n\nA package pre-check — automated completeness and tie-out checks on subsidiary packages, before a human reviews them.\n\nAnd point-of-entry classification rules in Ramp — remember the spray booth. Cleaner books upstream is a faster close downstream."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "flow",
+      "kick": "Build 3 · Point of entry",
+      "title": "A rules layer in front of NetSuite.",
+      "tail": "Remember the spray booth — this catches it on day one."
+    },
+    "beats": [
+      {
+        "cue": "Build 3 in one picture",
+        "opener": "Here's build three as a picture.",
+        "rest": "Flag the two rework patterns before they ever sync to NetSuite, and route them to a short review queue. Fewer reclasses at close, and a cleaner audit trail on the way through."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "Further out — past the 90 days",
+      "title": "Before the audit\nshows up.",
+      "sub": "As Vast scales, the auditors get bigger and the PBC list gets longer. Someone inside has to already speak that language. I’d go get the Certified Internal Auditor — not because the role asks for it, but because I’d rather be that person before the audit arrives than during it."
+    },
+    "beats": [
+      {
+        "cue": "Further out — the CIA",
+        "opener": "One more thing, and this one's past the ninety days.",
+        "rest": "As Vast scales, the auditors get bigger and the PBC list gets longer. Somebody inside has to already speak that language — to know what they're going to ask for before they ask.\n\nI'd go get the Certified Internal Auditor for that. Not because the role requires it. Because I'd rather be that person before the audit shows up than during it."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "The brilliant idea",
+      "title": "Instrument\nthe close.",
+      "sub": "Books-to-reports as a pipeline: measure where the hours go, then remove one manual step every month — each build shipped with a before/after number."
+    },
+    "beats": [
+      {
+        "cue": "The brilliant idea",
+        "opener": "Which is the real idea: instrument the close.",
+        "rest": "Treat books-to-reports like a pipeline. Measure where the hours go, then remove one manual step every month — small builds, each shipped with a before-and-after number.\n\nMost closes never get faster because nobody owns “faster.” I'm offering to own it."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "The pitch",
+      "title": "In 90 days:",
+      "sub": "My close tasks owned. One automation live, with numbers. And a close that gets a step faster every month after that."
+    },
+    "beats": [
+      {
+        "cue": "The pitch",
+        "opener": "So, in ninety days:",
+        "rest": "My close tasks owned. One automation live, with numbers. And a close that gets a step faster every month after that."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first 90 days",
+    "visual": {
+      "t": "statement",
+      "kick": "Close",
+      "title": "Auditor’s skepticism.\nBuilder’s toolkit.",
+      "sub": "Thank you — I’d love your questions."
+    },
+    "beats": [
+      {
+        "cue": "The close",
+        "opener": "Auditor's skepticism. Builder's toolkit.",
+        "rest": "That's what I'd bring to Vast. Thank you — I'd love your questions."
+      }
+    ]
+  }
+]

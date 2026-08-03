@@ -13,3 +13,8 @@ next-env.d.ts
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# rolling backups written by the dev-only deck editor
+app/vast/script/script.json.bak
+app/vast/deck.json.bak
+app/vast/deck.json.*.bak

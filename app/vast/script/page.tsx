@@ -1,7 +1,10 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { isOwnerEmail } from "../owner";
+import { readDeck } from "../deckFile";
 import ScriptRehearsal from "./ScriptRehearsal";
+
+export const dynamic = "force-dynamic";
 
 export default async function ScriptPage() {
   const devBypass = process.env.NODE_ENV !== "production";
@@ -9,5 +12,7 @@ export default async function ScriptPage() {
   const owner =
     devBypass || (user?.emailAddresses?.some((e) => isOwnerEmail(e.emailAddress)) ?? false);
   if (!owner) redirect("/vast");
-  return <ScriptRehearsal />;
+
+  const slides = await readDeck();
+  return <ScriptRehearsal slides={slides} canEdit={devBypass} />;
 }

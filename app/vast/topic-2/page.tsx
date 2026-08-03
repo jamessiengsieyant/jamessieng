@@ -13,7 +13,8 @@ export default function Topic2Page() {
       <section className={s.slide}>
         <div className={s.kicker}>Said plainly</div>
         <h2 className={s.h2}>I haven&rsquo;t done international accounting.</h2>
-        <p className={s.sub}>But FAR tested consolidation and currency translation — I have the standards. What I lack is reps. The next ninety days are how I get them fast, without slowing your close down.</p>
+        <p className={s.sub}>FAR tested consolidation and currency translation. I understand the concepts in theory. I just don&rsquo;t have the reps.</p>
+        <h2 className={s.h2} style={{ marginTop: 28, color: "#ffb25e" }}>Yet.</h2>
       </section>
 
       <section className={s.slide}>
@@ -56,7 +57,7 @@ export default function Topic2Page() {
       <section className={s.slide}>
         <div className={s.kicker}>While I learn — the builder part</div>
         <ul className={s.slideList}>
-          <li><b>1 · A PBC tracker</b><span>Audit requests tracked like projects, status visible to everyone. I&rsquo;ve built exactly this before.</span></li>
+          <li><b>1 · An audit request tracker</b><span>Every PBC item an owned task with a status. I&rsquo;m the auditor who sends those lists — I&rsquo;ve watched what makes a response fast or slow.</span></li>
           <li><b>2 · A package pre-check</b><span>Automated completeness and tie-out checks on subsidiary packages, before a human reviews them.</span></li>
           <li><b>3 · Point-of-entry classification rules</b><span>Remember the spray booth. Cleaner books upstream is a faster close downstream.</span></li>
         </ul>
@@ -97,6 +98,12 @@ export default function Topic2Page() {
           <li><b>The first three builds are already scoped</b><span>PBC tracker · package pre-check · point-of-entry rules.</span></li>
           <li><b>Every build ships with a number</b><span>Hours saved, requests tracked, reclasses avoided — measured, not claimed.</span></li>
         </ul>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>Further out — past the 90 days</div>
+        <h2 className={s.h2}>Before the audit shows up.</h2>
+        <p className={s.sub}>As Vast scales, the auditors get bigger and the PBC list gets longer. Someone inside has to already speak that language. I&rsquo;d go get the Certified Internal Auditor — not because the role asks for it, but because I&rsquo;d rather be that person before the audit arrives than during it.</p>
       </section>
 
       <section className={s.slide}>
