@@ -120,6 +120,32 @@ export default function SpecsPage() {
                 </span>
               </span>
             </li>
+            <li>
+              <span className="yr">The fall</span>
+              <span className="body">
+                <strong>Scrolling is descending</strong>
+                <span>
+                  The page is four full screens, and the camera is released from rest at the top.
+                  Its speed at each depth is the exact free-fall value for a body dropped from that
+                  starting radius, so the approach accelerates the way gravity actually
+                  accelerates rather than on a linear ramp.
+                </span>
+              </span>
+            </li>
+            <li>
+              <span className="yr">Aberration</span>
+              <span className="body">
+                <strong>Falling makes the shadow smaller</strong>
+                <span>
+                  The counterintuitive one. Because we are moving, the direction a pixel looks is
+                  not the direction that light travelled, so every ray is transformed between
+                  frames before it is traced. Our own speed sweeps extra sky into the forward view
+                  — which means an infalling observer measures a <em>smaller</em> shadow than
+                  someone hovering at the same radius, and light met head-on arrives blueshifted
+                  and brighter.
+                </span>
+              </span>
+            </li>
           </ul>
           <div className="note">
             The starfield behind it is bent by the same integration, so stars smear into a ring

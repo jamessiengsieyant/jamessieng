@@ -28,6 +28,7 @@ uniform vec3  uCamPos;
 uniform mat3  uCamBasis;
 uniform float uOffsetX;
 uniform float uExposure;
+uniform float uBeta;      // infall speed relative to a static observer here
 uniform int   uSteps;
 
 const float RS      = 1.0;          // Schwarzschild radius
@@ -169,6 +170,25 @@ void main() {
   vec3 dir    = normalize(uCamBasis * rayCam);
   vec3 cam    = uCamPos;
 
+  // Relativistic aberration. We are falling inward at uBeta, so the direction a
+  // pixel looks in our frame is not the direction that light travelled in the
+  // static frame the geodesic is written in. Converting observer -> static
+  // swings rays outward, which is why an infalling observer measures a SMALLER
+  // shadow than someone hovering at the same radius: our own speed sweeps more
+  // of the sky into the forward cone.
+  float gam  = 1.0 / sqrt(max(1.0 - uBeta * uBeta, 1e-4));
+  vec3  mdir = normalize(-cam);                 // direction we are falling
+  float cA   = dot(dir, mdir);
+  vec3  perp = dir - cA * mdir;
+  float sA   = length(perp);
+  float den  = max(1.0 - uBeta * cA, 1e-4);
+  float csA  = (cA - uBeta) / den;
+  float ssA  = sA / (gam * den);
+  if (sA > 1e-6) dir = normalize(csA * mdir + ssA * (perp / sA));
+
+  // Light met head-on is blueshifted and brightened as we fall into it.
+  float dopp = 1.0 / (gam * max(1.0 - uBeta * csA, 1e-4));
+
   float r0 = length(cam);
 
   // Basis for the plane containing the camera and the ray: the photon's
@@ -250,7 +270,7 @@ void main() {
     if (r > R_SKY * 0.5) col += stars(outDir);
   }
 
-  // photon ring: light that looped the hole piles up just outside the shadow
+  col *= pow(clamp(dopp, 0.25, 3.0), 2.0);
   col *= uExposure;
 
   // tone map + gamma
@@ -290,6 +310,7 @@ export default function BlackHole() {
       uCamBasis: { value: new THREE.Matrix3() },
       uOffsetX: { value: small ? 0.0 : 0.24 },
       uExposure: { value: 1.45 },
+      uBeta: { value: 0.0 },
       uSteps: { value: small ? 110 : 165 },
     };
 
@@ -328,6 +349,9 @@ export default function BlackHole() {
     const start = performance.now();
     let raf = 0;
     let inclination = 0.10;
+    const R0 = 24.0; // released from rest here, at the top of the page
+    const R1 = 8.6;  // closest approach, at the bottom
+    let dist = R0;
     const camPos = new THREE.Vector3();
     const basis = new THREE.Matrix3();
     const fwd = new THREE.Vector3();
@@ -342,10 +366,20 @@ export default function BlackHole() {
       // Slow orbit. Viewed nearly edge-on the lensing is at its most dramatic,
       // so the camera starts there and tilts upward as the page scrolls.
       const azimuth = 0.62 + t * 0.021 + mx * 0.22;
-      const targetInc = 0.085 + scrollT * 0.50 - my * 0.06;
+      const targetInc = 0.085 + scrollT * 0.34 - my * 0.06;
       inclination += (targetInc - inclination) * 0.05;
 
-      const dist = 23.0;
+      // Scroll is the fall. Easing in matches the shape of real infall: slow to
+      // let go, then accelerating as the well steepens.
+      const e = scrollT * scrollT * (3.0 - 2.0 * scrollT);
+      dist += (R0 + (R1 - R0) * e - dist) * 0.06;
+
+      // Speed a static observer at this radius would clock us falling past, for
+      // a body released from rest at R0 (r_s = 1 in these units).
+      const beta = Math.sqrt(Math.max(0, (1 / dist - 1 / R0) / (1 - 1 / R0)));
+      uniforms.uBeta.value = Math.min(beta, 0.86);
+      uniforms.uExposure.value = 1.45 * (1.0 - 0.20 * e);
+
       camPos.set(
         Math.sin(azimuth) * Math.cos(inclination) * dist,
         Math.sin(inclination) * dist,

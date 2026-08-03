@@ -180,5 +180,22 @@ footer.site {
   }
 }
 .layer { position: relative; z-index: 1; }
-.veil { background: rgba(5, 7, 13, 0.88); backdrop-filter: blur(6px); }
+.veil { background: rgba(5, 7, 13, 0.78); backdrop-filter: blur(7px); }
+
+/* full-viewport panels that lock to the top of the screen as you scroll */
+.snap {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 96px 0 64px;
+}
+.snap > .wrap { width: 100%; }
+@media (min-width: 821px) and (min-height: 640px) {
+  html { scroll-snap-type: y mandatory; }
+  .snap {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
 .hero h1, .hero .lede { text-shadow: 0 4px 30px rgba(2, 3, 7, 0.9); }
