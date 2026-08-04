@@ -1,11 +1,23 @@
 import { copyFile, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { DeckSlide } from "./deck-types";
+import bundled from "./deck.json";
 
 /** The single source of truth: slide visuals + the spoken beats over them. */
 const FILE = path.join(process.cwd(), "app", "vast", "deck.json");
 
+/**
+ * In production the deck is read from the import, so it is bundled into the
+ * serverless function and cannot go missing. Reading it off disk there would
+ * depend on file tracing picking up a path built at runtime, which it does not
+ * reliably do — and a deck that 500s on the day of the interview is the one
+ * failure this whole thing cannot have.
+ *
+ * In dev it is read from disk on every request, so saves from the editor at
+ * /vast/script appear without restarting the server.
+ */
 export async function readDeck(): Promise<DeckSlide[]> {
+  if (process.env.NODE_ENV === "production") return bundled as DeckSlide[];
   return JSON.parse(await readFile(FILE, "utf8")) as DeckSlide[];
 }
 
