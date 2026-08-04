@@ -16,18 +16,18 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Situation · Every audit starts with a split</div>
+        <div className={s.kicker}>The requirement · where a purchase exam looks</div>
         <div className={s.two}>
           <div className={s.cap}>
-            <h4>Fixed assets</h4>
-            <p>Equipment, machinery, improvements</p>
+            <h4>Fixed asset additions</h4>
+            <p>A list of things somebody already decided were assets</p>
           </div>
           <div className={s.exp}>
-            <h4>Expense items</h4>
-            <p>Repairs, supplies, consumables</p>
+            <h4>Expense accounts</h4>
+            <p>Repairs, supplies, consumables — and whatever got misfiled</p>
           </div>
         </div>
-        <p className={s.sub} style={{ marginTop: 20 }}>That split <em>is</em> a capitalization review — I just come at it from the enforcement side.</p>
+        <p className={s.sub} style={{ marginTop: 20 }}>The schedule is the easy pile. The expense accounts are where you earn the day — because that&rsquo;s where assets hide. Not from tax. <em>From detection.</em></p>
       </section>
 
       <section className={s.slide}>
@@ -41,12 +41,30 @@ export default function Topic1Page() {
       </section>
 
       <section className={s.slide}>
-        <div className={s.kicker}>Task → Action · The call</div>
+        <div className={s.kicker}>The interesting part</div>
+        <h3 className={s.h3}>Two rules. One invoice. Two different numbers.</h3>
+        <div className={s.two}>
+          <div className={s.cap}>
+            <h4>Use tax measure</h4>
+            <p>Purchase price. Separately stated installation labor is excluded &mdash; Reg 1546.</p>
+          </div>
+          <div className={s.exp}>
+            <h4>GAAP basis · ASC 360</h4>
+            <p>Price plus freight plus installation &mdash; everything to get it in place and working.</p>
+          </div>
+        </div>
+        <p className={s.sub} style={{ marginTop: 20 }}>Not because anyone is wrong &mdash; because the two rules are asking different questions. Mine asks what was purchased for use in California. Theirs asks what the asset cost.</p>
+      </section>
+
+      <section className={s.slide}>
+        <div className={s.kicker}>The call I make — and the one I don&rsquo;t</div>
+        <h2 className={s.h2}>Use tax never depended on the pile.</h2>
         <ul className={s.slideList}>
-          <li><b>Added capability — didn&rsquo;t restore it</b><span>Not fixing a booth. Acquiring one.</span></li>
-          <li><b>Useful life in years</b><span>Not months.</span></li>
-          <li><b>Measure: price + freight + install</b><span>Same principle as ASC 360 basis — tax and book agree.</span></li>
+          <li><b>The tax was due either way</b><span>Tangible personal property, bought out of state, used in California, no tax paid to the vendor. Which account it sat in changes nothing.</span></li>
+          <li><b>But it was misclassified, and I said so</b><span>Added capability rather than restoring it, useful life in years, missing from the schedule for three years. A books problem — not my assessment to make.</span></li>
+          <li><b>And that&rsquo;s why nobody had caught it</b><span>Additions on the depreciation schedule get reviewed. Costs buried in R&amp;M don&rsquo;t. The coding didn&rsquo;t create the liability — it hid it.</span></li>
         </ul>
+        <div className={s.calloutNote}>Which is the actual reason this story belongs in a capitalization presentation.</div>
       </section>
 
       <section className={s.slide}>
@@ -58,7 +76,7 @@ export default function Topic1Page() {
       <section className={s.slide}>
         <div className={s.kicker}>Result &amp; Lessons</div>
         <ul className={s.slideList}>
-          <li><b>The classification held</b><span>Defended at exit conference; asset capitalized, use-tax accrual set up.</span></li>
+          <li><b>The assessment held</b><span>Walked the owner and their CPA through both pieces at the exit conference — what they owed, and separately, what their books had wrong.</span></li>
           <li><b>Nobody was cheating</b><span>The invoice just landed in the wrong pile — for three years.</span></li>
           <li><b>The decision belongs at the point of entry</b><span>On purpose, under a written policy. Hold that thought for Topic 2.</span></li>
         </ul>

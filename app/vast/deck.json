@@ -352,6 +352,44 @@
   },
   {
     "section": "Part 02 — Topic 1",
+    "sectionTitle": "Where I've made this call",
+    "visual": {
+      "t": "list",
+      "kick": "Before the examples",
+      "title": "I've made this call from three seats.",
+      "items": [
+        {
+          "lead": "On the return",
+          "sub": "Business returns through the 1120 — depreciation schedules, Form 4562, Section 179 and bonus elections, and book-to-tax depreciation on the M-1."
+        },
+        {
+          "lead": "In the audit",
+          "sub": "Every field exam tests whether capital purchases were identified correctly. That isn't adjacent to this decision — it is this decision, graded after the fact."
+        },
+        {
+          "lead": "In the build",
+          "sub": "My own implementation costs, under ASC 350-40. That one is Example 2."
+        }
+      ],
+      "callout": "What I haven't done is post the month-end entry and run the rollforward. That's the part that's new — and it's the smallest part."
+    },
+    "beats": [
+      {
+        "cue": "Three seats — name the gap first",
+        "opener": "Before the two examples, let me tell you where I've made this call before — because it probably isn't where you'd guess.",
+        "rest": "I have not maintained a fixed asset subledger. I'd rather say that now than have it sitting under the next twenty minutes.\n\nWhat I have done is make the capitalize-or-expense determination from three different seats.\n\nOn the return. I prepare business returns up through the 1120, which means depreciation schedules, Form 4562, Section 179 and bonus elections, and reconciling book depreciation to tax depreciation on the M-1. That reconciliation is the fixed asset question, restated in a different vocabulary.\n\nIn the audit. Every field exam I run tests whether capital purchases got identified correctly in the first place. That isn't adjacent to this decision — it is this decision, graded after the fact, by me.\n\nAnd in the build, where the cost was my own. That's the second example.",
+        "marks": "Even and unhurried. You are sizing a gap, not confessing to one. Same energy as \"none of this is accounting.\""
+      },
+      {
+        "cue": "Size the gap honestly",
+        "opener": "So here's the honest shape of it.",
+        "rest": "I know the rule. I've applied it, and I've tested other people's application of it — which is a harder version of the same skill, because I have to defend my answer to someone who disagrees.\n\nWhat's new is the posting and the rollforward. That's a week, not a quarter.\n\nAnd I'd much rather you know exactly which part is new than find out in March.",
+        "marks": "Then MOVE. Do not pause for reassurance — going straight into Example 1 is what makes it read as sized rather than apologized for."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "statement",
@@ -363,7 +401,7 @@
       {
         "cue": "Setup — inside a real audit",
         "opener": "The first call I made from the audit chair. Let me take you inside a real one.",
-        "rest": "This is from my CDTFA work, so the details are disguised — no names, nothing identifying. But the decision is real, and it's one I make regularly.\n\nAnd I want to start with the thing most people get wrong about a sales tax audit. Everyone assumes we only look at sales. We don't. Every field audit examines what the business bought, too.",
+        "rest": "This is from my CDTFA work, so the details are disguised — no names, nothing identifying. But the decision is real, and it's one I make regularly.\n\nAnd I want to start with what most people get wrong about a sales tax audit. Everyone assumes we only look at sales. We don't. Every field audit examines what the business bought, too.",
         "marks": "Plain and unhurried. You are inviting them somewhere, not performing."
       }
     ]
@@ -373,24 +411,24 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "cards",
-      "kick": "The requirement",
-      "title": "Every audit starts by\nsplitting purchases in two.",
+      "kick": "The requirement · where a purchase exam looks",
+      "title": "Two piles. Only one of them\nis any work.",
       "a": {
-        "h": "Fixed assets",
-        "lines": "Equipment\nMachinery\nImprovements"
+        "h": "Fixed asset additions",
+        "lines": "A list of things\nsomebody already\ndecided were assets"
       },
       "b": {
-        "h": "Expense items",
-        "lines": "Repairs\nSupplies\nConsumables"
+        "h": "Expense accounts",
+        "lines": "Repairs, supplies,\nconsumables — and\nwhatever got misfiled"
       },
-      "tail": "That split is a capitalization review. I just come at it from the enforcement side."
+      "tail": "The schedule is the easy pile. The expense accounts are where you earn the day."
     },
     "beats": [
       {
-        "cue": "The requirement — the two piles",
-        "opener": "Step one of the purchase exam is splitting everything into two piles: fixed assets, and expense items.",
-        "rest": "And I want to name what that actually is, because it took me a while to see it myself.\n\nThat split is a capitalization review. It is the exact question you ask here at Vast — is this an asset, or is this an expense? Same question, same factors. I just come at it from the enforcement side, after the fact, with the invoice in my hand.",
-        "marks": "Land \"same question\" — this is why the story belongs in this interview at all."
+        "cue": "Where the work is",
+        "opener": "A purchase exam starts by splitting what the business bought into two piles: fixed asset additions, and expense accounts.",
+        "rest": "The fixed asset schedule is the easy pile. It's a list of things somebody already decided were assets, and it's the first place any auditor looks — a taxable equipment purchase sitting on the depreciation schedule is not hiding from anybody.\n\nThe expense accounts are where you actually earn the day. And of those, repairs and maintenance is where I spend my time — because that is where assets go to hide.\n\nNot from tax. From detection.",
+        "marks": "\"Not from tax. From detection.\" — this correction is doing real work. Say it as a clarification, not a punchline."
       }
     ]
   },
@@ -404,28 +442,54 @@
       "items": [
         {
           "lead": "A ~$20,000 invoice, coded to R&M",
-          "sub": "Repairs and maintenance is where assets go to hide."
+          "sub": "Line-by-line through the account, which is most of the job."
         },
         {
           "lead": "Out-of-state vendor, no tax charged",
-          "sub": "Which means use tax — and it was never self-assessed."
+          "sub": "So nothing was collected at the register — which makes it a use tax question."
         },
         {
-          "lead": "Equipment, freight and installation, one invoice",
+          "lead": "Equipment, freight, and installation on one invoice",
           "sub": "A spray booth for an auto body shop."
         },
         {
           "lead": "Nowhere on the depreciation schedule",
-          "sub": "Their own records contradicted each other."
+          "sub": "Which is exactly why it had never been looked at."
         }
       ]
     },
     "beats": [
       {
         "cue": "The find",
-        "opener": "So I'm going through repairs and maintenance line by line, which is where I always spend my time.",
-        "rest": "R&M is where assets go to hide. Not because people are cheating — because of how bookkeeping actually happens. Something arrives, it sounds like a repair, it gets filed where repairs go.\n\nAnd there it is. About twenty thousand dollars. Out-of-state vendor, so no tax was charged. Equipment, freight, and installation, all on one invoice — a spray booth. Coded to repairs.\n\nAnd it was nowhere on the depreciation schedule.",
-        "marks": "Slow on the last line. Their own records told on them — let that be obvious without saying it yet."
+        "opener": "So I'm going through repairs and maintenance line by line, which is most of the job, and there it is.",
+        "rest": "About twenty thousand dollars. Out-of-state vendor, so no tax was collected at the point of sale. Equipment, freight, and installation, all on one invoice — a spray booth.\n\nCoded to repairs. And nowhere on the depreciation schedule.",
+        "marks": "Let the last line sit. Do not explain it yet — the next two slides are the explanation."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
+    "sectionTitle": "Example 1 — the audit chair",
+    "visual": {
+      "t": "cards",
+      "kick": "The interesting part",
+      "title": "Two rules. One invoice.\nTwo different numbers.",
+      "a": {
+        "h": "Use tax measure",
+        "lines": "Purchase price.\nSeparately stated\ninstallation labor is\nexcluded — Reg 1546."
+      },
+      "b": {
+        "h": "GAAP basis · ASC 360",
+        "lines": "Price plus freight\nplus installation —\neverything to get it\nin place and working."
+      },
+      "tail": "The two rules are asking different questions, so they don't produce the same number."
+    },
+    "beats": [
+      {
+        "cue": "Two rules, one invoice",
+        "opener": "And here is the part I find genuinely interesting, because this one invoice gets measured twice, two different ways.",
+        "rest": "For my purposes — the use tax measure — the starting point is the purchase price. But separately stated charges for installation labor are excluded from the measure of tax under Regulation 1546, and separately stated delivery to the purchaser generally is too.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is everything required to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone is wrong — because the two rules are answering different questions. Mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
+        "marks": "This is your credibility slide with the technical interviewer. Unhurried, and do not apologize for the detail."
       }
     ]
   },
@@ -434,30 +498,41 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "list",
-      "kick": "What I did · the call",
-      "title": "So: repair, or capital asset?",
+      "kick": "The call I make — and the one I don't",
+      "title": "Use tax never depended on the pile.",
       "items": [
         {
-          "lead": "It added capability — it didn't restore it",
-          "sub": "They weren't fixing a booth. They were acquiring one."
+          "lead": "The tax was due either way",
+          "sub": "Tangible personal property, bought out of state, used in California, no tax paid to the vendor. Which account it sat in changes nothing about that."
         },
         {
-          "lead": "Useful life in years, not months",
-          "sub": "This outlives the period it was expensed in."
+          "lead": "But it was misclassified, and I said so",
+          "sub": "Added capability rather than restoring it, useful life in years, expensed to R&M and missing from the schedule for three years. That's a books problem, not a tax problem — and not my assessment to make."
         },
         {
-          "lead": "Measured at price plus freight plus installation",
-          "sub": "Everything required to get it in place and working."
+          "lead": "And the misclassification is why nobody had caught it",
+          "sub": "Additions on the depreciation schedule get reviewed. Costs buried in R&M don't. The coding didn't create the liability. It hid it."
         }
       ],
-      "callout": "And their own books already disagreed with the coding — expensed in R&M, missing from the schedule."
+      "callout": "Which is the actual reason this story belongs in a capitalization presentation."
     },
     "beats": [
       {
-        "cue": "The three factors",
-        "opener": "Now I have a call to make, and I have to be able to defend it — because if it's an asset, it belonged on their books and use tax was due, and never paid.",
-        "rest": "Three factors got me there. It added capability rather than restoring it — they weren't fixing a booth, they were acquiring one. Its useful life is measured in years, not months. And the measure includes freight and installation, because that's what it took to get it in place and working.\n\nAnd then the thing that settled it: their own books already disagreed with themselves. Expensed as a repair, and missing from the depreciation schedule.\n\nTheir own records told on them.",
-        "marks": "PAUSE after \"told on them.\" Do not add anything to it."
+        "cue": "The honest scope of my call",
+        "opener": "Now — I want to be precise about what I actually decided, because it's narrower than you might expect.",
+        "rest": "The use tax did not depend on the classification at all. Tangible personal property, purchased out of state, used in California, no tax paid to the vendor. Use tax is due. Whether they called it a repair or an asset changes nothing about that conclusion, and I want to say that plainly because it would be easy to overclaim here."
+      },
+      {
+        "cue": "The part that wasn't my job",
+        "opener": "But the classification was wrong, and I raised it anyway — because it wasn't my assessment, it was their books.",
+        "rest": "It added capability rather than restoring it. Its useful life is measured in years. It was expensed to repairs and missing from the depreciation schedule for three years running.\n\nSo their own two records disagreed with each other. Their own records told on them.",
+        "marks": "PAUSE after \"told on them.\" Add nothing to it."
+      },
+      {
+        "cue": "Why the pile mattered anyway",
+        "opener": "And here's why the pile mattered, even though the tax didn't turn on it.",
+        "rest": "It's the reason nobody had ever caught it. Additions on the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs and maintenance don't get reviewed by anyone.\n\nThe misclassification didn't create the liability. It hid it, for three years.\n\nWhich is the actual reason this story belongs in a capitalization presentation.",
+        "marks": "This is the beat that answers \"why does an auditor care about capitalization.\" Land it deliberately."
       }
     ]
   },
@@ -466,7 +541,7 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "statement",
-      "kick": "What I did · the discipline",
+      "kick": "The discipline",
       "title": "It has to cut\nboth ways.",
       "sub": "The genuine repairs in that same account — compressor service, filter changes — I left alone."
     },
@@ -488,25 +563,25 @@
       "title": "It held. And nobody was cheating.",
       "items": [
         {
-          "lead": "The classification held at the exit conference",
-          "sub": "Walked the owner and their CPA through it. Asset capitalized, use tax accrued."
+          "lead": "The assessment held at the exit conference",
+          "sub": "Walked the owner and their CPA through both pieces — what they owed, and separately, what their books had wrong."
         },
         {
           "lead": "Nobody was cheating",
-          "sub": "The invoice sounded like a repair vendor, so it went where repair invoices go — and sat there for three years."
+          "sub": "The invoice sounded like a repair vendor, so it went where repair invoices go, and sat there for three years."
         },
         {
           "lead": "The call got made at data entry",
-          "sub": "By default, by the person with the least context, with no rule to follow."
+          "sub": "By default, by the person with the least context, with no threshold to check against."
         }
       ],
-      "callout": "Which is the actual lesson: that decision belongs at the point of entry, on purpose, under a written policy. Hold that thought."
+      "callout": "Which is the lesson: that decision belongs at the point of entry, on purpose, under a written policy. Hold that thought."
     },
     "beats": [
       {
         "cue": "How it came out",
-        "opener": "At the exit conference I walked the owner and their CPA through all of it, and the classification held. The asset was capitalized and the use tax was accrued.",
-        "rest": "But here's what I actually took away from it, and it isn't about tax.\n\nNobody was cheating. The invoice sounded like a repair vendor, so it got filed where repair invoices go, and it sat there wrong for three years. Nobody ever revisited it.\n\nThat call was made at data entry, by default, by the person with the least context, with no rule to follow."
+        "opener": "At the exit conference I walked the owner and their CPA through both pieces — what they owed me, and separately, what their books had wrong. The assessment held.",
+        "rest": "And here's what I actually took away from it, which isn't about tax at all.\n\nNobody was cheating. The invoice sounded like a repair vendor, so it got filed where repair invoices go, and it sat there wrong for three years. Nobody ever revisited it.\n\nThat classification was made at data entry, by default, by the person with the least context, with no threshold to check against."
       },
       {
         "cue": "What I'd change — point of entry",
@@ -665,6 +740,12 @@
         "cue": "Two chairs, one failure mode",
         "opener": "Two calls, two chairs, and the same failure underneath both of them.",
         "rest": "In the first one, a bookkeeper made a capitalization decision by default, because nobody had given them a threshold to check against.\n\nIn the second one, I made a capitalization decision by default — and I knew the standard. I just didn't write anything down.\n\nBoth calls got made by whoever happened to be closest to the transaction, with nothing to follow."
+      },
+      {
+        "cue": "What the two examples were for",
+        "opener": "And that's why I picked those two.",
+        "rest": "Not because they were the biggest numbers I've touched. Because one of them I caught, and one of them I missed — and I'd rather show you both than show you two wins.\n\nThe judgment is the part that transfers. The posting is the part I learn.",
+        "marks": "This is the sentence that answers the bookkeeping question without ever restating it."
       },
       {
         "cue": "Through-line, pass 2",
