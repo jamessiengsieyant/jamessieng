@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { isOwnerEmail } from "../owner";
+import PrepSheets from "./PrepSheets";
 
 export default async function PromptPage() {
   const devBypass = process.env.NODE_ENV !== "production";
@@ -111,6 +112,8 @@ export default async function PromptPage() {
             </li>
           </ul>
         </div>
+
+        <PrepSheets />
       </div>
     </article>
   );

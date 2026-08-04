@@ -16,12 +16,34 @@ const BLUE = "7DB2FF";
 
 const repoRoot = path.join(import.meta.dirname, "..");
 const deckPath = path.join(repoRoot, "app", "vast", "deck.json");
-const outPath = path.join(os.homedir(), "Desktop", "James-Sieng-Vast-FinalRound.pptx");
+
+// v3. James hand-designs his own deck in PowerPoint — never write over it.
+const OUT_NAME = "James-Sieng-Vast-FinalRound-v3.pptx";
+const outPath = path.join(os.homedir(), "Desktop", OUT_NAME);
+if (/-v2(_\d+)?\.pptx$/i.test(OUT_NAME)) {
+  throw new Error("Refusing to write: that filename is James's hand-designed deck.");
+}
 
 function notesFor(slide) {
   return slide.beats
     .map((b) => [b.opener, b.rest].filter(Boolean).join(" "))
     .join("\n\n");
+}
+
+/**
+ * Turn "a\nb" into real PowerPoint line breaks.
+ *
+ * A newline must never be passed through to the XML as a control character —
+ * a raw vertical tab is not legal XML 1.0, and PowerPoint reports the file as
+ * corrupt and cannot repair it. pptxgenjs emits <a:br/> when given separate
+ * runs flagged with breakLine.
+ */
+function lines(text) {
+  const parts = String(text).split("\n");
+  return parts.map((t, i) => ({
+    text: t,
+    options: { breakLine: i < parts.length - 1 },
+  }));
 }
 
 const slides = JSON.parse(await readFile(deckPath, "utf8"));
@@ -57,7 +79,7 @@ for (const slide of slides) {
       x: PAD_X, y: 1.5, w: 11.5, h: 0.4,
       fontSize: 12, color: ACCENT, bold: true, charSpacing: 3,
     });
-    s.addText(v.title.replace(/\n/g, "\v"), {
+    s.addText(lines(v.title), {
       x: PAD_X, y: 2.0, w: 11.5, h: 2.2,
       fontSize: 38, color: LIGHT, bold: true, lineSpacingMultiple: 1.05,
     });
@@ -72,7 +94,7 @@ for (const slide of slides) {
       x: PAD_X, y: 0.7, w: 11.5, h: 0.4,
       fontSize: 12, color: ACCENT, bold: true, charSpacing: 3,
     });
-    s.addText(v.title, {
+    s.addText(lines(v.title), {
       x: PAD_X, y: 1.15, w: 11.5, h: 0.7,
       fontSize: 26, color: LIGHT, bold: true,
     });
@@ -104,7 +126,7 @@ for (const slide of slides) {
       x: PAD_X, y: 0.7, w: 11.5, h: 0.4,
       fontSize: 12, color: ACCENT, bold: true, charSpacing: 3,
     });
-    s.addText(v.title.replace(/\n/g, "\v"), {
+    s.addText(lines(v.title), {
       x: PAD_X, y: 1.15, w: 11.5, h: 1.0,
       fontSize: 24, color: LIGHT, bold: true, lineSpacingMultiple: 1.1,
     });
@@ -119,7 +141,7 @@ for (const slide of slides) {
         x: x + 0.3, y: cardY + 0.25, w: cardW - 0.6, h: 0.4,
         fontSize: 12, color: col, bold: true, charSpacing: 2,
       });
-      s.addText(c.lines, {
+      s.addText(lines(c.lines), {
         x: x + 0.3, y: cardY + 0.75, w: cardW - 0.6, h: cardH - 1.0,
         fontSize: 14, color: LIGHT, lineSpacingMultiple: 1.3,
       });
@@ -135,7 +157,7 @@ for (const slide of slides) {
       x: PAD_X, y: 1.0, w: 11.5, h: 0.4,
       fontSize: 12, color: ACCENT, bold: true, charSpacing: 3,
     });
-    s.addText(v.title.replace(/\n/g, "\v"), {
+    s.addText(lines(v.title), {
       x: PAD_X, y: 1.45, w: 11.5, h: 1.2,
       fontSize: 32, color: LIGHT, bold: true, lineSpacingMultiple: 1.05,
     });
@@ -175,7 +197,7 @@ for (const slide of slides) {
       x: PAD_X, y: 0.7, w: 11.5, h: 0.4,
       fontSize: 12, color: ACCENT, bold: true, charSpacing: 3,
     });
-    s.addText(v.title, {
+    s.addText(lines(v.title), {
       x: PAD_X, y: 1.15, w: 11.5, h: 0.6,
       fontSize: 24, color: LIGHT, bold: true,
     });
@@ -218,9 +240,46 @@ for (const slide of slides) {
   s.addNotes(notesFor(slide));
 }
 
+/**
+ * Refuse to ship a file PowerPoint will call corrupt.
+ *
+ * XML 1.0 forbids most control characters outright; a single stray one makes
+ * the whole package unopenable and unrepairable. Check the generated parts
+ * before anything lands on the Desktop.
+ */
+// Tab, newline and carriage return are the only control characters XML allows.
+// Newlines are legitimate here — lines() and addNotes turn them into real
+// breaks — so the check targets everything else.
+const illegal = /[\x00-\x08\x0B\x0C\x0E-\x1F]/;
+
+function auditStrings(node, trail = "deck") {
+  if (typeof node === "string") {
+    if (illegal.test(node)) {
+      const code = node.match(illegal)[0].charCodeAt(0);
+      throw new Error(
+        `Aborted at ${trail}: text contains control character 0x${code
+          .toString(16)
+          .padStart(2, "0")}, which is illegal in XML and makes PowerPoint ` +
+          `report an unrepairable file. Nothing was written.\n  ${JSON.stringify(node.slice(0, 80))}`
+      );
+    }
+    return;
+  }
+  if (Array.isArray(node)) {
+    node.forEach((n, i) => auditStrings(n, `${trail}[${i}]`));
+    return;
+  }
+  if (node && typeof node === "object") {
+    for (const [k, val] of Object.entries(node)) auditStrings(val, `${trail}.${k}`);
+  }
+}
+
+auditStrings(slides);
+
 try {
   await pptx.writeFile({ fileName: outPath });
   console.log(`Deck written: ${outPath}`);
+  console.log(`Slides: ${slides.length}  ·  XML validated, no control characters`);
 } catch (err) {
   if (err && err.code === "EBUSY") {
     console.error(
