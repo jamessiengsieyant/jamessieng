@@ -1,16 +1,19 @@
-// Example 1, corrected.
+// Example 1, rewritten. Three changes:
 //
-// The old version implied the capitalization call drove the use tax
-// assessment. It did not — use tax is due on out-of-state tangible personal
-// property used in California regardless of which account it lands in. It also
-// used "price + freight + installation" as the tax measure, which is the GAAP
-// basis under ASC 360; under Reg 1546 separately stated installation labor is
-// excluded from the measure of tax, and under Reg 1628 separately stated
-// delivery to the purchaser generally is too.
+// 1. The misclassification now has a mechanism — a vendor default account in
+//    the books — instead of a vague "assets hide in R&M." The rule existed; it
+//    was keyed on who sent the invoice instead of what was on it. That is a
+//    much better setup for build 3 in Topic 2.
 //
-// Corrected, the story is better: two rules asking different questions of the
-// same invoice, and a misclassification that did not create the liability —
-// it hid it for three years.
+// 2. Accuracy. Use tax was due regardless of the classification: out-of-state
+//    tangible personal property used in California owes it whether it sits in
+//    R&M or on the depreciation schedule. The earlier draft implied the
+//    capitalization call drove the assessment. It did not.
+//
+// 3. The two-rules beat. Installation labor is excluded from the measure of
+//    tax (Reg 1546), but freight and installation go into basis under ASC 360.
+//    Same invoice, two numbers — which is James's actual expertise and the
+//    strongest technical moment available to him.
 import { readFile, writeFile, copyFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -22,204 +25,115 @@ const first = deck.findIndex((s) => s.sectionTitle === E1);
 const count = deck.filter((s) => s.sectionTitle === E1).length;
 if (first < 0) throw new Error("Example 1 slides not found — aborting.");
 
+const T1 = "Part 02 — Topic 1";
+
 const slides = [
   {
-    section: "Part 02 — Topic 1",
+    section: T1,
     sectionTitle: E1,
     visual: {
       t: "statement",
       kick: "Example 1 · the audit chair",
-      title: "It was filed\nunder repairs.",
-      sub: "A field audit at CDTFA. Details disguised — no names, nothing identifying.",
-    },
-    beats: [
-      {
-        cue: "Setup — inside a real audit",
-        opener: "The first call I made from the audit chair. Let me take you inside a real one.",
-        rest:
-          "This is from my CDTFA work, so the details are disguised — no names, nothing identifying. But the decision is real, and it's one I make regularly.\n\nAnd I want to start with what most people get wrong about a sales tax audit. Everyone assumes we only look at sales. We don't. Every field audit examines what the business bought, too.",
-        marks: "Plain and unhurried. You are inviting them somewhere, not performing.",
-      },
-    ],
-  },
-  {
-    section: "Part 02 — Topic 1",
-    sectionTitle: E1,
-    visual: {
-      t: "cards",
-      kick: "The requirement · where a purchase exam looks",
-      title: "Two piles. Only one of them\nis any work.",
-      a: {
-        h: "Fixed asset additions",
-        lines: "A list of things\nsomebody already\ndecided were assets",
-      },
-      b: {
-        h: "Expense accounts",
-        lines: "Repairs, supplies,\nconsumables — and\nwhatever got misfiled",
-      },
-      tail: "The schedule is the easy pile. The expense accounts are where you earn the day.",
-    },
-    beats: [
-      {
-        cue: "Where the work is",
-        opener: "A purchase exam starts by splitting what the business bought into two piles: fixed asset additions, and expense accounts.",
-        rest:
-          "The fixed asset schedule is the easy pile. It's a list of things somebody already decided were assets, and it's the first place any auditor looks — a taxable equipment purchase sitting on the depreciation schedule is not hiding from anybody.\n\nThe expense accounts are where you actually earn the day. And of those, repairs and maintenance is where I spend my time — because that is where assets go to hide.\n\nNot from tax. From detection.",
-        marks:
-          "\"Not from tax. From detection.\" — this correction is doing real work. Say it as a clarification, not a punchline.",
-      },
-    ],
-  },
-  {
-    section: "Part 02 — Topic 1",
-    sectionTitle: E1,
-    visual: {
-      t: "list",
-      kick: "What I did · the find",
-      title: "In repairs and maintenance:",
-      items: [
-        { lead: "A ~$20,000 invoice, coded to R&M", sub: "Line-by-line through the account, which is most of the job." },
-        { lead: "Out-of-state vendor, no tax charged", sub: "So nothing was collected at the register — which makes it a use tax question." },
-        { lead: "Equipment, freight, and installation on one invoice", sub: "A spray booth for an auto body shop." },
-        { lead: "Nowhere on the depreciation schedule", sub: "Which is exactly why it had never been looked at." },
-      ],
+      title: "It came in from\nthe repair guy.",
+      sub: "A field audit. Details disguised.",
     },
     beats: [
       {
         cue: "The find",
-        opener: "So I'm going through repairs and maintenance line by line, which is most of the job, and there it is.",
+        opener: "First one's from a field audit. Details are disguised.",
         rest:
-          "About twenty thousand dollars. Out-of-state vendor, so no tax was collected at the point of sale. Equipment, freight, and installation, all on one invoice — a spray booth.\n\nCoded to repairs. And nowhere on the depreciation schedule.",
-        marks: "Let the last line sit. Do not explain it yet — the next two slides are the explanation.",
+          "People think a sales tax audit only looks at sales. It doesn't. We test what you bought too.\n\nSo I'm working the repairs and maintenance ledger. One vendor keeps showing up — small amounts, a few hundred at a time. Compressor service, filter changes, booth maintenance. All consistent with the account.\n\nThen one entry from that same vendor is twenty thousand dollars.\n\nOut-of-state. No tax charged. Equipment, freight, and installation on one invoice.\n\nIt's a spray booth. They bought the booth from the company that services their booths.",
+        marks: "Slow on the last line. Let them get there a half-second before you say it.",
       },
     ],
   },
   {
-    section: "Part 02 — Topic 1",
+    section: T1,
     sectionTitle: E1,
     visual: {
       t: "cards",
-      kick: "The interesting part",
-      title: "Two rules. One invoice.\nTwo different numbers.",
+      kick: "What the rule wanted",
+      title: "Two rules.\nOne invoice.",
       a: {
         h: "Use tax measure",
-        lines: "Purchase price.\nSeparately stated\ninstallation labor is\nexcluded — Reg 1546.",
+        lines: "Purchase price.\nInstallation labor is\nexcluded — Reg 1546.",
       },
       b: {
-        h: "GAAP basis · ASC 360",
-        lines: "Price plus freight\nplus installation —\neverything to get it\nin place and working.",
+        h: "Book basis · ASC 360",
+        lines: "Price plus freight\nplus installation —\nwhatever it took to\nget it working.",
       },
-      tail: "The two rules are asking different questions, so they don't produce the same number.",
+      tail: "Same invoice, two different numbers. The rules are asking different questions.",
     },
     beats: [
       {
         cue: "Two rules, one invoice",
-        opener: "And here is the part I find genuinely interesting, because this one invoice gets measured twice, two different ways.",
+        opener: "And this is the part of the job I actually like. That one invoice gets measured twice, two different ways.",
         rest:
-          "For my purposes — the use tax measure — the starting point is the purchase price. But separately stated charges for installation labor are excluded from the measure of tax under Regulation 1546, and separately stated delivery to the purchaser generally is too.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is everything required to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone is wrong — because the two rules are answering different questions. Mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
-        marks:
-          "This is your credibility slide with the technical interviewer. Unhurried, and do not apologize for the detail.",
+          "For my purposes, the use tax measure starts with the purchase price. But installation labor is excluded under Regulation 1546.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is whatever it took to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone's wrong. Mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
+        marks: "This is your credibility slide with Galvan. Unhurried, and don't apologize for the detail.",
       },
     ],
   },
   {
-    section: "Part 02 — Topic 1",
+    section: T1,
     sectionTitle: E1,
     visual: {
       t: "list",
-      kick: "The call I make — and the one I don't",
-      title: "Use tax never depended on the pile.",
+      kick: "What I did",
+      title: "Repair, or asset?",
       items: [
-        {
-          lead: "The tax was due either way",
-          sub: "Tangible personal property, bought out of state, used in California, no tax paid to the vendor. Which account it sat in changes nothing about that.",
-        },
-        {
-          lead: "But it was misclassified, and I said so",
-          sub: "Added capability rather than restoring it, useful life in years, expensed to R&M and missing from the schedule for three years. That's a books problem, not a tax problem — and not my assessment to make.",
-        },
-        {
-          lead: "And the misclassification is why nobody had caught it",
-          sub: "Additions on the depreciation schedule get reviewed. Costs buried in R&M don't. The coding didn't create the liability. It hid it.",
-        },
+        { lead: "The use tax was due either way" },
+        { lead: "But it added capability, and it lasts years" },
+        { lead: "Expensed to R&M, and never on the depreciation schedule" },
       ],
-      callout: "Which is the actual reason this story belongs in a capitalization presentation.",
+      callout: "That same vendor's other invoices were genuine repairs. I left those alone.",
     },
     beats: [
       {
-        cue: "The honest scope of my call",
-        opener: "Now — I want to be precise about what I actually decided, because it's narrower than you might expect.",
+        cue: "What I actually decided",
+        opener: "Now, what did I actually decide? It's narrower than you'd think, and I want to be precise about it.",
         rest:
-          "The use tax did not depend on the classification at all. Tangible personal property, purchased out of state, used in California, no tax paid to the vendor. Use tax is due. Whether they called it a repair or an asset changes nothing about that conclusion, and I want to say that plainly because it would be easy to overclaim here.",
-      },
-      {
-        cue: "The part that wasn't my job",
-        opener: "But the classification was wrong, and I raised it anyway — because it wasn't my assessment, it was their books.",
-        rest:
-          "It added capability rather than restoring it. Its useful life is measured in years. It was expensed to repairs and missing from the depreciation schedule for three years running.\n\nSo their own two records disagreed with each other. Their own records told on them.",
-        marks: "PAUSE after \"told on them.\" Add nothing to it.",
-      },
-      {
-        cue: "Why the pile mattered anyway",
-        opener: "And here's why the pile mattered, even though the tax didn't turn on it.",
-        rest:
-          "It's the reason nobody had ever caught it. Additions on the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs and maintenance don't get reviewed by anyone.\n\nThe misclassification didn't create the liability. It hid it, for three years.\n\nWhich is the actual reason this story belongs in a capitalization presentation.",
-        marks: "This is the beat that answers \"why does an auditor care about capitalization.\" Land it deliberately.",
+          "The use tax didn't depend on the classification. Out-of-state tangible property, used in California, no tax paid to the vendor — use tax is due. Repair or asset, that doesn't move.\n\nBut the classification was wrong, and I raised it anyway, because it was their books. It added capability. They weren't fixing a booth, they were buying one. It lasts years. And it was expensed to repairs and never appeared on the depreciation schedule.\n\nOne more thing, and hold me to this. That same vendor's other invoices were real repairs. I left every one of them alone. If it only ever goes one way, it isn't judgment.",
+        marks: "Say the repairs line plainly. The restraint is the point.",
       },
     ],
   },
   {
-    section: "Part 02 — Topic 1",
+    section: T1,
     sectionTitle: E1,
     visual: {
       t: "statement",
-      kick: "The discipline",
-      title: "It has to cut\nboth ways.",
-      sub: "The genuine repairs in that same account — compressor service, filter changes — I left alone.",
-    },
-    beats: [
-      {
-        cue: "Cuts both ways",
-        opener: "One more thing about that account, and this is the part I'd want you to hold me to.",
-        rest:
-          "That same account had real repairs in it. Compressor service. Filter changes. I left every one of them alone.\n\nBecause if the call only ever goes one direction, it isn't judgment — it's a shakedown. A position I can defend is one that would have gone the other way if the facts had.",
-        marks: "Say \"shakedown\" evenly. No edge on it. The restraint is the point.",
-      },
-    ],
-  },
-  {
-    section: "Part 02 — Topic 1",
-    sectionTitle: E1,
-    visual: {
-      t: "list",
       kick: "How it came out · what I'd change",
-      title: "It held. And nobody was cheating.",
-      items: [
-        { lead: "The assessment held at the exit conference", sub: "Walked the owner and their CPA through both pieces — what they owed, and separately, what their books had wrong." },
-        { lead: "Nobody was cheating", sub: "The invoice sounded like a repair vendor, so it went where repair invoices go, and sat there for three years." },
-        { lead: "The call got made at data entry", sub: "By default, by the person with the least context, with no threshold to check against." },
-      ],
-      callout: "Which is the lesson: that decision belongs at the point of entry, on purpose, under a written policy. Hold that thought.",
+      title: "It held.",
+      sub: "The vendor had a default account. The bill coded itself.",
     },
     beats: [
       {
         cue: "How it came out",
-        opener: "At the exit conference I walked the owner and their CPA through both pieces — what they owed me, and separately, what their books had wrong. The assessment held.",
+        opener: "At the exit conference I walked the owner and their CPA through both pieces — what they owed, and separately, what their books had wrong. It held.",
         rest:
-          "And here's what I actually took away from it, which isn't about tax at all.\n\nNobody was cheating. The invoice sounded like a repair vendor, so it got filed where repair invoices go, and it sat there wrong for three years. Nobody ever revisited it.\n\nThat classification was made at data entry, by default, by the person with the least context, with no threshold to check against.",
-      },
-      {
-        cue: "What I'd change — point of entry",
-        opener: "So what would I change? Not the audit. The moment the decision happened.",
-        rest:
-          "That call belongs at the point of entry — on purpose, under a written policy, by someone who knows what the threshold is.\n\nHold onto that. I'm going to build it in Topic 2.",
-        marks: "PLANT for Topic 2, build 3. Say it lightly — do not oversell the setup.",
+          "And nobody was cheating. That vendor was set up with a default account in their books, and the default was repairs and maintenance — because for years, that's all that vendor had ever sent them. The bill came in, it coded itself, and nobody overrode it.\n\nSo there was a rule. It was just keyed on who sent the invoice instead of what was on it.\n\nAnd that's why it sat for three years. Additions to the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs don't get reviewed by anyone. The coding didn't create the liability. It hid it.\n\nSo that's what I'd change. Not the audit. The rule that coded it. Hold onto that, I'll build it in Topic 2.",
+        marks:
+          "\"Keyed on who sent the invoice instead of what was on it\" is the setup for build 3. Land it.",
       },
     ],
   },
 ];
 
 deck.splice(first, count, ...slides);
+
+// close: the two failures are now different in a way worth naming
+const close = deck.find((s) => s.sectionTitle === "Topic 1 close");
+close.visual.sub = "One had the wrong rule. One had no rule at all.";
+close.beats = [
+  {
+    cue: "The close",
+    opener: "Two calls. Neither one had the right rule behind it when it mattered.",
+    rest:
+      "The first one had a rule. It was just keyed on the vendor instead of the invoice. The second one had no rule at all, because nobody wrote it. Including me.\n\nOne I caught. One I missed. I picked those two on purpose — I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
+    marks: "Through-line, pass 2. Straight into Topic 2, no pause.",
+  },
+];
 
 await copyFile(deckPath, `${deckPath}.pre-ex1fix.bak`);
 await writeFile(deckPath, `${JSON.stringify(deck, null, 2)}\n`, "utf8");

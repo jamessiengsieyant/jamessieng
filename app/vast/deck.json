@@ -352,15 +352,41 @@
     "visual": {
       "t": "statement",
       "kick": "Example 1 · the audit chair",
-      "title": "It was filed\nunder repairs.",
+      "title": "It came in from\nthe repair guy.",
       "sub": "A field audit. Details disguised."
     },
     "beats": [
       {
         "cue": "The find",
         "opener": "First one's from a field audit. Details are disguised.",
-        "rest": "People think a sales tax audit only looks at sales. It doesn't. We look at what you bought too.\n\nSo I'm in repairs and maintenance, going line by line. That's where I always spend my time. Assets hide in there. Not because anyone's cheating. An invoice shows up, it sounds like a repair, it gets filed with the repairs.\n\nAnd there's a twenty thousand dollar invoice. Out-of-state vendor, no tax charged. Equipment, freight, and installation, all on one line.\n\nIt's a spray booth. And it wasn't on their depreciation schedule.",
-        "marks": "Slow down on the last line."
+        "rest": "People think a sales tax audit only looks at sales. It doesn't. We test what you bought too.\n\nSo I'm working the repairs and maintenance ledger. One vendor keeps showing up — small amounts, a few hundred at a time. Compressor service, filter changes, booth maintenance. All consistent with the account.\n\nThen one entry from that same vendor is twenty thousand dollars.\n\nOut-of-state. No tax charged. Equipment, freight, and installation on one invoice.\n\nIt's a spray booth. They bought the booth from the company that services their booths.",
+        "marks": "Slow on the last line. Let them get there a half-second before you say it."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
+    "sectionTitle": "Example 1 — the audit chair",
+    "visual": {
+      "t": "cards",
+      "kick": "What the rule wanted",
+      "title": "Two rules.\nOne invoice.",
+      "a": {
+        "h": "Use tax measure",
+        "lines": "Purchase price.\nInstallation labor is\nexcluded — Reg 1546."
+      },
+      "b": {
+        "h": "Book basis · ASC 360",
+        "lines": "Price plus freight\nplus installation —\nwhatever it took to\nget it working."
+      },
+      "tail": "Same invoice, two different numbers. The rules are asking different questions."
+    },
+    "beats": [
+      {
+        "cue": "Two rules, one invoice",
+        "opener": "And this is the part of the job I actually like. That one invoice gets measured twice, two different ways.",
+        "rest": "For my purposes, the use tax measure starts with the purchase price. But installation labor is excluded under Regulation 1546.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is whatever it took to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone's wrong. Mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
+        "marks": "This is your credibility slide with Galvan. Unhurried, and don't apologize for the detail."
       }
     ]
   },
@@ -369,26 +395,26 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "list",
-      "kick": "What the rule wanted · what I did",
+      "kick": "What I did",
       "title": "Repair, or asset?",
       "items": [
         {
-          "lead": "It added capability"
+          "lead": "The use tax was due either way"
         },
         {
-          "lead": "It lasts years"
+          "lead": "But it added capability, and it lasts years"
         },
         {
-          "lead": "Cost includes freight and install"
+          "lead": "Expensed to R&M, and never on the depreciation schedule"
         }
       ],
-      "callout": "Their own books already said asset. It just wasn't coded like one."
+      "callout": "That same vendor's other invoices were genuine repairs. I left those alone."
     },
     "beats": [
       {
-        "cue": "The call",
-        "opener": "Now I have to make a call, and I have to defend it.",
-        "rest": "If it's an asset, it belonged on their books. And use tax was due on it, which nobody paid.\n\nIt added capability. They weren't fixing a booth, they were buying one. It lasts years. And the cost includes freight and installation, because that's what it took to make it work.\n\nOne more thing, and this is the part I'd want you to hold me to. That same account had real repairs in it. Compressor service, filters. I left those alone. If it only ever goes one way, it isn't judgment.",
+        "cue": "What I actually decided",
+        "opener": "Now, what did I actually decide? It's narrower than you'd think, and I want to be precise about it.",
+        "rest": "The use tax didn't depend on the classification. Out-of-state tangible property, used in California, no tax paid to the vendor — use tax is due. Repair or asset, that doesn't move.\n\nBut the classification was wrong, and I raised it anyway, because it was their books. It added capability. They weren't fixing a booth, they were buying one. It lasts years. And it was expensed to repairs and never appeared on the depreciation schedule.\n\nOne more thing, and hold me to this. That same vendor's other invoices were real repairs. I left every one of them alone. If it only ever goes one way, it isn't judgment.",
         "marks": "Say the repairs line plainly. The restraint is the point."
       }
     ]
@@ -400,13 +426,14 @@
       "t": "statement",
       "kick": "How it came out · what I'd change",
       "title": "It held.",
-      "sub": "And nobody was cheating. The call got made at data entry, by the person with the least context."
+      "sub": "The vendor had a default account. The bill coded itself."
     },
     "beats": [
       {
         "cue": "How it came out",
-        "opener": "I walked the owner and their CPA through it at the exit conference. It held.",
-        "rest": "But nobody was cheating. The invoice sounded like a repair, so it went where repairs go, and it sat there three years.\n\nThat call got made at data entry. By the person with the least context. With no rule to follow.\n\nSo that's what I'd change. Not the audit. The moment it happened. Hold onto that, I'm going to build it in Topic 2."
+        "opener": "At the exit conference I walked the owner and their CPA through both pieces — what they owed, and separately, what their books had wrong. It held.",
+        "rest": "And nobody was cheating. That vendor was set up with a default account in their books, and the default was repairs and maintenance — because for years, that's all that vendor had ever sent them. The bill came in, it coded itself, and nobody overrode it.\n\nSo there was a rule. It was just keyed on who sent the invoice instead of what was on it.\n\nAnd that's why it sat for three years. Additions to the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs don't get reviewed by anyone. The coding didn't create the liability. It hid it.\n\nSo that's what I'd change. Not the audit. The rule that coded it. Hold onto that, I'll build it in Topic 2.",
+        "marks": "\"Keyed on who sent the invoice instead of what was on it\" is the setup for build 3. Land it."
       }
     ]
   },
@@ -480,13 +507,13 @@
       "t": "statement",
       "kick": "Topic 1 close",
       "title": "One I caught.\nOne I missed.",
-      "sub": "Neither one had a rule behind it when it mattered."
+      "sub": "One had the wrong rule. One had no rule at all."
     },
     "beats": [
       {
         "cue": "The close",
-        "opener": "Two calls. Neither one had a rule behind it when it mattered.",
-        "rest": "The first one, a bookkeeper filed an asset under repairs because nobody had given her a threshold to check. The second one, my client lost a deduction because nobody wrote a policy in December. Including me.\n\nOne I caught. One I missed. I picked those two on purpose — I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
+        "opener": "Two calls. Neither one had the right rule behind it when it mattered.",
+        "rest": "The first one had a rule. It was just keyed on the vendor instead of the invoice. The second one had no rule at all, because nobody wrote it. Including me.\n\nOne I caught. One I missed. I picked those two on purpose — I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
         "marks": "Through-line, pass 2. Straight into Topic 2, no pause."
       }
     ]
