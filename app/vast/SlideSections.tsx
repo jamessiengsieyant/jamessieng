@@ -116,13 +116,16 @@ function VisualBody({ v, first }: { v: Visual; first: boolean }) {
       <div className={s.kicker}>{v.kick}</div>
       <Heading className={headingClass}>{v.title}</Heading>
       <div className={s.flowWrap}>
-        <div className={s.step}>Transaction hits Ramp</div>
-        <div className={s.arrow}>↓ AI category + rules</div>
+        <div className={s.step}>Transaction hits Ramp · AI assigns a category</div>
+        <div className={s.arrow}>↓ three checks run</div>
         <div className={s.branch}>
-          <div className={s.step}>Below threshold, routine → auto-code as expense</div>
-          <div className={`${s.step} ${s.stepHit}`}>Above threshold → route to capex review queue</div>
-          <div className={s.step}>CCA/SaaS vendor → split capitalize vs. expense</div>
+          <div className={s.step}>Vendor&rsquo;s usual account</div>
+          <div className={s.step}>Amount vs. this vendor&rsquo;s median</div>
+          <div className={s.step}>What the line items actually say</div>
         </div>
+        <div className={s.arrow}>↓</div>
+        <div className={s.step}>They agree → posts, nobody&rsquo;s day gets slower</div>
+        <div className={`${s.step} ${s.stepHit}`}>They disagree → short review queue, while it&rsquo;s fresh</div>
         <div className={s.arrow}>↓</div>
         <div className={s.step}>Approved coding syncs to NetSuite</div>
       </div>

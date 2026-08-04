@@ -121,11 +121,14 @@ function SlideView({ v }: { v: Visual }) {
       <Kicker>{v.kick}</Kicker>
       <div style={{ fontSize: "1.55em", fontWeight: 800, color: LIGHT, margin: "0.4em 0 0.7em" }}>{v.title}</div>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.42em" }}>
-        {box("Transaction hits Ramp")}
-        <div style={{ color: BLUE, fontSize: "0.66em", marginLeft: "1em" }}>↓ AI category + rules</div>
-        {box("Below threshold, routine → auto-code as expense", false, true)}
-        {box("Above threshold → route to capex review queue", true, true)}
-        {box("CCA/SaaS vendor → split capitalize vs. expense", false, true)}
+        {box("Transaction hits Ramp · AI assigns a category")}
+        <div style={{ color: BLUE, fontSize: "0.66em", marginLeft: "1em" }}>↓ three checks run</div>
+        {box("Vendor's usual account", false, true)}
+        {box("Amount vs. this vendor's median", false, true)}
+        {box("What the line items actually say", false, true)}
+        <div style={{ color: BLUE, fontSize: "0.66em", marginLeft: "1em" }}>↓</div>
+        {box("They agree → posts, nobody's day gets slower")}
+        {box("They disagree → short review queue, while it's fresh", true)}
         <div style={{ color: BLUE, fontSize: "0.66em", marginLeft: "1em" }}>↓</div>
         {box("Approved coding syncs to NetSuite")}
       </div>

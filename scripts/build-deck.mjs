@@ -20,8 +20,8 @@ const deckPath = path.join(repoRoot, "app", "vast", "deck.json");
 // James hand-designs his own decks in PowerPoint. Generated output always goes
 // to a NEW version number so an edited file is never overwritten. Bump this;
 // never point it at a version he has opened.
-const OUT_NAME = "James-Sieng-Vast-FinalRound-v8.pptx";
-const HAND_EDITED = /-v(2(_\d+)?|3|4|5|6|7)\.pptx$/i;
+const OUT_NAME = "James-Sieng-Vast-FinalRound-v9.pptx";
+const HAND_EDITED = /-v(2(_\d+)?|3|4|5|6|7|8)\.pptx$/i;
 const outPath = path.join(os.homedir(), "Desktop", OUT_NAME);
 if (HAND_EDITED.test(OUT_NAME)) {
   throw new Error(`Refusing to write ${OUT_NAME} — that is one of James's hand-edited decks.`);
@@ -205,32 +205,37 @@ for (const slide of slides) {
       fontSize: 24, color: LIGHT, bold: true,
     });
     const steps = [
-      { t: "Transaction hits Ramp" },
-      { t: "↓ AI category + rules", plain: true },
-      { t: "Below threshold, routine → auto-code as expense", indent: true },
-      { t: "Above threshold → route to capex review queue", indent: true, hit: true },
-      { t: "CCA/SaaS vendor → split capitalize vs. expense", indent: true },
+      { t: "Transaction hits Ramp · AI assigns a category" },
+      { t: "↓ three checks run", plain: true },
+      { t: "Vendor's usual account", indent: true },
+      { t: "Amount vs. this vendor's median", indent: true },
+      { t: "What the line items actually say", indent: true },
+      { t: "↓", plain: true },
+      { t: "They agree → posts, nobody's day gets slower" },
+      { t: "They disagree → short review queue, while it's fresh", hit: true },
       { t: "↓", plain: true },
       { t: "Approved coding syncs to NetSuite" },
     ];
-    let y = 2.0;
+    // ten steps have to clear a 7.5in slide, so the rows are tighter than
+    // they look — box 0.45 high on a 0.52 pitch leaves room for the tail line
+    let y = 1.95;
     for (const step of steps) {
       const x = PAD_X + (step.indent ? 0.6 : 0);
       if (step.plain) {
-        s.addText(step.t, { x, y, w: 6, h: 0.35, fontSize: 13, color: BLUE });
-        y += 0.4;
+        s.addText(step.t, { x, y, w: 6, h: 0.3, fontSize: 12, color: BLUE });
+        y += 0.34;
         continue;
       }
       s.addShape("roundRect", {
-        x, y, w: 6.5, h: 0.5, rectRadius: 0.06,
+        x, y, w: 6.9, h: 0.45, rectRadius: 0.06,
         fill: { color: CARD },
         line: { color: step.hit ? ACCENT : LINE, width: 1 },
       });
       s.addText(step.t, {
-        x: x + 0.2, y, w: 6.1, h: 0.5, valign: "middle",
-        fontSize: 13, color: step.hit ? ACCENT : LIGHT,
+        x: x + 0.2, y, w: 6.5, h: 0.45, valign: "middle",
+        fontSize: 12, color: step.hit ? ACCENT : LIGHT,
       });
-      y += 0.58;
+      y += 0.52;
     }
     if (v.tail) {
       s.addText(v.tail, {

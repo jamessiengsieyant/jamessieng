@@ -702,15 +702,15 @@
     "visual": {
       "t": "statement",
       "kick": "The brilliant idea",
-      "title": "Instrument\nthe close.",
-      "sub": "Treat books-to-reports like a pipeline: measure where the hours go, then remove one manual step every month."
+      "title": "Don't let it\ncode itself.",
+      "sub": "AI categorization is a control. Nobody tests it."
     },
     "beats": [
       {
         "cue": "The idea",
-        "opener": "Which brings me to the one idea I was asked to bring. Instrument the close.",
-        "rest": "Treat books-to-reports like a pipeline. Measure where the hours actually go, then remove exactly one manual step every month — small builds, each one shipped with a before-and-after number.\n\nMost closes never get faster. Not because anyone is bad at their job, but because nobody owns the word \"faster.\" Everyone owns their piece, and their piece works.\n\nI'm offering to own faster.",
-        "marks": "PAUSE before \"I'm offering to own faster.\" That's the sentence you want them repeating later."
+        "opener": "So here's the one idea I was asked to bring. It comes straight out of that spray booth.",
+        "rest": "Ramp categorizes with AI. Most companies switch that on and treat it as a productivity feature.\n\nBut it isn't a feature. It's a control. Something is deciding what account a transaction lands in, thousands of times a month, and nothing is testing whether it was right.\n\nIf I walked into a business and asked what their detective control is over automated coding, most of them wouldn't have an answer.\n\nSo I'd build one.",
+        "marks": "\"It's a control\" is the sentence. Slow there. You are the person who audits the output of these systems — say it like someone who has seen it fail."
       }
     ]
   },
@@ -719,29 +719,27 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "list",
-      "kick": "The first three builds",
-      "title": "And I'd start with these.",
+      "kick": "How it works",
+      "title": "Three signals. One invoice.",
       "items": [
         {
-          "lead": "1 · The close clock",
-          "sub": "Instrument it before touching it. You cannot remove a step you haven't measured — and this needs no domain expertise, so I can build it in month one."
+          "lead": "The vendor default says repair"
         },
         {
-          "lead": "2 · A package pre-check",
-          "sub": "Automated completeness and tie-out checks on subsidiary packages, run before a human ever opens them."
+          "lead": "The amount says fifty times this vendor's median"
         },
         {
-          "lead": "3 · Point-of-entry classification rules",
-          "sub": "Remember the spray booth. Cleaner books upstream is a faster close downstream."
+          "lead": "The line items say equipment, freight, installation"
         }
       ],
-      "callout": "Measure it, stop the rework, then stop the error. In that order."
+      "callout": "Two of the three disagree with the default. That's the flag."
     },
     "beats": [
       {
-        "cue": "Three builds",
-        "opener": "Three builds, in a deliberate order.",
-        "rest": "First, the close clock — instrument it before I touch anything. You can't remove a step you haven't measured, and this one needs no international accounting knowledge at all, which is exactly why it's first. I can build it while I'm still learning.\n\nSecond, a package pre-check. Automated completeness and tie-out checks on the subsidiary packages, run before a human ever opens them. Stop the rework.\n\nThird — and this is the one I planted twenty minutes ago — point-of-entry classification rules."
+        "cue": "The disagreement rule",
+        "opener": "Here's how it would have caught my spray booth, the day it landed.",
+        "rest": "Three independent signals look at the same invoice.\n\nThe vendor default says repair, because that's what that vendor always sends. The amount says this is about fifty times that vendor's own median. The line items say equipment, freight, and installation.\n\nTwo of the three disagree with the default.\n\nAnd that's the rule. You don't flag on any single signal. You flag when they disagree — because the failure in my audit wasn't a bad rule. It was one rule, with nothing to check it against.",
+        "marks": "This is the loop closing on Topic 1. Let them make the connection before you spell it out."
       }
     ]
   },
@@ -750,16 +748,82 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "flow",
-      "kick": "Build 3 · point of entry",
+      "kick": "What it looks like",
       "title": "A rules layer in front of NetSuite.",
-      "tail": "Remember the spray booth. This is the thing that would have caught it on day one."
+      "tail": "The flag happens the moment the invoice lands — not three weeks later at close, and not three years later with me sitting across the table."
     },
     "beats": [
       {
-        "cue": "The spray booth, prevented",
-        "opener": "This is the spray booth, solved at the front instead of found at the back.",
-        "rest": "A transaction hits Ramp. Rules and categorization run on it immediately. Routine and below threshold, it auto-codes as an expense. Above threshold, it routes to a short capex review queue instead of being coded by whoever is closest. A cloud or SaaS vendor gets flagged for the capitalize-versus-expense split we just talked about.\n\nThen the approved coding syncs to NetSuite.\n\nThe flag happens the moment the invoice lands — not three weeks later at close, and not three years later with me sitting across the table.",
-        "marks": "The last clause is the callback. Say it dry — it's funnier and sharper if you don't lean on it."
+        "cue": "The flow",
+        "opener": "In practice it sits between Ramp and NetSuite, and it's boring, which is the point.",
+        "rest": "The transaction lands. The AI assigns a category. Then three checks run against it — the vendor's usual account, the amount against that vendor's own history, and what the line items actually say.\n\nIf they agree, it posts. Nobody's day gets slower.\n\nIf they disagree, it routes to a short review queue where a person looks at it, once, while the invoice is still fresh and somebody still remembers what it was for.",
+        "marks": "Say \"and not three years later with me sitting across the table\" dry. Don't lean on it."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first ninety days",
+    "visual": {
+      "t": "list",
+      "kick": "What would make it fail",
+      "title": "And I'd rather say it than have you find it.",
+      "items": [
+        {
+          "lead": "A new vendor has no history",
+          "sub": "So there's no median to compare against. The first few invoices from anyone always route to review."
+        },
+        {
+          "lead": "Too few invoices to have a baseline",
+          "sub": "Below about five, the statistic is noise. Fall back to a flat threshold instead of pretending."
+        },
+        {
+          "lead": "Flagging everything is worse than flagging nothing",
+          "sub": "A queue nobody works is a control that only looks like one. Tie the threshold to performance materiality — flag what could matter, not what's merely unusual."
+        },
+        {
+          "lead": "It has to cut both ways",
+          "sub": "It should catch things wrongly capitalized too. Same discipline as the repairs I left alone."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "Failure modes",
+        "opener": "And here's what would make it fail, because I'd rather say it than have you find it.",
+        "rest": "A new vendor has no history, so there's nothing to compare against — those always go to review until there's a baseline. Below about five invoices the statistic is just noise, so it falls back to a flat threshold rather than pretending to know something.\n\nOne technical note. It compares against the median, not the average, because an average gets wrecked by exactly the outlier you're hunting for. One big purchase last year and the average stops flagging anything.\n\nAnd the real risk isn't statistical, it's human. If it flags two hundred things a month, everybody ignores it, and now you have something worse than no control — because people believe something is watching. So the threshold ties to materiality.\n\nLast one: it has to catch things wrongly capitalized too, not just wrongly expensed. Same discipline as the repairs I left alone.",
+        "marks": "This is the credibility slide. Naming the failure modes yourself is worth more than the idea. Unhurried."
+      }
+    ]
+  },
+  {
+    "section": "Part 03 — Topic 2",
+    "sectionTitle": "The first ninety days",
+    "visual": {
+      "t": "list",
+      "kick": "Then keep going",
+      "title": "Remove one manual step a month.",
+      "items": [
+        {
+          "lead": "Measure the close first",
+          "sub": "Where do the hours actually go? Nobody can answer that, because nobody has had a reason to write it down."
+        },
+        {
+          "lead": "Then a package pre-check",
+          "sub": "Automated completeness and tie-out on subsidiary packages, before a human opens them."
+        },
+        {
+          "lead": "Every build ships with a before-and-after number",
+          "sub": "Measured, not claimed."
+        }
+      ]
+    },
+    "beats": [
+      {
+        "cue": "The method underneath",
+        "opener": "And that's the first one, not the only one. The method underneath is the same every month.",
+        "rest": "Measure where the hours actually go, then remove exactly one manual step. Small builds, each shipped with a before-and-after number.\n\nMost closes never get faster. Not because anyone's bad at their job — because everybody owns their piece, their piece works, and nobody owns \"faster.\"\n\nI'm offering to own faster.",
+        "marks": "PAUSE before \"I'm offering to own faster.\" That's the line you want them repeating afterwards."
       }
     ]
   },
