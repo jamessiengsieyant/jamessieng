@@ -10,7 +10,7 @@
         "cue": "Title card — silence",
         "opener": "",
         "rest": "",
-        "marks": "Say nothing here. This is up while you are being introduced and getting settled. Do not talk over your own title card."
+        "marks": "Say nothing here. This is up while you're being introduced and getting settled. Do not talk over your own title card."
       }
     ]
   },
@@ -27,21 +27,22 @@
       },
       "b": {
         "h": "Certifications",
-        "lines": "7× Salesforce Certified · AWS CCP\nCompTIA A+, Network+, Security+\nISC2 — CISSP exam passed"
+        "lines": "7× Salesforce Certified (Advanced Admin)\n3x CompTIA Certified (A+, Network+, Security+)\nAWS Certified Cloud Practitioner\nISC2 Certified in Cybersecurity and CISSP exam passed"
       },
-      "tail": "Let me tell you why it's all the same job."
+      "tail": "That's the whole strategy. There wasn't one."
     },
     "beats": [
       {
-        "cue": "Name the objection",
-        "opener": "Before I get into anything, I want to name the obvious thing about my resume.",
-        "rest": "I have a degree in biomedical engineering. I have seven Salesforce certifications and I passed the CISSP exam.\n\nNone of that is accounting.",
-        "marks": "PAUSE — two beats. Hands still. Let the objection land before you answer it."
+        "cue": "Name the obvious",
+        "opener": "Before I get into anything, I want to point out the obvious here.",
+        "rest": "A biomedical engineering degree from UC Irvine. Seven Salesforce certifications. A passed CISSP exam — among other things.\n\nNone of that is accounting.",
+        "marks": "PAUSE — two beats. Hands still. Let them agree with the objection."
       },
       {
-        "cue": "But I double majored",
-        "opener": "But I also double majored. Business economics, same four years.",
-        "rest": "And that major had accounting classes in it, which at nineteen I did not think much about at all.\n\nSo the honest version is: I picked both halves of this job when I was nineteen. Engineering, which is how you build the system. And economics, which is what's moving through it. Then I spent about a decade finding out why.\n\nLet me walk you through that decade."
+        "cue": "There wasn't a strategy",
+        "opener": "I also double majored — business economics, same four years.",
+        "rest": "Which, it turns out, had accounting classes in it. I couldn't have told you at the time why that mattered.\n\nAnd I'll be honest about how those got picked. Biomedical engineering was my high school counselor's idea. Business economics I picked because it looked interesting.\n\nThat's the whole strategy. There wasn't one.\n\nI liked the math. Most of the rest I just got through. Nothing in school ever really grabbed me.\n\nThat happened at a job.",
+        "marks": "PAUSE before \"That happened at a job.\" That line is the hinge into slide 3 — don't hurry it."
       }
     ]
   },
@@ -51,15 +52,15 @@
     "visual": {
       "t": "statement",
       "kick": "Where it started",
-      "title": "I was the guy\nentering the data.",
-      "sub": "Lab tech. Bench work. Somebody else's software."
+      "title": "Not the typing.\nThe spreadsheet.",
+      "sub": "Lab tech. Mostly testing. About an hour a day in Excel."
     },
     "beats": [
       {
-        "cue": "Lab tech — the unglamorous part",
-        "opener": "My first job out of school was as a lab tech.",
-        "rest": "And I'll be honest about that job, because it matters later — it was not the interesting part. I did bench work. Collected samples, ran assays, and typed numbers into somebody else's software.\n\nI was the guy entering the data.\n\nHold onto that. Almost everything I've done since comes back to it.",
-        "marks": "Plant. Say \"I was the guy entering the data\" plainly — no emphasis. It pays off on the CDTFA slide."
+        "cue": "The hour I liked",
+        "opener": "My first job out of school was as a lab tech. Mostly testing.",
+        "rest": "Maybe an hour a day was entering results and running reports.\n\nThat hour was the part I liked. Not the typing — the spreadsheet. The validations, the formulas, what happened to the number after I put it in.\n\nI was already trying to automate my own job. I didn't know that was something you could do for a living.",
+        "marks": "Last line lands better dry than wry. Don't push it."
       }
     ]
   },
@@ -69,8 +70,8 @@
     "visual": {
       "t": "chain",
       "kick": "Amgen",
-      "title": "Then I touched Excel.",
-      "sub": "Years of historical preclinical data — toxicology and pharmacology.",
+      "title": "They brought me in\nfor one project.",
+      "sub": "Years of historical preclinical data — never structured the same way twice.",
       "links": [
         {
           "from": "Excel",
@@ -85,15 +86,15 @@
     },
     "beats": [
       {
-        "cue": "The spreadsheet problem",
-        "opener": "Then I got to Amgen, and the actual work turned out to be Excel.",
-        "rest": "They had years of historical preclinical data — drug toxicology and pharmacology studies — sitting in spreadsheets. And a spreadsheet will let you type anything into any cell. Nothing enforces that the number in the box is the right kind of number, or that it belongs to the study you think it belongs to.\n\nSo I wrote VBA to pull all of it out and move it into a relational database. Where the data had a shape, and the shape was enforced."
+        "cue": "How Amgen happened",
+        "opener": "Somewhere in there I got good at Excel. Not impressively — just genuinely useful. Enough that people started bringing me things.",
+        "rest": "And that's what got me to Amgen. They brought me in as a contractor for one project. Years of historical preclinical data — drug toxicology, pharmacology, real-time measurement — and they needed it out of spreadsheets and into a real database.\n\nIt is still the largest volume of data I have ever worked with."
       },
       {
-        "cue": "What I actually liked",
-        "opener": "That's the first time I understood what I actually liked. It wasn't the science.",
-        "rest": "It was that the data was in the wrong shape, and somebody had to fix that.",
-        "marks": "Do NOT say this is what Vast is going through. Let it sit. Cash it in during Topic 2."
+        "cue": "What made it hard",
+        "opener": "And what made it hard wasn't the volume.",
+        "rest": "No two of those spreadsheets were structured the same way. Same study type, same measurements, completely different layouts — because different people collected it, over years, and every one of them had their own way of doing it. There was no standard, so everybody invented one.\n\nSo the program couldn't just move data. It had to account for all of that variation. Read what somebody meant, not just what they typed, and land it in the same place every time.\n\nThat's the first time I understood what I actually liked. It wasn't the science.\n\nIt was that the data was in the wrong shape. And nobody had done anything wrong — a lot of reasonable people had each just done it slightly differently.",
+        "marks": "Do NOT say this is what Vast is going through. Let it sit. It gets cashed in during Topic 2."
       }
     ]
   },
@@ -109,9 +110,9 @@
     "beats": [
       {
         "cue": "Accidental admin",
-        "opener": "Next was a CRO — a contract research organization. We collected and processed samples for other people's studies.",
-        "rest": "They ran on Salesforce and they needed somebody to administer it. I raised my hand, mostly out of curiosity.\n\nThat's how you become a Salesforce admin, by the way. Nobody applies for it. You volunteer once, and six months later you are the department.",
-        "marks": "FIRST LAUGH. Say it flat and dry — do not sell it. Then hold. Do not walk on the laugh."
+        "opener": "Next was a CRO — a contract research organization.",
+        "rest": "We collected and processed samples for other people's studies. They ran on Salesforce and they needed somebody to administer it. I raised my hand, mostly out of curiosity.",
+        "marks": "The slide says \"six months later I was the department.\" Let them read it — don't say it, and don't sell the joke."
       }
     ]
   },
@@ -138,13 +139,8 @@
       {
         "cue": "The LIMS",
         "opener": "The main thing I built there was a LIMS — laboratory information management system.",
-        "rest": "Sample intake, chain of custody, where every sample is, what's been run on it.\n\nHere's the part that matters. I had already used LIMS systems — at Amgen, in the lab, as a tech. I knew exactly what they felt like from the entry side. And the big ones are built for the person who signs the purchase order, not for the person standing at the bench with a sample in one hand and a barcode gun in the other.\n\nSo I built the simplified version that fit how the work actually happened."
-      },
-      {
-        "cue": "The line",
-        "opener": "I built the system I used to hate using.",
-        "rest": "And I could only do that because I had been the one using it.",
-        "marks": "PAUSE after the first line. This is one of the two lines carrying the whole section."
+        "rest": "Sample intake, chain of custody, where every sample is, what's been run on it.",
+        "marks": "The callout is the line. Let the slide say it — then pause before moving on."
       }
     ]
   },
@@ -165,14 +161,14 @@
           "to": "Built the database"
         }
       ],
-      "tail": "Do the job by hand first. Feel where it hurts. Then build the thing that removes it."
+      "tail": "Do the job by hand first. Feel exactly where it hurts. Then build the thing that takes it away."
     },
     "beats": [
       {
         "cue": "The through-line",
-        "opener": "If you've been keeping score, there's a pattern here, and I didn't notice it for years.",
-        "rest": "I did the bench work, then I built the lab system. I did the data entry, then I built the database.\n\nEvery time, the sequence is identical. Do the job by hand first. Feel exactly where it hurts. Then build the thing that takes it away.\n\nI'm going to come back to this at the very end, when I tell you what I'd do in my first ninety days here. Because that plan isn't a theory I came up with for this interview.\n\nIt's just the only way I've ever worked.",
-        "marks": "THROUGH-LINE, pass 1 of 3. Returns at the end of Topic 1, and again at the close."
+        "opener": "There's a pattern here, and I didn't notice it for years.",
+        "rest": "I did the bench work, then I built the lab system. I did the data entry, then I built the database.\n\nEvery time, the sequence is identical. Do the job by hand first. Feel exactly where it hurts. Then build the thing that mitigates the pain point.",
+        "marks": "THROUGH-LINE, pass 1 of 3. Do NOT point forward to the 90-day plan — it gets paid off there, looking backward."
       }
     ]
   },
@@ -202,14 +198,8 @@
     "beats": [
       {
         "cue": "Three builds",
-        "opener": "Then ForensisGroup — an expert witness referral firm that ran its whole practice on Salesforce. Same move, bigger scale.",
-        "rest": "I built PMify, project management for live cases. Survey Builder, a custom survey platform in Apex. And an automated AR/AP payment sync between Salesforce and QuickBooks."
-      },
-      {
-        "cue": "Accounting plumbing",
-        "opener": "That last one changed my life and I had no idea at the time.",
-        "rest": "Because to build it, I had to learn what actually happens to a payment. Not the button — the entry. What gets debited, what gets credited, when it's recognized, and what breaks downstream in the books if I get any of it wrong.\n\nI was building accounting plumbing.\n\nAnd somewhere in there I noticed I cared more about what was moving through the pipe than about the pipe.",
-        "marks": "Slow down on \"than about the pipe.\" That's the turn of the whole talk."
+        "opener": "Then ForensisGroup — an expert witness referral firm that ran its whole practice on Salesforce.",
+        "rest": "Same move, bigger scale. I built PMify, project management for live cases. Survey Builder, a custom survey platform in Apex. And an automated AR/AP payment sync between Salesforce and QuickBooks."
       }
     ]
   },
@@ -220,19 +210,19 @@
       "t": "statement",
       "kick": "The pivot",
       "title": "I wanted a skill\nI could use on anybody.",
-      "sub": "Everyone has a return. Everyone has books. I came for the practical part — I stayed for the puzzle."
+      "sub": "I wanted to be doing the work, not reading about it."
     },
     "beats": [
       {
-        "cue": "Why accounting — the real reason",
-        "opener": "So — why accounting. I'll give you the real reason, and it's less romantic than it sounds.",
-        "rest": "I wanted a skill I could use on anybody.\n\nBiomedical engineering, I can help you if you're building a device. Salesforce, I can help you if you run Salesforce. Both of those come with conditions attached — you have to already be a certain kind of person before I'm any use to you.\n\nEverybody files a return. Every business has books. So I went for the most practical version of that I could find."
+        "cue": "Why accounting — and the detour",
+        "opener": "So — why accounting. The real reason.",
+        "rest": "I wanted a skill I could use on anybody. So I went and got the accounting degree at WGU.\n\nThen I bought the CPA study materials, started in — and stopped. I went and passed the three Enrolled Agent exams first instead.\n\nThat was on purpose. The CPA is the longer road. The EA is the one that gets you hired to prepare returns. I wanted to be doing the work, not reading about it. So I took the detour, got admitted to practice before the IRS, and started preparing returns while I finished the rest.\n\nThen all four CPA exams. I'm planning to sit for the CIA next."
       },
       {
-        "cue": "Then I got curious",
-        "opener": "And then I started studying for the CPA exams, and something happened that I didn't plan on.",
-        "rest": "I got curious.\n\nNot about the rules — about the shape of them. Why is it written this way. What was somebody trying to prevent when they drafted this. Who got burned before this existed.\n\nI came for the practical part. I stayed because it turned out to be the most interesting rule system I've ever taken apart.",
-        "marks": "PAUSE two full beats before \"I got curious\" — longer than comfortable. RATE: say the cert list fast, say \"I got curious\" slow. The change IS the emphasis."
+        "cue": "Say the tenure thing out loud",
+        "opener": "I'll be direct about why I did it this way.",
+        "rest": "I don't have twenty years in accounting, and I'm not going to stand up here and imply I do. What I have is that I went and took every piece of it, deliberately, while working full time.",
+        "marks": "Even and unhurried. This is a statement of fact, not a defence."
       }
     ]
   },
@@ -257,19 +247,14 @@
           "sub": "Completing the experience requirement."
         }
       ],
-      "callout": "Nobody needs a CISSP to reconcile a bank account. I sat for it anyway."
+      "callout": "Books to returns is my normal commute."
     },
     "beats": [
       {
         "cue": "The credentials",
         "opener": "So I went and got the rulebook.",
-        "rest": "Bachelor's in accounting from WGU, 2024. Enrolled Agent — admitted to practice before the IRS. I prepare business returns up through Form 1120, which means I read small-business books for a living. Trial balance to Schedule L, book-to-tax on the M-1. Books to returns is my normal commute.\n\nAnd all four CPA exams passed. I'm finishing the experience requirement now."
-      },
-      {
-        "cue": "Two exams, two waiting rooms",
-        "opener": "Full disclosure on this slide, though. That accounting degree is my third bachelor's.",
-        "rest": "And I passed the CISSP exam — which, same as the CPA, I don't get to put after my name until somebody endorses the experience.\n\nSo I'm currently sitting on two exams and two waiting rooms.\n\nNobody needs a CISSP to reconcile a bank account. I sat for it anyway.",
-        "marks": "SECOND LAUGH. Deadpan. No smile until after they react. Never say \"I love learning\" — the slide makes the point for you."
+        "rest": "Bachelor's in accounting from WGU in 2024 — my third bachelor's degree. All four CPA exams passed, finishing the experience requirement now.\n\nAnd Enrolled Agent. Admitted to practice before the IRS, which means I prepare business returns up through Form 1120. Trial balance to Schedule L, book-to-tax on the M-1.\n\nBooks to returns is my normal commute.",
+        "marks": "CISSP stays on slide 2 only — do not talk about it here. The security material lands in Part 3."
       }
     ]
   },
@@ -287,12 +272,6 @@
         "cue": "The audit chair",
         "opener": "Which brings me to now. I'm a sales and use tax auditor for the State of California.",
         "rest": "The work is what it sounds like. I go into a business, I pull their records, and I test them. Capital equipment purchases are a standing part of what I test. So is use tax — which is the tax almost nobody self-reports correctly."
-      },
-      {
-        "cue": "The payoff",
-        "opener": "Here's the part I didn't expect about this job.",
-        "rest": "I spent about a decade building the systems that produce these records. So now I open somebody's QuickBooks, or their ERP, and I can usually tell how an entry got made. Who made it. What screen they were looking at. Whether anyone ever looked at it again.\n\nI know what it looks like from the inside, because I used to build the inside.",
-        "marks": "PAUSE — do not rush this. The section has walked ten minutes to get here. This is the payoff of slide 2: \"none of this is accounting\" — turns out all of it was."
       }
     ]
   },
@@ -309,8 +288,8 @@
       {
         "cue": "Music — constraints are the point",
         "opener": "Last thing before I get into the topics. Outside of work I sing, and I play guitar. Sometimes both at the same time.",
-        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them. The structure isn't in the way of the interesting part — the structure is what makes the interesting part possible.\n\nThat's more or less how I feel about accounting rules. Which I recognize is a strange sentence to say out loud.\n\nSo let's talk about one.",
-        "marks": "PAUSE before \"So let's talk about one.\" That's the transition into Topic 1 — no dead air after it."
+        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them. The structure isn't in the way of the interesting part — the structure is what makes the interesting part possible.",
+        "marks": "Go straight into the Topic 1 card from here. No dead air."
       }
     ]
   },
@@ -335,7 +314,7 @@
           "lead": "What I'd change"
         }
       ],
-      "callout": "Two calls. One I caught. One I missed."
+      "callout": "Two calls. Neither one had a rule behind it."
     },
     "beats": [
       {
@@ -506,14 +485,14 @@
     "visual": {
       "t": "statement",
       "kick": "Topic 1 close",
-      "title": "One I caught.\nOne I missed.",
-      "sub": "One had the wrong rule. One had no rule at all."
+      "title": "One had the wrong rule.\nOne had none.",
+      "sub": "Both got made at the point of entry, by whoever was closest."
     },
     "beats": [
       {
         "cue": "The close",
         "opener": "Two calls. Neither one had the right rule behind it when it mattered.",
-        "rest": "The first one had a rule. It was just keyed on the vendor instead of the invoice. The second one had no rule at all, because nobody wrote it. Including me.\n\nOne I caught. One I missed. I picked those two on purpose — I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
+        "rest": "The first one had a rule. It was just keyed on the vendor instead of the invoice.\n\nThe second one had no rule at all, because nobody wrote it. Including me.\n\nI picked those two on purpose. I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
         "marks": "Through-line, pass 2. Straight into Topic 2, no pause."
       }
     ]
