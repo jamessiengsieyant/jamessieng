@@ -35,14 +35,8 @@
       {
         "cue": "Name the obvious",
         "opener": "Before I get into anything, I want to point out the obvious here.",
-        "rest": "A biomedical engineering degree from UC Irvine. Seven Salesforce certifications. A passed CISSP exam — among other things.\n\nNone of that is accounting.",
-        "marks": "PAUSE — two beats. Hands still. Let them agree with the objection."
-      },
-      {
-        "cue": "There wasn't a strategy",
-        "opener": "I also double majored — business economics, same four years.",
-        "rest": "Which, it turns out, had accounting classes in it. I couldn't have told you at the time why that mattered.\n\nAnd I'll be honest about how those got picked. Biomedical engineering was my high school counselor's idea. Business economics I picked because it looked interesting.\n\nThat's the whole strategy. There wasn't one.\n\nI liked the math. Most of the rest I just got through. Nothing in school ever really grabbed me.\n\nThat happened at a job.",
-        "marks": "PAUSE before \"That happened at a job.\" That line is the hinge into slide 3 — don't hurry it."
+        "rest": "A biomedical engineering degree from UC Irvine. Seven Salesforce certifications. A passed CISSP exam — among other things.\n\nNone of that is accounting.\n\nI also double majored — business economics, same four years. Which, it turns out, had accounting classes in it. I couldn't have told you at the time why that mattered.\n\nAnd I'll be honest about how those got picked. Biomedical engineering was my high school counselor's idea. Business economics I picked because it looked interesting. That's the whole strategy. There wasn't one.\n\nI liked the math. Most of the rest I just got through. Nothing in school ever really grabbed me.\n\nThat happened at a job.",
+        "marks": "PAUSE two beats after \"None of that is accounting\" — hands still, let them agree with the objection. PAUSE again before \"That happened at a job.\""
       }
     ]
   },
@@ -86,14 +80,9 @@
     },
     "beats": [
       {
-        "cue": "How Amgen happened",
+        "cue": "The wrong shape",
         "opener": "Somewhere in there I got good at Excel. Not impressively — just genuinely useful. Enough that people started bringing me things.",
-        "rest": "And that's what got me to Amgen. They brought me in as a contractor for one project. Years of historical preclinical data — drug toxicology, pharmacology, real-time measurement — and they needed it out of spreadsheets and into a real database.\n\nIt is still the largest volume of data I have ever worked with."
-      },
-      {
-        "cue": "What made it hard",
-        "opener": "And what made it hard wasn't the volume.",
-        "rest": "No two of those spreadsheets were structured the same way. Same study type, same measurements, completely different layouts — because different people collected it, over years, and every one of them had their own way of doing it. There was no standard, so everybody invented one.\n\nSo the program couldn't just move data. It had to account for all of that variation. Read what somebody meant, not just what they typed, and land it in the same place every time.\n\nThat's the first time I understood what I actually liked. It wasn't the science.\n\nIt was that the data was in the wrong shape. And nobody had done anything wrong — a lot of reasonable people had each just done it slightly differently.",
+        "rest": "And that's what got me to Amgen. They brought me in as a contractor for one project. Years of historical preclinical data — drug toxicology, pharmacology, real-time measurement — out of spreadsheets and into a real database. It is still the largest volume of data I have ever worked with.\n\nAnd what made it hard wasn't the volume. No two of those spreadsheets were structured the same way. Same study, same measurements, completely different layouts — different people collected it over years, and every one of them had their own way of doing it. There was no standard, so everybody invented one.\n\nSo the program couldn't just move data. It had to read what somebody meant, not just what they typed, and land it in the same place every time.\n\nThat's the first time I understood what I actually liked. It wasn't the science. It was that the data was in the wrong shape — and nobody had done anything wrong. A lot of reasonable people had each just done it slightly differently.",
         "marks": "Do NOT say this is what Vast is going through. Let it sit. It gets cashed in during Topic 2."
       }
     ]
@@ -102,30 +91,16 @@
     "section": "Part 01 — ~10 min",
     "sectionTitle": "Introduction — how I got here",
     "visual": {
-      "t": "statement",
-      "kick": "The CRO",
-      "title": "Nobody plans to become\na Salesforce admin.",
-      "sub": "Contract research organization — sample collection and processing. I volunteered once. Six months later I was the department."
-    },
-    "beats": [
-      {
-        "cue": "Accidental admin",
-        "opener": "Next was a CRO — a contract research organization.",
-        "rest": "We collected and processed samples for other people's studies. They ran on Salesforce and they needed somebody to administer it. I raised my hand, mostly out of curiosity.",
-        "marks": "The slide says \"six months later I was the department.\" Let them read it — don't say it, and don't sell the joke."
-      }
-    ]
-  },
-  {
-    "section": "Part 01 — ~10 min",
-    "sectionTitle": "Introduction — how I got here",
-    "visual": {
       "t": "list",
-      "kick": "The build",
+      "kick": "The CRO",
       "title": "I built the system I used to hate using.",
       "items": [
         {
-          "lead": "LIMS — laboratory information management, on Salesforce",
+          "lead": "I volunteered to administer their Salesforce",
+          "sub": "Six months later I was the department."
+        },
+        {
+          "lead": "LIMS — laboratory information management",
           "sub": "Sample intake · chain of custody · what has been run on what"
         },
         {
@@ -137,10 +112,10 @@
     },
     "beats": [
       {
-        "cue": "The LIMS",
-        "opener": "The main thing I built there was a LIMS — laboratory information management system.",
-        "rest": "Sample intake, chain of custody, where every sample is, what's been run on it.",
-        "marks": "The callout is the line. Let the slide say it — then pause before moving on."
+        "cue": "The accidental admin, and the build",
+        "opener": "Next was a CRO — a contract research organization. We collected and processed samples for other people's studies.",
+        "rest": "They ran on Salesforce and needed somebody to administer it. I raised my hand, mostly out of curiosity.\n\nThe main thing I built there was a LIMS — laboratory information management system. Sample intake, chain of custody, where every sample is, what's been run on it.",
+        "marks": "The slide says \"six months later I was the department\" — let them read it, don't say it. Then let the callout land before moving on."
       }
     ]
   },
@@ -199,30 +174,8 @@
       {
         "cue": "Three builds",
         "opener": "Then ForensisGroup — an expert witness referral firm that ran its whole practice on Salesforce.",
-        "rest": "Same move, bigger scale. I built PMify, project management for live cases. Survey Builder, a custom survey platform in Apex. And an automated AR/AP payment sync between Salesforce and QuickBooks."
-      }
-    ]
-  },
-  {
-    "section": "Part 01 — ~10 min",
-    "sectionTitle": "Introduction — how I got here",
-    "visual": {
-      "t": "statement",
-      "kick": "The pivot",
-      "title": "I wanted a skill\nI could use on anybody.",
-      "sub": "I wanted to be doing the work, not reading about it."
-    },
-    "beats": [
-      {
-        "cue": "Why accounting — and the detour",
-        "opener": "So — why accounting. The real reason.",
-        "rest": "I wanted a skill I could use on anybody. So I went and got the accounting degree at WGU.\n\nThen I bought the CPA study materials, started in — and stopped. I went and passed the three Enrolled Agent exams first instead.\n\nThat was on purpose. The CPA is the longer road. The EA is the one that gets you hired to prepare returns. I wanted to be doing the work, not reading about it. So I took the detour, got admitted to practice before the IRS, and started preparing returns while I finished the rest.\n\nThen all four CPA exams. I'm planning to sit for the CIA next."
-      },
-      {
-        "cue": "Say the tenure thing out loud",
-        "opener": "I'll be direct about why I did it this way.",
-        "rest": "I don't have twenty years in accounting, and I'm not going to stand up here and imply I do. What I have is that I went and took every piece of it, deliberately, while working full time.",
-        "marks": "Even and unhurried. This is a statement of fact, not a defence."
+        "rest": "Same move, bigger scale. I built PMify, project management for live cases. Survey Builder, a custom survey platform in Apex. And an automated AR/AP payment sync between Salesforce and QuickBooks.\n\nThat last one changed my life and I had no idea at the time. To build it I had to learn what actually happens to a payment. Not the button — the entry. What gets debited, what gets credited, and what breaks downstream if I get it wrong.\n\nI was building accounting plumbing. And somewhere in there I noticed I cared more about what was moving through the pipe than about the pipe.",
+        "marks": "Slow down on \"than about the pipe.\" That's the turn of the whole talk."
       }
     ]
   },
@@ -231,8 +184,8 @@
     "sectionTitle": "Introduction — how I got here",
     "visual": {
       "t": "list",
-      "kick": "The rulebook",
-      "title": "So I went and got it.",
+      "kick": "The pivot",
+      "title": "I wanted a skill I could use on anybody.",
       "items": [
         {
           "lead": "WGU — B.S. Accounting, 2024",
@@ -251,10 +204,10 @@
     },
     "beats": [
       {
-        "cue": "The credentials",
-        "opener": "So I went and got the rulebook.",
-        "rest": "Bachelor's in accounting from WGU in 2024 — my third bachelor's degree. All four CPA exams passed, finishing the experience requirement now.\n\nAnd Enrolled Agent. Admitted to practice before the IRS, which means I prepare business returns up through Form 1120. Trial balance to Schedule L, book-to-tax on the M-1.\n\nBooks to returns is my normal commute.",
-        "marks": "CISSP stays on slide 2 only — do not talk about it here. The security material lands in Part 3."
+        "cue": "Why accounting, and the detour",
+        "opener": "So — why accounting. The real reason. I wanted a skill I could use on anybody.",
+        "rest": "So I went and got the accounting degree at WGU. My third bachelor's.\n\nThen I bought the CPA study materials, started in — and stopped. I went and passed the three Enrolled Agent exams first instead.\n\nThat was on purpose. The CPA is the longer road. The EA is the one that gets you hired to prepare returns. I wanted to be doing the work, not reading about it. So I took the detour, got admitted to practice before the IRS, and started preparing returns while I finished the rest. Books to returns is my normal commute.\n\nThen all four CPA exams. I'm planning to sit for the CIA next.\n\nAnd I'll be direct about why I did it this way. I don't have twenty years in accounting, and I'm not going to stand up here and imply I do. What I have is that I went and took every piece of it, deliberately, while working full time.",
+        "marks": "Last paragraph even and unhurried. It's a statement of fact, not a defence. CISSP stays on slide 2 — don't mention it here."
       }
     ]
   },
@@ -271,7 +224,8 @@
       {
         "cue": "The audit chair",
         "opener": "Which brings me to now. I'm a sales and use tax auditor for the State of California.",
-        "rest": "The work is what it sounds like. I go into a business, I pull their records, and I test them. Capital equipment purchases are a standing part of what I test. So is use tax — which is the tax almost nobody self-reports correctly."
+        "rest": "The work is what it sounds like. I go into a business, I pull their records, and I test them. Capital equipment purchases are a standing part of what I test. So is use tax — which is the tax almost nobody self-reports correctly.\n\nAnd here's the part I didn't expect. I spent a decade building the systems that produce these records. So now I open somebody's books and I can usually tell how an entry got made. Who made it. What screen they were looking at. Whether anyone ever looked at it again.",
+        "marks": "PAUSE before the last paragraph. This is the payoff of slide 2 — \"none of this is accounting\" turns out to be all of it."
       }
     ]
   },
@@ -287,41 +241,9 @@
     "beats": [
       {
         "cue": "Music — constraints are the point",
-        "opener": "Last thing before I get into the topics. Outside of work I sing, and I play guitar. Sometimes both at the same time.",
-        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them. The structure isn't in the way of the interesting part — the structure is what makes the interesting part possible.",
-        "marks": "Go straight into the Topic 1 card from here. No dead air."
-      }
-    ]
-  },
-  {
-    "section": "Part 02 — Topic 1",
-    "sectionTitle": "Capitalize, or expense?",
-    "visual": {
-      "t": "list",
-      "kick": "Topic 1",
-      "title": "Capitalize, or expense?",
-      "items": [
-        {
-          "lead": "What the rule wanted"
-        },
-        {
-          "lead": "What I did"
-        },
-        {
-          "lead": "How it came out"
-        },
-        {
-          "lead": "What I'd change"
-        }
-      ],
-      "callout": "Two calls. Neither one had a rule behind it."
-    },
-    "beats": [
-      {
-        "cue": "Topic 1 setup",
-        "opener": "Topic one. Capitalize, or expense.",
-        "rest": "Two calls I've made. Same four things for each one: what the rule wanted, what I did, how it came out, what I'd change.\n\nOne of them I made from the audit chair. The other one I'll get to.\n\nQuick thing first, so it's not sitting there. I've never kept a fixed asset subledger. What I've done is make this call from the return, from the audit, and on my own work. The judgment I have. The posting is the part I'd learn.",
-        "marks": "Say the last paragraph evenly and then go straight into Example 1. No pause. You're sizing it, not apologizing."
+        "opener": "Last thing before the topics. Outside of work I sing, and I play guitar. Sometimes both at the same time.",
+        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them.\n\nThe structure isn't in the way of the interesting part. The structure is what makes the interesting part possible.",
+        "marks": "Go straight into Example 1 from here. No dead air."
       }
     ]
   },
@@ -330,16 +252,16 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "statement",
-      "kick": "Example 1 · the audit chair",
+      "kick": "Topic 1 · example 1",
       "title": "It came in from\nthe repair guy.",
       "sub": "A field audit. Details disguised."
     },
     "beats": [
       {
         "cue": "The find",
-        "opener": "First one's from a field audit. Details are disguised.",
-        "rest": "People think a sales tax audit only looks at sales. It doesn't. We test what you bought too.\n\nSo I'm working the repairs and maintenance ledger. One vendor keeps showing up — small amounts, a few hundred at a time. Compressor service, filter changes, booth maintenance. All consistent with the account.\n\nThen one entry from that same vendor is twenty thousand dollars.\n\nOut-of-state. No tax charged. Equipment, freight, and installation on one invoice.\n\nIt's a spray booth. They bought the booth from the company that services their booths.",
-        "marks": "Slow on the last line. Let them get there a half-second before you say it."
+        "opener": "Topic one. Capitalize, or expense. Two calls — and for each one: what the rule wanted, what I did, how it came out, what I'd change.",
+        "rest": "Quick thing first so it isn't sitting there. I've never kept a fixed asset subledger. What I've done is make this call from the return, from the audit, and on my own clients' books. The judgment I have. The posting is the part I'd learn.\n\nFirst one's from a field audit, details disguised. People think a sales tax audit only looks at sales. It doesn't — we test what you bought too.\n\nSo I'm working the repairs and maintenance ledger. One vendor keeps showing up. Small amounts, a few hundred at a time. Compressor service, filter changes, booth maintenance. All consistent with the account.\n\nThen one entry from that same vendor is twenty thousand dollars. Out-of-state, no tax charged. Equipment, freight, and installation on one invoice.\n\nIt's a spray booth. They bought the booth from the company that services their booths.",
+        "marks": "Say the bookkeeping line evenly and move — you're sizing it, not apologising. Slow on the last line."
       }
     ]
   },
@@ -364,8 +286,8 @@
       {
         "cue": "Two rules, one invoice",
         "opener": "And this is the part of the job I actually like. That one invoice gets measured twice, two different ways.",
-        "rest": "For my purposes, the use tax measure starts with the purchase price. But installation labor is excluded under Regulation 1546.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is whatever it took to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone's wrong. Mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
-        "marks": "This is your credibility slide with Galvan. Unhurried, and don't apologize for the detail."
+        "rest": "For my purposes, the use tax measure starts with the purchase price. But installation labor is excluded under Regulation 1546.\n\nFor their books, under ASC 360, it's the opposite instruction. Freight and installation go into the asset's basis, because basis is whatever it took to get it in place and working.\n\nSame invoice. Two different numbers. Not because anyone's wrong — mine is asking what was purchased for use in California. Theirs is asking what the asset cost.",
+        "marks": "This is your credibility slide with the technical interviewer. Unhurried, and don't apologise for the detail."
       }
     ]
   },
@@ -403,16 +325,34 @@
     "sectionTitle": "Example 1 — the audit chair",
     "visual": {
       "t": "statement",
-      "kick": "How it came out · what I'd change",
+      "kick": "How it came out",
       "title": "It held.",
-      "sub": "The vendor had a default account. The bill coded itself."
+      "sub": "And nobody was cheating."
     },
     "beats": [
       {
         "cue": "How it came out",
         "opener": "At the exit conference I walked the owner and their CPA through both pieces — what they owed, and separately, what their books had wrong. It held.",
-        "rest": "And nobody was cheating. That vendor was set up with a default account in their books, and the default was repairs and maintenance — because for years, that's all that vendor had ever sent them. The bill came in, it coded itself, and nobody overrode it.\n\nSo there was a rule. It was just keyed on who sent the invoice instead of what was on it.\n\nAnd that's why it sat for three years. Additions to the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs don't get reviewed by anyone. The coding didn't create the liability. It hid it.\n\nSo that's what I'd change. Not the audit. The rule that coded it. Hold onto that, I'll build it in Topic 2.",
-        "marks": "\"Keyed on who sent the invoice instead of what was on it\" is the setup for build 3. Land it."
+        "rest": "And nobody was cheating. That's the part I keep coming back to.\n\nThe invoice sounded like a repair, so it went where repair invoices go, and it sat there for three years. Nobody ever revisited it.",
+        "marks": "Don't play this as a win. The next slide is why it matters."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
+    "sectionTitle": "Example 1 — the audit chair",
+    "visual": {
+      "t": "statement",
+      "kick": "What I'd change",
+      "title": "The bill\ncoded itself.",
+      "sub": "There was a rule. It was keyed on who sent the invoice, not what was on it."
+    },
+    "beats": [
+      {
+        "cue": "The vendor default",
+        "opener": "Here's how it actually happened. That vendor was set up in their books with a default account, and the default was repairs and maintenance — because for years, that's all that vendor had ever sent them.",
+        "rest": "The bill came in, it coded itself, and nobody overrode it.\n\nSo there was a rule. It was just keyed on who sent the invoice instead of what was on it.\n\nAnd that's why it sat for three years. Additions to the depreciation schedule get reviewed — by their CPA, by their lender, by me. Costs buried in repairs don't get reviewed by anyone. The coding didn't create the liability. It hid it.\n\nSo that's what I'd change. Not the audit. The rule that coded it. Hold onto that.",
+        "marks": "\"Keyed on who sent the invoice instead of what was on it\" is the setup for the brilliant idea. Land it."
       }
     ]
   },
@@ -421,7 +361,7 @@
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
       "t": "statement",
-      "kick": "Example 2 · the other chair",
+      "kick": "Topic 1 · example 2",
       "title": "He asked me about\nan S-corp.",
       "sub": "A construction client. Fixer-uppers. He'd just landed a contract bigger than anything he'd done."
     },
@@ -429,7 +369,7 @@
       {
         "cue": "The question behind the question",
         "opener": "Second one. Different chair. Nobody's books were on trial this time — somebody just asked me a question.",
-        "rest": "Construction client of mine. Does fixer-uppers. He'd landed a contract bigger than anything he'd handled, and he wanted to know if he should elect S-corp.\n\nThe honest answer wasn't about the election. It was about what the election was going to cost him.\n\nOnce his receipts or his assets cross two hundred fifty thousand, he's filing a Schedule L and an M-1. That's a real balance sheet, and a reconciliation between his books and his return. Which means his books have to actually tie.\n\nHe was running a checkbook and a folder of receipts. That's a different business than the one he was asking about.",
+        "rest": "Construction client of mine. Does fixer-uppers. He'd landed a contract bigger than anything he'd handled, and he wanted to know if he should elect S-corp.\n\nAnd the honest answer wasn't about the election at all.",
         "marks": "This is the slide that shows you advise on books. Don't rush it."
       }
     ]
@@ -439,7 +379,35 @@
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
       "t": "list",
-      "kick": "What the rule wanted · what I did",
+      "kick": "What the rule wanted",
+      "title": "The election wasn't the expensive part.",
+      "items": [
+        {
+          "lead": "Schedule L and M-1 once receipts or assets cross $250,000"
+        },
+        {
+          "lead": "A real balance sheet, and a book-to-tax reconciliation"
+        },
+        {
+          "lead": "Which means his books have to actually tie"
+        }
+      ],
+      "callout": "He was running a checkbook and a folder of receipts."
+    },
+    "beats": [
+      {
+        "cue": "The cost of the election",
+        "opener": "It was about what the election was going to cost him.",
+        "rest": "Once his receipts or his assets cross two hundred fifty thousand, he's filing a Schedule L and an M-1. That's a real balance sheet, and a reconciliation between his books and his return.\n\nWhich means his books have to actually tie.\n\nHe was running a checkbook and a folder of receipts. That's a different business than the one he was asking about."
+      }
+    ]
+  },
+  {
+    "section": "Part 02 — Topic 1",
+    "sectionTitle": "Example 2 — the other chair",
+    "visual": {
+      "t": "list",
+      "kick": "What I did",
       "title": "Then he started buying equipment.",
       "items": [
         {
@@ -466,34 +434,34 @@
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
       "t": "statement",
-      "kick": "How it came out · what I'd change",
+      "kick": "How it came out",
       "title": "Nobody had\nwritten it down.",
-      "sub": "So we capitalized things we could have expensed. And he'd been my client the year before."
+      "sub": "So we capitalized things he could have deducted the day he bought them."
     },
     "beats": [
       {
         "cue": "The honest part",
         "opener": "He didn't have one. So we couldn't use it.",
-        "rest": "We capitalized a pile of small stuff that could have been deducted the day he bought it. Not because the rule said so. Because nobody had written one paragraph the previous December.\n\nAnd I'll own my part of that. He'd been my client the year before. I never told him to write it.\n\nSo here's the lesson, and it's the same one as the spray booth. You don't get to decide at the end of the year and justify it backwards. The policy has to exist before the transaction does.\n\nClassify on purpose, at the source, in writing. That's not my opinion. That's the regulation.",
-        "marks": "Land the last line and stop. It's the thesis of the whole talk, and the IRS is saying it, not you."
+        "rest": "We capitalized a pile of small stuff that could have been deducted the day he bought it. Not because the rule said so — because nobody had written one paragraph the previous December.\n\nAnd I'll own my part of that. He'd been my client the year before. I never told him to write it.",
+        "marks": "Flat. Don't soften it."
       }
     ]
   },
   {
     "section": "Part 02 — Topic 1",
-    "sectionTitle": "Topic 1 close",
+    "sectionTitle": "Example 2 — the other chair",
     "visual": {
       "t": "statement",
-      "kick": "Topic 1 close",
+      "kick": "What I'd change · Topic 1 close",
       "title": "One had the wrong rule.\nOne had none.",
-      "sub": "Both got made at the point of entry, by whoever was closest."
+      "sub": "Classify on purpose, at the source, in writing. That's not my opinion — that's the regulation."
     },
     "beats": [
       {
         "cue": "The close",
-        "opener": "Two calls. Neither one had the right rule behind it when it mattered.",
-        "rest": "The first one had a rule. It was just keyed on the vendor instead of the invoice.\n\nThe second one had no rule at all, because nobody wrote it. Including me.\n\nI picked those two on purpose. I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
-        "marks": "Through-line, pass 2. Straight into Topic 2, no pause."
+        "opener": "So here's the lesson, and it's the same one both times. You don't get to decide at the end of the year and justify it backwards. The policy has to exist before the transaction does.",
+        "rest": "Classify on purpose, at the source, in writing. That's not my opinion. That's the regulation.\n\nTwo calls. The first one had a rule — it was just keyed on the vendor instead of the invoice. The second one had no rule at all, because nobody wrote it. Including me.\n\nI picked those two on purpose. I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
+        "marks": "THROUGH-LINE, pass 2. Straight into Topic 2 — no pause at the end."
       }
     ]
   },
@@ -502,39 +470,16 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "statement",
-      "kick": "Topic 2",
-      "title": "The first\nninety days.",
-      "sub": "Learn the job honestly. Contribute like a builder."
-    },
-    "beats": [
-      {
-        "cue": "Topic 2 setup",
-        "opener": "Topic two. My first ninety days.",
-        "rest": "This is a learning plan and a contribution plan at the same time, and I want to be straight with you about which parts are which."
-      }
-    ]
-  },
-  {
-    "section": "Part 03 — Topic 2",
-    "sectionTitle": "The first ninety days",
-    "visual": {
-      "t": "statement",
-      "kick": "Said plainly",
+      "kick": "Topic 2 · the first ninety days",
       "title": "I haven't done\ninternational accounting.",
       "sub": "I understand the concepts in theory. I just don't have the reps — yet."
     },
     "beats": [
       {
         "cue": "Own the gap",
-        "opener": "So let me say the obvious part out loud, because you already know it. I haven't done international accounting.",
-        "rest": "What I do have is the standards. FAR tested consolidation and currency translation — ASC 830, intercompany eliminations, the CTA running through OCI instead of income. I understand the concepts in theory.\n\nWhat I don't have is the reps.",
-        "marks": "PAUSE. Full stop. Do not rush to reassure them — the silence is the confidence."
-      },
-      {
-        "cue": "But you've watched me do this",
-        "opener": "But you've just watched me do this four times.",
-        "rest": "I hadn't done data architecture, and I wrote the VBA and moved it into a real database. I hadn't done Salesforce, and six months later I was the department. I hadn't done accounting at all, and I went and got a third bachelor's degree and passed four CPA exams.\n\nI don't wait until I'm qualified. I go get qualified, and I do it while the work is happening.\n\nSo here's the ninety days.",
-        "marks": "This is the whole intro cashing in. Confident, not defensive. You're stating a record, not arguing."
+        "opener": "Topic two. My first ninety days. And let me say the obvious part out loud, because you already know it. I haven't done international accounting.",
+        "rest": "What I do have is the standards. FAR tested consolidation and currency translation — ASC 830, intercompany eliminations, the CTA running through OCI instead of income. I understand the concepts in theory. What I don't have is the reps.\n\nBut you've just watched me do this four times. I hadn't done data architecture, and I wrote the thing that moved it into a real database. I hadn't done Salesforce, and six months later I was the department. I hadn't done accounting at all, and I went and got a third bachelor's and passed four CPA exams.\n\nI don't wait until I'm qualified. I go get qualified, and I do it while the work is happening.",
+        "marks": "PAUSE after \"reps.\" Full stop. Don't rush to reassure — the silence is the confidence."
       }
     ]
   },
@@ -568,8 +513,8 @@
       {
         "cue": "The terrain",
         "opener": "The terrain has four problems in it, and I already know their names.",
-        "rest": "Currency translation under ASC 830 — Japan's yen and France's euro into dollars, with the translation adjustment running through OCI rather than income. Consolidation and eliminations — intercompany, investment, minority interest. Transfer pricing — documentation that has to survive both Section 482 and a foreign authority looking at the same transaction from the other side.\n\nAnd indirect tax. VAT and Japanese Consumption Tax. Which is the one I'd argue I already do — that is the same discipline as California sales and use tax, and I run it every day.",
-        "marks": "Say the fourth one with a little more weight. It's the one place you're already an expert."
+        "rest": "Currency translation under ASC 830 — yen and euro into dollars, with the translation adjustment running through OCI rather than income. Consolidation and eliminations. Transfer pricing — documentation that has to survive both Section 482 and a foreign authority looking at the same transaction from the other side.\n\nAnd indirect tax. VAT and Japanese Consumption Tax. Which is the one I'd argue I already do — a reverse charge and California use tax are the same mechanism under different names. The seller doesn't collect, so the buyer self-assesses. I test that every working day.",
+        "marks": "Say the fourth one with a little more weight. It's the one place you're transferring, not learning."
       }
     ]
   },
@@ -583,24 +528,24 @@
       "items": [
         {
           "lead": "Walk one full close manually",
-          "sub": "Follow Japan's reporting package through translation and eliminations into the consolidated statements. Once, by hand."
+          "sub": "Follow Japan's package through translation and eliminations into the consolidated statements. Once, by hand."
         },
         {
           "lead": "Sit with whoever does it now",
-          "sub": "Not to review it. To learn it from the person who actually knows where it breaks."
+          "sub": "Not to review it. To find out where it breaks."
         },
         {
           "lead": "Map how OneWorld is configured",
-          "sub": "Entities, currencies, elimination rules — what the system does versus what a human does after it."
+          "sub": "What the system does, versus what a person quietly fixes afterward."
         }
       ]
     },
     "beats": [
       {
-        "cue": "Month one — by hand",
+        "cue": "Month one",
         "opener": "Month one: do the job by hand.",
-        "rest": "I want to follow one close all the way through manually. Take Japan's reporting package, walk it through translation and eliminations, and land it in the consolidated statements — once, by hand, slowly.\n\nNot because that's efficient. Because that's the only way I've ever actually learned anything. And I want to sit with whoever does it today, not to review their work, but to find out where it breaks.\n\nAnd I'll map how OneWorld is configured — what the system does automatically, versus what a person quietly fixes afterward.",
-        "marks": "You are deliberately echoing slide 7. Do not point at it — they'll feel it."
+        "rest": "I want to follow one close all the way through manually. Take Japan's reporting package, walk it through translation and eliminations, and land it in the consolidated statements. Once, by hand, slowly.\n\nNot because that's efficient. Because that's the only way I've ever actually learned anything.\n\nAnd I'll map how OneWorld is configured — what the system does automatically, versus what a person quietly fixes afterward.",
+        "marks": "You're deliberately echoing slide 6. Don't point at it — they'll feel it."
       }
     ]
   },
@@ -614,11 +559,11 @@
       "items": [
         {
           "lead": "Own real close tasks, under review",
-          "sub": "Reconciliations and translation entries that are mine — checked by someone senior until they don't need to be."
+          "sub": "Reconciliations and translation entries that are mine — checked until they don't need to be."
         },
         {
           "lead": "Time the close",
-          "sub": "Where do the hours actually go? Nobody knows, because nobody has ever written it down."
+          "sub": "Where do the hours actually go? Nobody knows, because nobody has had a reason to write it down."
         },
         {
           "lead": "Pick one automation with the controller",
@@ -628,7 +573,7 @@
     },
     "beats": [
       {
-        "cue": "Month two — where it hurts",
+        "cue": "Month two",
         "opener": "Month two: feel where it hurts.",
         "rest": "By now I should be carrying real close tasks — reconciliations, translation entries — mine, under review by someone senior until that review stops being necessary.\n\nAnd while I'm in there, I'm timing it. Where do the hours actually go? Most teams can't answer that, not because they're careless, but because nobody has ever had a reason to write it down.\n\nThen I pick one automation with the controller. Highest pain, lowest risk. That's their call, not mine — I'm new."
       }
@@ -648,7 +593,7 @@
         },
         {
           "lead": "The first automation live",
-          "sub": "With a before-and-after number attached to it."
+          "sub": "With a before-and-after number attached."
         },
         {
           "lead": "Both documented well enough to survive me",
@@ -658,9 +603,9 @@
     },
     "beats": [
       {
-        "cue": "Month three — build it",
+        "cue": "Month three",
         "opener": "Month three: build the thing that removes it.",
-        "rest": "My slice of the close is fully mine by then, no training wheels. The first automation is live, with a before-and-after number attached — not a claim, a measurement.\n\nAnd both are documented well enough to survive me. If it only works while I'm in the room, I haven't actually finished it."
+        "rest": "My slice of the close is fully mine by then, no training wheels. The first automation is live, with a before-and-after number attached — not a claim, a measurement.\n\nAnd both documented well enough to survive me. If it only works while I'm in the room, I haven't actually finished it."
       }
     ]
   },
@@ -670,7 +615,7 @@
     "visual": {
       "t": "chain",
       "kick": "The pattern",
-      "title": "You've seen this plan before.",
+      "title": "You've seen this\nplan before.",
       "links": [
         {
           "from": "Bench tech",
@@ -690,9 +635,9 @@
     "beats": [
       {
         "cue": "Through-line, pass 3",
-        "opener": "And I want to point at something, because I promised I would.",
-        "rest": "This is the same plan I've run my entire career. I did the bench work, then I built the lab system. I did the data entry, then I built the database.\n\nSo: I do your close by hand, I find out exactly where it hurts, and then I build the thing that takes it away.\n\nThat isn't a plan I wrote for this interview. It's just the only way I've ever worked.",
-        "marks": "THROUGH-LINE pass 3 of 3 — the payoff of slide 7. Slow, and let the third row of the diagram sit before you speak over it."
+        "opener": "And I want to point at something.",
+        "rest": "This is the same plan I've run my entire career. I did the bench work, then I built the lab system. I did the data entry, then I built the database.\n\nSo: I do your close by hand, I find out exactly where it hurts, and then I build the thing that takes it away.\n\nThat isn't a plan I wrote for this interview. It's the only way I've ever worked.",
+        "marks": "THROUGH-LINE, pass 3 of 3 — the payoff of slide 6. Let the third row of the diagram sit before you speak over it."
       }
     ]
   },
@@ -708,38 +653,9 @@
     "beats": [
       {
         "cue": "The idea",
-        "opener": "So here's the one idea I was asked to bring. It comes straight out of that spray booth.",
+        "opener": "So here's the one idea I was asked to bring. And it comes straight out of that spray booth.",
         "rest": "Ramp categorizes with AI. Most companies switch that on and treat it as a productivity feature.\n\nBut it isn't a feature. It's a control. Something is deciding what account a transaction lands in, thousands of times a month, and nothing is testing whether it was right.\n\nIf I walked into a business and asked what their detective control is over automated coding, most of them wouldn't have an answer.\n\nSo I'd build one.",
-        "marks": "\"It's a control\" is the sentence. Slow there. You are the person who audits the output of these systems — say it like someone who has seen it fail."
-      }
-    ]
-  },
-  {
-    "section": "Part 03 — Topic 2",
-    "sectionTitle": "The first ninety days",
-    "visual": {
-      "t": "list",
-      "kick": "How it works",
-      "title": "Three signals. One invoice.",
-      "items": [
-        {
-          "lead": "The vendor default says repair"
-        },
-        {
-          "lead": "The amount says fifty times this vendor's median"
-        },
-        {
-          "lead": "The line items say equipment, freight, installation"
-        }
-      ],
-      "callout": "Two of the three disagree with the default. That's the flag."
-    },
-    "beats": [
-      {
-        "cue": "The disagreement rule",
-        "opener": "Here's how it would have caught my spray booth, the day it landed.",
-        "rest": "Three independent signals look at the same invoice.\n\nThe vendor default says repair, because that's what that vendor always sends. The amount says this is about fifty times that vendor's own median. The line items say equipment, freight, and installation.\n\nTwo of the three disagree with the default.\n\nAnd that's the rule. You don't flag on any single signal. You flag when they disagree — because the failure in my audit wasn't a bad rule. It was one rule, with nothing to check it against.",
-        "marks": "This is the loop closing on Topic 1. Let them make the connection before you spell it out."
+        "marks": "\"It's a control\" is the sentence. Slow there. You audit the output of these systems — say it like someone who's seen it fail."
       }
     ]
   },
@@ -748,16 +664,16 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "flow",
-      "kick": "What it looks like",
-      "title": "A rules layer in front of NetSuite.",
+      "kick": "How it works",
+      "title": "Three signals. One invoice.",
       "tail": "The flag happens the moment the invoice lands — not three weeks later at close, and not three years later with me sitting across the table."
     },
     "beats": [
       {
-        "cue": "The flow",
-        "opener": "In practice it sits between Ramp and NetSuite, and it's boring, which is the point.",
-        "rest": "The transaction lands. The AI assigns a category. Then three checks run against it — the vendor's usual account, the amount against that vendor's own history, and what the line items actually say.\n\nIf they agree, it posts. Nobody's day gets slower.\n\nIf they disagree, it routes to a short review queue where a person looks at it, once, while the invoice is still fresh and somebody still remembers what it was for.",
-        "marks": "Say \"and not three years later with me sitting across the table\" dry. Don't lean on it."
+        "cue": "The disagreement rule",
+        "opener": "Here's how it would have caught my spray booth, the day it landed.",
+        "rest": "Three independent signals read the same invoice. The vendor default says repair, because that's what that vendor always sends. The amount says this is about fifty times that vendor's own median. The line items say equipment, freight, and installation.\n\nTwo of the three disagree with the default.\n\nAnd that's the rule. You don't flag on any single signal — you flag when they disagree. Because the failure in my audit wasn't a bad rule. It was one rule, with nothing to check it against.\n\nIf they agree, it posts and nobody's day gets slower. If they disagree, it routes to a short review queue while somebody still remembers what it was for.",
+        "marks": "Let them make the Topic 1 connection before you spell it out. Say the last clause dry."
       }
     ]
   },
@@ -779,7 +695,7 @@
         },
         {
           "lead": "Flagging everything is worse than flagging nothing",
-          "sub": "A queue nobody works is a control that only looks like one. Tie the threshold to performance materiality — flag what could matter, not what's merely unusual."
+          "sub": "A queue nobody works is a control that only looks like one. Tie the threshold to performance materiality."
         },
         {
           "lead": "It has to cut both ways",
@@ -791,7 +707,7 @@
       {
         "cue": "Failure modes",
         "opener": "And here's what would make it fail, because I'd rather say it than have you find it.",
-        "rest": "A new vendor has no history, so there's nothing to compare against — those always go to review until there's a baseline. Below about five invoices the statistic is just noise, so it falls back to a flat threshold rather than pretending to know something.\n\nOne technical note. It compares against the median, not the average, because an average gets wrecked by exactly the outlier you're hunting for. One big purchase last year and the average stops flagging anything.\n\nAnd the real risk isn't statistical, it's human. If it flags two hundred things a month, everybody ignores it, and now you have something worse than no control — because people believe something is watching. So the threshold ties to materiality.\n\nLast one: it has to catch things wrongly capitalized too, not just wrongly expensed. Same discipline as the repairs I left alone.",
+        "rest": "A new vendor has no history, so there's nothing to compare against — those always go to review until there's a baseline. Below about five invoices the statistic is just noise, so it falls back to a flat threshold rather than pretending to know something.\n\nOne technical note. It compares against the median, not the average, because an average gets wrecked by exactly the outlier you're hunting for. One big purchase last year and the average stops flagging anything.\n\nAnd the real risk isn't statistical, it's human. If it flags two hundred things a month everybody ignores it, and now you have something worse than no control — because people believe something is watching. So the threshold ties to materiality.\n\nAnd it has to catch things wrongly capitalized too, not just wrongly expensed. Same discipline as the repairs I left alone.",
         "marks": "This is the credibility slide. Naming the failure modes yourself is worth more than the idea. Unhurried."
       }
     ]
@@ -799,85 +715,6 @@
   {
     "section": "Part 03 — Topic 2",
     "sectionTitle": "The first ninety days",
-    "visual": {
-      "t": "list",
-      "kick": "Then keep going",
-      "title": "Remove one manual step a month.",
-      "items": [
-        {
-          "lead": "Measure the close first",
-          "sub": "Where do the hours actually go? Nobody can answer that, because nobody has had a reason to write it down."
-        },
-        {
-          "lead": "Then a package pre-check",
-          "sub": "Automated completeness and tie-out on subsidiary packages, before a human opens them."
-        },
-        {
-          "lead": "Every build ships with a before-and-after number",
-          "sub": "Measured, not claimed."
-        }
-      ]
-    },
-    "beats": [
-      {
-        "cue": "The method underneath",
-        "opener": "And that's the first one, not the only one. The method underneath is the same every month.",
-        "rest": "Measure where the hours actually go, then remove exactly one manual step. Small builds, each shipped with a before-and-after number.\n\nMost closes never get faster. Not because anyone's bad at their job — because everybody owns their piece, their piece works, and nobody owns \"faster.\"\n\nI'm offering to own faster.",
-        "marks": "PAUSE before \"I'm offering to own faster.\" That's the line you want them repeating afterwards."
-      }
-    ]
-  },
-  {
-    "section": "Part 03 — Topic 2",
-    "sectionTitle": "The first ninety days",
-    "visual": {
-      "t": "statement",
-      "kick": "Further out",
-      "title": "And when the auditors\nget bigger.",
-      "sub": "I'd go get the Certified Internal Auditor — so I'm already that person before the audit shows up, not during it."
-    },
-    "beats": [
-      {
-        "cue": "The CIA — further out",
-        "opener": "One thing beyond ninety days, because Vast is going to keep scaling and the audit gets bigger with it.",
-        "rest": "At some point the external audit stops being a formality. Somebody on the inside has to already speak that language — to know what they're going to ask for before they ask, and to have it ready.\n\nI'd go get the Certified Internal Auditor for that. Not because the role requires it. Because I'd rather be that person before the audit shows up than during it.\n\nAnd I want to be honest about the timeline — that's three parts and about a year. It is not a ninety-day promise.",
-        "marks": "The honesty about the timeline is doing real work here. Do not skip it to sound more impressive."
-      }
-    ]
-  },
-  {
-    "section": "Part 03 — Topic 2",
-    "sectionTitle": "The first ninety days",
-    "visual": {
-      "t": "list",
-      "kick": "The pitch",
-      "title": "So — in ninety days.",
-      "items": [
-        {
-          "lead": "My close tasks owned",
-          "sub": "Not shadowed. Owned."
-        },
-        {
-          "lead": "One automation live, with numbers",
-          "sub": "Measured, not claimed."
-        },
-        {
-          "lead": "And a close that gets a step faster every month after that",
-          "sub": "Because somebody finally owns faster."
-        }
-      ]
-    },
-    "beats": [
-      {
-        "cue": "The pitch",
-        "opener": "So, in ninety days: my close tasks owned — not shadowed, owned.",
-        "rest": "One automation live, with a real number attached to it.\n\nAnd a close that gets a step faster every month after that, because somebody finally owns faster."
-      }
-    ]
-  },
-  {
-    "section": "Part 03 — Topic 2",
-    "sectionTitle": "Close",
     "visual": {
       "t": "statement",
       "kick": "Close",
@@ -888,13 +725,8 @@
       {
         "cue": "The close",
         "opener": "I started by telling you I was the guy entering the data.",
-        "rest": "Every job since, I did the work by hand first, found out where it hurt, and then built the thing that took it away. The lab system. The database. The payment sync. The audit chair.\n\nI'd like to do that here.",
-        "marks": "Full circle to slide 3. Land it, then STOP. Do not add a summary sentence — let the silence be the ending."
-      },
-      {
-        "cue": "Hand off to questions",
-        "opener": "Thank you. I'd love your questions.",
-        "rest": ""
+        "rest": "Every job since, I did the work by hand first, found out where it hurt, and then built the thing that took it away. The lab system. The database. The payment sync. The audit chair.\n\nSo in ninety days: my close tasks owned. One automation live, with a real number on it. And a close that gets a step faster every month after that — because most closes never get faster, and it's not that anyone's bad at their job. Everybody owns their piece, their piece works, and nobody owns \"faster.\"\n\nI'm offering to own faster.\n\nThank you — I'd love your questions.",
+        "marks": "PAUSE before \"I'm offering to own faster.\" Then land it, and STOP. Don't add a summary sentence."
       }
     ]
   }

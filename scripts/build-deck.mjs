@@ -20,8 +20,8 @@ const deckPath = path.join(repoRoot, "app", "vast", "deck.json");
 // James hand-designs his own decks in PowerPoint. Generated output always goes
 // to a NEW version number so an edited file is never overwritten. Bump this;
 // never point it at a version he has opened.
-const OUT_NAME = "James-Sieng-Vast-FinalRound-v9.pptx";
-const HAND_EDITED = /-v(2(_\d+)?|3|4|5|6|7|8)\.pptx$/i;
+const OUT_NAME = "James-Sieng-Vast-FinalRound-v10.pptx";
+const HAND_EDITED = /-v(2(_\d+)?|[3-9])\.pptx$/i;
 const outPath = path.join(os.homedir(), "Desktop", OUT_NAME);
 if (HAND_EDITED.test(OUT_NAME)) {
   throw new Error(`Refusing to write ${OUT_NAME} — that is one of James's hand-edited decks.`);
