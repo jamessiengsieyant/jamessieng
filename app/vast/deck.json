@@ -20,7 +20,7 @@
     "visual": {
       "t": "cards",
       "kick": "Before we start",
-      "title": "None of this\nis accounting.",
+      "title": "Mostly\nnot accounting.",
       "a": {
         "h": "UC Irvine",
         "lines": "B.S. Biomedical Engineering\nB.A. Business Economics"
@@ -29,7 +29,7 @@
         "h": "Certifications",
         "lines": "7× Salesforce Certified (Advanced Admin)\n3x CompTIA Certified (A+, Network+, Security+)\nAWS Certified Cloud Practitioner\nISC2 Certified in Cybersecurity and CISSP exam passed"
       },
-      "tail": "That's the whole strategy. There wasn't one."
+      "tail": "No particular strategy, just the love of learning."
     },
     "beats": [
       {
@@ -47,13 +47,13 @@
       "t": "statement",
       "kick": "Where it started",
       "title": "Not the typing.\nThe spreadsheet.",
-      "sub": "Lab tech. Mostly testing. About an hour a day in Excel."
+      "sub": "Brainstorming ways to increase efficiency."
     },
     "beats": [
       {
         "cue": "The hour I liked",
-        "opener": "My first job out of school was as a lab tech. Mostly testing.",
-        "rest": "Maybe an hour a day was entering results and running reports.\n\nThat hour was the part I liked. Not the typing — the spreadsheet. The validations, the formulas, what happened to the number after I put it in.\n\nI was already trying to automate my own job. I didn't know that was something you could do for a living.",
+        "opener": "My first job out of college was in a lab doing cancer diagnostics. Mostly testing.",
+        "rest": "Maybe an hour a day was entering results in an excel.\n\nThat hour was the part I liked. Not the typing — the spreadsheet. The validations, the formulas, the infinite chains of \"if\" statements until excel broke.\n\nI was already trying to automate the job.",
         "marks": "Last line lands better dry than wry. Don't push it."
       }
     ]
@@ -76,7 +76,7 @@
           "to": "Relational database"
         }
       ],
-      "tail": "Data that had a shape — and a shape that was enforced."
+      "tail": "I really excelled."
     },
     "beats": [
       {
@@ -236,14 +236,13 @@
       "t": "statement",
       "kick": "For fun",
       "title": "I sing.\nI play guitar.",
-      "sub": "Sometimes both at the same time."
+      "sub": "Sometimes simultaneously."
     },
     "beats": [
       {
         "cue": "Music — constraints are the point",
-        "opener": "Last thing before the topics. Outside of work I sing, and I play guitar. Sometimes both at the same time.",
-        "rest": "And there's a reason I didn't skip this slide. Music is the only other thing I do where the constraints are the entire point. There's a key. There's a time signature. Nobody has ever written a better song by deciding those didn't apply to them.\n\nThe structure isn't in the way of the interesting part. The structure is what makes the interesting part possible.",
-        "marks": "Go straight into Example 1 from here. No dead air."
+        "opener": "Last thing before the topics. Outside of work I sing, and I play guitar. Sometimes both.",
+        "rest": "Til this day, I'm still trying to get on John Mayer's level."
       }
     ]
   },
@@ -453,13 +452,13 @@
     "visual": {
       "t": "statement",
       "kick": "What I'd change · Topic 1 close",
-      "title": "One had the wrong rule.\nOne had none.",
-      "sub": "Classify on purpose, at the source, in writing. That's not my opinion — that's the regulation."
+      "title": "One had the wrong rule.\nOne had no rules.",
+      "sub": "Classify on purpose, at the source, in writing."
     },
     "beats": [
       {
         "cue": "The close",
-        "opener": "So here's the lesson, and it's the same one both times. You don't get to decide at the end of the year and justify it backwards. The policy has to exist before the transaction does.",
+        "opener": "The lesson learned - you don't get to decide at the end of the year and justify it backwards. The policy must exist before the transaction does.",
         "rest": "Classify on purpose, at the source, in writing. That's not my opinion. That's the regulation.\n\nTwo calls. The first one had a rule — it was just keyed on the vendor instead of the invoice. The second one had no rule at all, because nobody wrote it. Including me.\n\nI picked those two on purpose. I could have shown you two wins.\n\nI did the job by hand, and I know exactly where it hurts. So let me tell you what I'd build.",
         "marks": "THROUGH-LINE, pass 2. Straight into Topic 2 — no pause at the end."
       }
