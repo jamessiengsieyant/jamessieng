@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import PptxGenJS from "pptxgenjs";
+import QRCode from "qrcode";
 
 const BG = "05070D";
 const CARD = "141B2B";
@@ -20,12 +21,37 @@ const deckPath = path.join(repoRoot, "app", "vast", "deck.json");
 // James hand-designs his own decks in PowerPoint. Generated output always goes
 // to a NEW version number so an edited file is never overwritten. Bump this;
 // never point it at a version he has opened.
-const OUT_NAME = "James-Sieng-Vast-FinalRound-v10.pptx";
-const HAND_EDITED = /-v(2(_\d+)?|[3-9])\.pptx$/i;
+const OUT_NAME = "James-Sieng-Vast-FinalRound-v11.pptx";
+const HAND_EDITED = /-v(2(_\d+)?|[3-9]|10)\.pptx$/i;
 const outPath = path.join(os.homedir(), "Desktop", OUT_NAME);
 if (HAND_EDITED.test(OUT_NAME)) {
   throw new Error(`Refusing to write ${OUT_NAME} — that is one of James's hand-edited decks.`);
 }
+
+/**
+ * The scan-to-enter code for the title slide.
+ *
+ * The key must be the one live in Netlify, not a local scratch value — a code
+ * built from the wrong key is indistinguishable from a working one until
+ * somebody points a phone at it in the interview room.
+ */
+try {
+  process.loadEnvFile(path.join(repoRoot, ".env.local"));
+} catch {
+  // no local env file; fall back to whatever is already exported
+}
+const GUEST_KEY = process.env.VAST_GUEST_KEY?.trim();
+const ENTER_URL = GUEST_KEY
+  ? `https://jamessieng.com/vast/enter?k=${encodeURIComponent(GUEST_KEY)}`
+  : null;
+const qrDataUrl = ENTER_URL
+  ? await QRCode.toDataURL(ENTER_URL, {
+      errorCorrectionLevel: "M",
+      margin: 1,
+      width: 900,
+      color: { dark: "#05070dff", light: "#ffffffff" },
+    })
+  : null;
 
 function notesFor(slide) {
   return slide.beats
@@ -65,18 +91,40 @@ for (const slide of slides) {
   const v = slide.visual;
 
   if (v.t === "title") {
+    // narrower than the other slides so the wordmark never runs under the code
+    const textW = qrDataUrl ? 8.4 : 11.5;
     s.addText("FINAL ROUND · VAST SPACE", {
-      x: PAD_X, y: 2.3, w: 11.5, h: 0.4,
+      x: PAD_X, y: 2.3, w: textW, h: 0.4,
       fontSize: 13, color: ACCENT, bold: true, charSpacing: 3,
     });
     s.addText("James Sieng", {
-      x: PAD_X, y: 2.75, w: 11.5, h: 1.3,
+      x: PAD_X, y: 2.75, w: textW, h: 1.3,
       fontSize: 54, color: LIGHT, bold: true,
     });
     s.addText("Staff Accountant — International Accounting & Accounting Operations", {
-      x: PAD_X, y: 4.05, w: 11.5, h: 0.5,
+      x: PAD_X, y: 4.05, w: textW, h: 0.5,
       fontSize: 16, color: MUTED,
     });
+
+    if (qrDataUrl) {
+      const qw = 2.5;
+      const qx = 13.333 - PAD_X - qw;
+      // white plate behind it: a QR needs the quiet zone to scan reliably, and
+      // the deck background is nearly black
+      s.addShape("roundRect", {
+        x: qx - 0.18, y: 2.12, w: qw + 0.36, h: qw + 0.36,
+        rectRadius: 0.08, fill: { color: "FFFFFF" }, line: { color: "FFFFFF", width: 0 },
+      });
+      s.addImage({ data: qrDataUrl, x: qx, y: 2.3, w: qw, h: qw });
+      s.addText("Scan for the live version", {
+        x: qx - 0.18, y: 4.86, w: qw + 0.36, h: 0.3,
+        fontSize: 11, color: ACCENT, bold: true, align: "center",
+      });
+      s.addText("Opens the presentation — no password needed", {
+        x: qx - 0.6, y: 5.16, w: qw + 1.2, h: 0.3,
+        fontSize: 9, color: MUTED, align: "center",
+      });
+    }
   } else if (v.t === "statement") {
     s.addText(v.kick.toUpperCase(), {
       x: PAD_X, y: 1.5, w: 11.5, h: 0.4,
