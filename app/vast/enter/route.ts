@@ -1,32 +1,48 @@
-import { NextResponse } from "next/server";
 import { GUEST_COOKIE, guestKey, keyMatches } from "../guestPass";
 
 /**
  * The QR code points here: /vast/enter?k=<key>
  *
- * Trades the key for an httpOnly cookie and sends them to a clean /vast. The
- * destination is built explicitly rather than by redirecting to a relative
- * path, because the query string is otherwise carried across and the key ends
- * up in the address bar — and from there in history and in whatever the
- * browser syncs.
+ * Sets the cookie, then hands back a one-line page that calls
+ * location.replace('/vast').
+ *
+ * A server redirect was tried first and does not work here: the platform
+ * rewrites Location, re-appending the original query string and substituting
+ * the internal deploy host, so the phone ends up on
+ * <deploy-id>.netlify.app/vast?k=<key> — the key in the address bar, in
+ * history, and the wrong domain besides. Doing the last hop in the browser
+ * avoids all of it, and replace() overwrites the entry rather than adding one,
+ * so the key is not left behind in the back button either.
  */
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const k = url.searchParams.get("k");
+  const k = new URL(request.url).searchParams.get("k");
 
-  const res = NextResponse.redirect(new URL("/vast", url.origin), 303);
+  const headers = new Headers({
+    "Content-Type": "text/html; charset=utf-8",
+    "Cache-Control": "no-store, max-age=0",
+    "Referrer-Policy": "no-referrer",
+  });
 
-  // Silent either way: never say whether the key was wrong or the feature is
-  // switched off. A wrong key simply lands on the ordinary front door.
+  // Silent either way — a wrong key just lands on the ordinary front door.
   if (keyMatches(k)) {
-    res.cookies.set(GUEST_COOKIE, guestKey()!, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 14, // a fortnight — comfortably past the onsite
-    });
+    const bits = [
+      `${GUEST_COOKIE}=${guestKey()}`,
+      "Path=/",
+      `Max-Age=${60 * 60 * 24 * 14}`, // a fortnight — comfortably past the onsite
+      "HttpOnly",
+      "SameSite=Lax",
+    ];
+    if (process.env.NODE_ENV === "production") bits.push("Secure");
+    headers.append("Set-Cookie", bits.join("; "));
   }
 
-  return res;
+  return new Response(
+    `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
+      `<meta name="robots" content="noindex"><title>Opening…</title>` +
+      `<script>location.replace("/vast")</script></head>` +
+      `<body style="background:#05070d"><noscript>` +
+      `<a href="/vast" style="color:#ffb25e;font-family:system-ui;padding:2rem;display:block">` +
+      `Continue to the presentation</a></noscript></body></html>`,
+    { headers }
+  );
 }
