@@ -21,6 +21,8 @@ import { lerp, smooth, waypointFor } from "./journey";
  */
 export default function JourneyScene() {
   const ref = useRef<HTMLCanvasElement>(null);
+  const cabinRef = useRef<HTMLDivElement>(null);
+  const rimRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(0);
   const pathname = usePathname();
 
@@ -211,6 +213,61 @@ export default function JourneyScene() {
     earthGroup.add(new THREE.Mesh(new THREE.SphereGeometry(EARTH_R * 1.045, 64, 64), atmoMat));
     scene.add(earthGroup);
 
+    /* ───────── Falcon 9 ─────────
+       Proportioned off the real thing: about nineteen times taller than it is
+       wide, black interstage band roughly two thirds up, grid fins near the
+       top, legs at the base. Read as a silhouette against the dawn, so the
+       band and the fins do more work than any surface detail would. */
+    const rocket = new THREE.Group();
+    const R_H = 15, R_R = 0.4;
+    const whiteMat = new THREE.MeshStandardMaterial({ color: 0xeef1f5, roughness: 0.55, metalness: 0.12 });
+    const blackMat = new THREE.MeshStandardMaterial({ color: 0x14161b, roughness: 0.8, metalness: 0.1 });
+
+    const firstStage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.68, 28), whiteMat);
+    firstStage.position.y = R_H * 0.34;
+    rocket.add(firstStage);
+
+    const interstage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.06, 28), blackMat);
+    interstage.position.y = R_H * 0.71;
+    rocket.add(interstage);
+
+    const secondStage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.2, 28), whiteMat);
+    secondStage.position.y = R_H * 0.84;
+    rocket.add(secondStage);
+
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(R_R, R_H * 0.12, 28), whiteMat);
+    nose.position.y = R_H * 1.0;
+    rocket.add(nose);
+
+    for (let i = 0; i < 4; i++) {
+      const fin = new THREE.Mesh(new THREE.BoxGeometry(R_R * 0.75, R_R * 0.9, 0.06), blackMat);
+      const a = (i / 4) * Math.PI * 2;
+      fin.position.set(Math.cos(a) * R_R * 1.15, R_H * 0.66, Math.sin(a) * R_R * 1.15);
+      fin.rotation.y = -a;
+      rocket.add(fin);
+      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, R_H * 0.1, 8), blackMat);
+      leg.position.set(Math.cos(a) * R_R * 0.9, R_H * 0.03, Math.sin(a) * R_R * 0.9);
+      leg.rotation.z = Math.cos(a) * 0.28;
+      leg.rotation.x = -Math.sin(a) * 0.28;
+      rocket.add(leg);
+    }
+
+    // plume: additive cone, scaled by thrust, plus a light so the exhaust
+    // actually throws colour onto the ground during the first moments
+    const plumeMat = new THREE.MeshBasicMaterial({
+      color: 0xffd08a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const plume = new THREE.Mesh(new THREE.ConeGeometry(R_R * 0.95, R_H * 0.5, 20, 1, true), plumeMat);
+    plume.rotation.x = Math.PI;
+    plume.position.y = -R_H * 0.24;
+    rocket.add(plume);
+    const plumeLight = new THREE.PointLight(0xffa94d, 0, 90, 2);
+    plumeLight.position.y = -1;
+    rocket.add(plumeLight);
+
+    rocket.position.set(-7, 0, -46);
+    scene.add(rocket);
+
     /* ───────── Haven-1 ───────── */
     const station = new THREE.Group();
     const hull = new THREE.MeshStandardMaterial({ color: 0xf2f4f7, roughness: 0.3, metalness: 0.45, transparent: true, opacity: 0 });
@@ -239,14 +296,7 @@ export default function JourneyScene() {
     onScroll();
     addEventListener("scroll", onScroll, { passive: true });
 
-    let mx = 0, my = 0;
-    function onMove(e: PointerEvent) {
-      mx = (e.clientX / innerWidth - 0.5) * 2;
-      my = (e.clientY / innerHeight - 0.5) * 2;
-    }
-    addEventListener("pointermove", onMove, { passive: true });
-
-    function resize() {
+        function resize() {
       // CSS owns the display size (see the style prop — 100%/100% inside a
       // fixed inset:0 box) and three.js owns only the drawing buffer, so the
       // two cannot disagree. Letting three.js write the style instead bakes in
@@ -287,7 +337,7 @@ export default function JourneyScene() {
 
       // ease toward the waypoint; scroll nudges within the current segment so
       // the picture keeps moving even when nobody is navigating
-      const goal = Math.min(1, targetRef.current + scrollT * 0.16);
+      const goal = Math.min(1, targetRef.current + scrollT * 0.34);
       cur += (goal - cur) * (reduced ? 1 : 0.035);
       const t = cur;
 
@@ -310,10 +360,26 @@ export default function JourneyScene() {
 
       earth.rotation.y = clock * 0.012;
 
+      /* the launch */
+      // squared rather than linear so it leaves slowly and then goes — a rocket
+      // that rises at constant speed reads as an elevator
+      const liftoff = smooth(0.015, 0.33, t);
+      const alt = Math.pow(liftoff, 2.1) * 300;
+      const thrust = smooth(0.008, 0.05, t) * (1 - smooth(0.5, 0.64, t));
+      rocket.visible = t < 0.66;
+      plumeMat.opacity = thrust * 0.95;
+      // a little jitter in the flame; steady exhaust looks like a lamp
+      plume.scale.set(1, 0.55 + thrust * 1.9 + Math.sin(clock * 26) * 0.06 * thrust, 1);
+      plumeLight.intensity = thrust * 900;
+
       if (t < 0.30) {
-        // standing up, looking further up as you climb
+        rocket.position.set(-7, alt, -46);
+        rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
+        // standing on the pad, craning to follow it — the 0.55 makes the head
+        // lag the vehicle, which is what actually happens
         camera.position.set(0, 1.6, 0);
-        camera.rotation.set(-0.04 + smooth(0, 0.3, t) * 0.7, mx * -0.08, 0, "YXZ");
+        camera.up.set(0, 1, 0);
+        camera.lookAt(-3.5, 1.6 + alt * 0.55, -27.6);
       } else {
         // Pull back along a line that keeps Earth's limb in frame the whole
         // way: near enough that the horizon curves hard at first, far enough
@@ -325,13 +391,29 @@ export default function JourneyScene() {
         earthGroup.position.set(0, -EARTH_R * 1.3 * d, -EARTH_R * 2.4 * d);
 
         const drift = clock * 0.02;
-        camera.position.set(mx * 2.2, -my * 1.4, 0);
+        camera.position.set(0, 0, 0);
         camera.up.set(0, 1, 0);
         camera.lookAt(
-          Math.sin(drift) * 6 + mx * 3,
+          Math.sin(drift) * 6,
           earthGroup.position.y + EARTH_R + lerp(7, 3, climb),
           earthGroup.position.z
         );
+
+        // still ahead of you, pulling away — placed relative to the camera so
+        // it stays in shot while the camera itself is swinging
+        // Well downrange by the time the planet appears. Held far enough out
+        // that a fifteen-unit vehicle reads as a vehicle rather than a girder
+        // laid across the headline, and offset left so it clears the text.
+        const away = smooth(0.30, 0.64, t);
+        const roff = new THREE.Vector3(
+          -(14 + away * 30),
+          16 + away * 60,
+          -(95 + away * 320)
+        ).applyQuaternion(camera.quaternion);
+        rocket.position.copy(camera.position).add(roff);
+        rocket.quaternion.copy(camera.quaternion);
+        rocket.rotateX(-0.22);
+        rocket.rotateZ(0.12);
       }
 
       /* the station arrives late, then you are inside it */
@@ -362,6 +444,24 @@ export default function JourneyScene() {
       station.scale.setScalar(lerp(2.4, 1, near));
       panelPivot.rotation.x = clock * 0.14;
 
+      /* arrival: you are inside Haven-1, and the window opens as you approach */
+      const aboard = smooth(0.80, 1, t);
+      if (cabinRef.current) {
+        const el = cabinRef.current;
+        el.style.opacity = String(aboard);
+        // the opening widens with scroll once you are actually in the cabin —
+        // walking up to the glass rather than arriving pressed against it
+        const holeR = 26 + scrollT * 20 + aboard * 4;
+        const m = `radial-gradient(circle at 50% 50%, transparent ${holeR}vmin, rgba(0,0,0,1) ${holeR + 1.1}vmin)`;
+        el.style.maskImage = m;
+        el.style.setProperty("-webkit-mask-image", m);
+        if (rimRef.current) {
+          rimRef.current.style.width = `${holeR * 2}vmin`;
+          rimRef.current.style.height = `${holeR * 2}vmin`;
+          rimRef.current.style.opacity = String(aboard);
+        }
+      }
+
       if (process.env.NODE_ENV !== "production") {
         (window as unknown as { __j?: unknown }).__j = {
           t: +t.toFixed(3),
@@ -385,7 +485,6 @@ export default function JourneyScene() {
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("scroll", onScroll);
-      removeEventListener("pointermove", onMove);
       removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibility);
       starGeo.dispose(); starMat.dispose(); skyMat.dispose(); groundMat.dispose();
@@ -394,17 +493,100 @@ export default function JourneyScene() {
     };
   }, []);
 
+  const maskInit = "radial-gradient(circle at 50% 50%, transparent 26vmin, rgba(0,0,0,1) 27.1vmin)";
+
   return (
-    <canvas
-      ref={ref}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 0,
-        width: "100%",
-        height: "100%",
-        display: "block",
-      }}
-    />
+    <>
+      <canvas
+        ref={ref}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          width: "100%",
+          height: "100%",
+          display: "block",
+        }}
+      />
+
+      {/* Haven-1's cabin — cream dome ceiling, diagonal LED strips, wood-slat
+          arch — masked with a circular opening. Kept as DOM rather than
+          geometry because it is a flat backdrop the camera never moves through,
+          and CSS gradients cost nothing next to another pass of shading. */}
+      <div
+        ref={cabinRef}
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+          opacity: 0,
+          maskImage: maskInit,
+          WebkitMaskImage: maskInit,
+          background:
+            "radial-gradient(ellipse 85% 65% at 50% 12%, #ddd3c1 0%, #beb29b 32%, #93876f 60%, #5f5646 88%, #46402f 100%)",
+        }}
+      >
+        <div style={{ position: "absolute", left: "50%", top: 0, bottom: "36%", width: 1, background: "rgba(0,0,0,0.16)" }} />
+        <div
+          style={{
+            position: "absolute", left: "-4%", top: "20%", width: "44%", height: 3,
+            background: "linear-gradient(90deg, transparent, #fff3d6 55%, transparent)",
+            boxShadow: "0 0 16px 3px rgba(255,224,160,0.5)",
+            transform: "rotate(-26deg)", transformOrigin: "right center",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute", right: "-4%", top: "20%", width: "44%", height: 3,
+            background: "linear-gradient(90deg, transparent, #fff3d6 55%, transparent)",
+            boxShadow: "0 0 16px 3px rgba(255,224,160,0.5)",
+            transform: "rotate(26deg)", transformOrigin: "left center",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute", left: "50%", bottom: "-32%", width: "130%", height: "60%",
+            transform: "translateX(-50%)",
+            borderTop: "6px solid rgba(232,226,212,0.55)",
+            borderRadius: "50% 50% 0 0 / 22% 22% 0 0",
+            background: "repeating-linear-gradient(90deg, #8a6338 0 16px, #6f4d29 16px 18px)",
+            boxShadow: "0 -30px 70px rgba(0,0,0,0.45) inset",
+          }}
+        />
+      </div>
+
+      {/* metal rim and glass sheen, sized each frame to track the opening */}
+      <div
+        aria-hidden="true"
+        style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <div
+          ref={rimRef}
+          style={{
+            position: "relative", width: "52vmin", height: "52vmin", borderRadius: "50%", opacity: 0,
+            boxShadow: [
+              "inset 0 0 46px 16px rgba(0,0,0,0.6)",
+              "inset 0 0 0 3px rgba(215,224,236,0.4)",
+              "inset 0 0 0 9px rgba(20,24,32,0.9)",
+              "inset 0 0 0 13px rgba(170,182,200,0.28)",
+              "0 0 0 6px rgba(40,45,54,0.95)",
+              "0 0 0 8px rgba(190,200,214,0.18)",
+              "0 30px 90px rgba(0,0,0,0.7)",
+            ].join(", "),
+          }}
+        >
+          <div
+            style={{
+              position: "absolute", inset: 0, borderRadius: "50%", overflow: "hidden",
+              background: "radial-gradient(circle at 30% 24%, rgba(255,255,255,0.24), rgba(255,255,255,0.06) 28%, transparent 52%)",
+              mixBlendMode: "screen",
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 }
