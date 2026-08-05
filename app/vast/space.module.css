@@ -7,7 +7,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8vh 0;
+  /* horizontal padding matters more than it used to: the QR on the title slide
+     means most of the audience arrives on a phone, well under the 900px cap */
+  padding: 8vh 22px;
   max-width: 900px;
   margin: 0 auto;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);

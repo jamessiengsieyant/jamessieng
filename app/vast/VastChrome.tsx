@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
-import SpaceBackground from "./SpaceBackground";
-import GroundScene from "./GroundScene";
+import JourneyScene from "./JourneyScene";
+import { isJourneyRoute } from "./journey";
 
 export default function VastChrome({
   owner,
@@ -14,20 +14,15 @@ export default function VastChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isDoc =
-    pathname === "/vast/script" ||
-    pathname === "/vast/powerpoint" ||
-    pathname === "/vast/role" ||
-    pathname === "/vast/prompt" ||
-    pathname === "/vast/qr";
-  // Scene 1 is the ground. The rest of the journey is in orbit and aboard.
-  const isGround = pathname === "/vast";
-  const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
+
+  // The journey is mounted once, here, and deliberately never keyed on the
+  // pathname: remounting would drop the WebGL context on every navigation and
+  // the continuity between scenes is the entire point.
+  const onJourney = isJourneyRoute(pathname);
 
   return (
     <>
-      {isGround && <GroundScene />}
-      {!isDoc && !isGround && <SpaceBackground variant={variant} />}
+      {onJourney && <JourneyScene />}
       <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
         <div className="nav-inner">
           <span className="nav-name">
