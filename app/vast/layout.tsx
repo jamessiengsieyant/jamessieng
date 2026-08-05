@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import { currentUser } from "@clerk/nextjs/server";
 import { isAllowedEmail, isOwnerEmail } from "./owner";
+import { GUEST_COOKIE, keyMatches } from "./guestPass";
 import AccessDenied from "./AccessDenied";
 import VastChrome from "./VastChrome";
 
@@ -14,7 +16,12 @@ export default async function VastLayout({
   const user = devBypass ? null : await currentUser();
   const emails = user?.emailAddresses?.map((e) => e.emailAddress) ?? [];
 
-  const allowed = devBypass || emails.some(isAllowedEmail);
+  // A scanned QR grants exactly what a guest account grants and nothing more.
+  // It can never make someone an owner, so Script and Prompt stay closed.
+  const jar = await cookies();
+  const scanned = keyMatches(jar.get(GUEST_COOKIE)?.value);
+
+  const allowed = devBypass || scanned || emails.some(isAllowedEmail);
   const owner = devBypass || emails.some(isOwnerEmail);
 
   if (!allowed) return <AccessDenied email={emails[0]} />;

@@ -18,7 +18,8 @@ export default function VastChrome({
     pathname === "/vast/script" ||
     pathname === "/vast/powerpoint" ||
     pathname === "/vast/role" ||
-    pathname === "/vast/prompt";
+    pathname === "/vast/prompt" ||
+    pathname === "/vast/qr";
   // Scene 1 is the ground. The rest of the journey is in orbit and aboard.
   const isGround = pathname === "/vast";
   const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
