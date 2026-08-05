@@ -25,12 +25,23 @@ export default function JourneyScene() {
   const rimRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(0);
   const pathRef = useRef("/vast");
+  const scrollTRef = useRef(0);
   const pathname = usePathname();
 
-  // navigation only moves the target; the loop below eases toward it
+  /* Navigation only moves the target; the loop below eases toward it.
+     scrollT is forced to 0 here rather than waiting for the browser's own
+     scroll-to-top-on-navigate to be observed by the next onScroll poll. The
+     new page hasn't painted yet, so for a frame or two after the click,
+     target/span have already updated to the NEW route while scrollT still
+     holds the OLD route's value (often ~1, from having scrolled to the
+     bottom to get here). That combination briefly computes a goal on the far
+     side of the new route's own span, and cur ticks toward it before
+     snapping back down once the real scroll position of 0 is read — which is
+     the "overshoots, then rewinds" glitch right at the moment of transition. */
   useEffect(() => {
     targetRef.current = waypointFor(pathname);
     pathRef.current = pathname;
+    scrollTRef.current = 0;
   }, [pathname]);
 
   useEffect(() => {
@@ -234,33 +245,55 @@ export default function JourneyScene() {
     const whiteMat = new THREE.MeshStandardMaterial({ color: 0xeef1f5, roughness: 0.55, metalness: 0.12 });
     const blackMat = new THREE.MeshStandardMaterial({ color: 0x14161b, roughness: 0.8, metalness: 0.1 });
 
+    /* Split into two groups that separate later: the booster (falls away,
+       tumbles) and the upper stack (stays controlled, carries the fairing
+       and — hidden inside it — Haven-1). Both start at local (0,0,0), so the
+       existing camera-relative positioning of `rocket` itself as a whole is
+       untouched; only what happens LOCALLY, once they come apart, is new. */
+    const boosterGroup = new THREE.Group();
+    const upperGroup = new THREE.Group();
+    rocket.add(boosterGroup, upperGroup);
+
     const firstStage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.68, 28), whiteMat);
     firstStage.position.y = R_H * 0.34;
-    rocket.add(firstStage);
+    boosterGroup.add(firstStage);
 
     const interstage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.06, 28), blackMat);
     interstage.position.y = R_H * 0.71;
-    rocket.add(interstage);
+    upperGroup.add(interstage);
 
     const secondStage = new THREE.Mesh(new THREE.CylinderGeometry(R_R, R_R, R_H * 0.2, 28), whiteMat);
     secondStage.position.y = R_H * 0.84;
-    rocket.add(secondStage);
+    upperGroup.add(secondStage);
 
-    const nose = new THREE.Mesh(new THREE.ConeGeometry(R_R, R_H * 0.12, 28), whiteMat);
-    nose.position.y = R_H * 1.0;
-    rocket.add(nose);
+    /* The fairing is two clamshell halves, not one solid nose — so they can
+       peel open and fall away, which is the moment Haven-1 becomes visible
+       for the first time. A "half cone" is the same ConeGeometry with
+       thetaLength cut to π; each half keeps the full cone's own central axis
+       as its local origin, so rotating it about that axis reads as a hinge
+       opening rather than the geometry pivoting from the wrong point. */
+    const fairingMat = whiteMat.clone();
+    fairingMat.transparent = true;
+    const fairingGeo = (start: number) =>
+      new THREE.ConeGeometry(R_R, R_H * 0.12, 28, 1, true, start, Math.PI);
+    const fairingLeft = new THREE.Mesh(fairingGeo(0), fairingMat);
+    const fairingRight = new THREE.Mesh(fairingGeo(Math.PI), fairingMat);
+    for (const half of [fairingLeft, fairingRight]) {
+      half.position.y = R_H * 1.0;
+      upperGroup.add(half);
+    }
 
     for (let i = 0; i < 4; i++) {
       const fin = new THREE.Mesh(new THREE.BoxGeometry(R_R * 0.75, R_R * 0.9, 0.06), blackMat);
       const a = (i / 4) * Math.PI * 2;
       fin.position.set(Math.cos(a) * R_R * 1.15, R_H * 0.66, Math.sin(a) * R_R * 1.15);
       fin.rotation.y = -a;
-      rocket.add(fin);
+      boosterGroup.add(fin);
       const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, R_H * 0.1, 8), blackMat);
       leg.position.set(Math.cos(a) * R_R * 0.9, R_H * 0.03, Math.sin(a) * R_R * 0.9);
       leg.rotation.z = Math.cos(a) * 0.28;
       leg.rotation.x = -Math.sin(a) * 0.28;
-      rocket.add(leg);
+      boosterGroup.add(leg);
     }
 
     /* the exhaust.
@@ -352,7 +385,7 @@ export default function JourneyScene() {
       const mesh = new THREE.Mesh(geo, m);
       mesh.position.y = 0;         // the engine plane
       mesh.renderOrder = 20;       // after the backdrop, over the pad hardware
-      rocket.add(mesh);
+      boosterGroup.add(mesh);      // the engines are on the booster
       plumeMats.push(m);
       plumes.push(mesh);
     }
@@ -360,7 +393,7 @@ export default function JourneyScene() {
     // light so the exhaust actually throws colour onto the pad and the ground
     const plumeLight = new THREE.PointLight(0xffa23d, 0, 160, 2);
     plumeLight.position.y = -2;
-    rocket.add(plumeLight);
+    boosterGroup.add(plumeLight);
 
     /* The vehicle stands on a mount rather than on the dirt. This is not
        decoration: the exhaust is modelled as cones hanging below the engines,
@@ -468,7 +501,13 @@ export default function JourneyScene() {
       smoke.push(s);
     }
 
-    /* ───────── Haven-1 ───────── */
+    /* ───────── Haven-1 ─────────
+       Not a separate destination — the cargo. It rides hidden inside the
+       fairing the whole climb, tucked small, and is only ever REVEALED — it
+       never has to be flown to, because it was there the entire time. It
+       starts as a child of upperGroup (so it travels with the stack while
+       hidden) and gets handed to `rocket` directly, world-transform intact,
+       the moment the second stage lets go of it. */
     const station = new THREE.Group();
     const hull = new THREE.MeshStandardMaterial({ color: 0xf2f4f7, roughness: 0.3, metalness: 0.45, transparent: true, opacity: 0 });
     const body = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 2.6, 32), hull);
@@ -485,26 +524,28 @@ export default function JourneyScene() {
       panelPivot.add(p);
     }
     station.add(panelPivot);
-    scene.add(station);
+    // tucked where the fairing sits, and small — it unfolds to full size as
+    // part of the reveal rather than simply appearing at full scale
+    station.position.y = R_H * 0.97;
+    station.scale.setScalar(0.001);
+    upperGroup.add(station);
 
-    /* Haven-1 is a point of light long before it is a shape. Rendezvous is
-       mostly staring at a bright dot that refuses to get bigger, so the beacon
-       carries the coast and hands over to the model once there is actually
-       something to see — otherwise the station simply materialises out of
-       nothing the moment its opacity crosses zero. */
+    // a steady indicator light on the hull once revealed — not a distant
+    // blip to be approached, since Haven-1 never has to be flown to
     const beaconMat = new THREE.SpriteMaterial({
       map: softTexture("rgba(255,255,255,1)", "rgba(180,214,255,0.5)"),
       transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false,
     });
     const beacon = new THREE.Sprite(beaconMat);
     beacon.renderOrder = 15;
-    scene.add(beacon);
+    beacon.position.set(0, 0.6, 0.9);
+    beacon.scale.setScalar(0.35);
+    station.add(beacon);
 
     /* ───────── input ───────── */
-    let scrollT = 0;
     function onScroll() {
       const max = document.body.scrollHeight - innerHeight;
-      scrollT = max > 40 ? Math.min(1, scrollY / max) : 0;
+      scrollTRef.current = max > 40 ? Math.min(1, scrollY / max) : 0;
     }
     onScroll();
     addEventListener("scroll", onScroll, { passive: true });
@@ -529,6 +570,10 @@ export default function JourneyScene() {
     const t0 = performance.now();
     let cur = targetRef.current; // start where we land, don't animate in on load
     let raf = 0;
+
+    // flips once, the moment the second stage lets go of Haven-1 — guards
+    // the one-time reparent from firing again on every subsequent frame
+    let stageAttached = false;
 
     // stop rendering when the tab is not on screen — otherwise a backgrounded
     // phone keeps a WebGL loop warm for no reason
@@ -558,7 +603,7 @@ export default function JourneyScene() {
          scrollT alone push t well past the boundary the route was supposed to
          own, which is why the pad page was showing a rocket already high in a
          dark sky instead of still on the mount. */
-      const goal = Math.min(1, targetRef.current + scrollT * spanFor(pathRef.current));
+      const goal = Math.min(1, targetRef.current + scrollTRef.current * spanFor(pathRef.current));
       cur += (goal - cur) * (reduced ? 1 : 0.035);
       const t = cur;
 
@@ -693,50 +738,74 @@ export default function JourneyScene() {
         rocket.quaternion.copy(camera.quaternion);
         rocket.rotateX(-0.22);
         rocket.rotateZ(0.12);
-        /* Once it has stopped burning it is a spent stage, not a vehicle, and a
-           spent stage tumbles — there is nothing left holding its attitude. The
-           rate builds with distance so the handover from "flying" to "falling
-           away" happens without a moment where it visibly switches. */
-        rocket.rotateZ(clock * 0.30 * away);
-        rocket.rotateX(clock * 0.17 * away);
+
+        /* ── staging, in order: booster falls away, the fairing opens and
+           reveals Haven-1, then the spent second stage lets go of it too.
+           Every rotation and drift below is a function of t alone — bounded
+           and deterministic — never of raw elapsed clock time. The previous
+           version called rotateZ/rotateX with a value keyed on clock every
+           single frame, which is a RELATIVE rotation compounding forever —
+           the longer the tab happened to sit open, the faster it spun,
+           entirely unrelated to scroll position. That's the "random
+           spinning." Using rotation.set() with a value computed purely from
+           t fixes it: reload the page at the same t and it looks identical. */
+
+        // 1 — booster separation, right at engine cutoff
+        const boosterSep = smooth(CLIMB_END, CLIMB_END + 0.07, t);
+        const boosterFall = Math.max(0, t - CLIMB_END); // bounded: t itself never exceeds 1
+        boosterGroup.position.set(
+          0,
+          -boosterSep * 3 - boosterFall * 5,
+          -boosterSep * 1.5 - boosterFall * 2.5
+        );
+        boosterGroup.rotation.set(
+          boosterSep * 1.1 + boosterFall * 14,
+          boosterFall * 9,
+          boosterSep * 0.7 + boosterFall * 11
+        );
+
+        // 2 — the fairing peels open, which is the moment Haven-1 first
+        // becomes visible at all — it was never flown TO, only revealed
+        const fairingOpen = smooth(CLIMB_END + 0.06, CLIMB_END + 0.16, t);
+        const fairingGone = 1 - smooth(CLIMB_END + 0.14, CLIMB_END + 0.20, t);
+        fairingLeft.position.set(fairingOpen * 2.2, R_H * 1.0, fairingOpen * 0.8);
+        fairingRight.position.set(-fairingOpen * 2.2, R_H * 1.0, -fairingOpen * 0.8);
+        fairingLeft.rotation.z = -fairingOpen * 1.3;
+        fairingRight.rotation.z = fairingOpen * 1.3;
+        fairingMat.opacity = fairingGone;
+        fairingLeft.visible = fairingGone > 0.01;
+        fairingRight.visible = fairingGone > 0.01;
+
+        // Haven-1 unfolds from tucked-tiny to full size as the fairing opens
+        const reveal = smooth(CLIMB_END + 0.05, CLIMB_END + 0.18, t);
+        station.scale.setScalar(Math.max(0.001, reveal));
+        hull.opacity = reveal;
+        panelMat.opacity = reveal * 0.95;
+        station.visible = reveal > 0.01;
+        // solar panels unfold once, on a fixed schedule — not a spin that
+        // never stops, the same fix as the booster's rotation above
+        panelPivot.rotation.x = lerp(-1.15, 0, smooth(CLIMB_END + 0.10, CLIMB_END + 0.30, t));
+
+        // 3 — the spent second stage lets go of Haven-1, once the fairing is
+        // clear of it. attach() (not add()) preserves world transform, so
+        // Haven-1 does not jump the instant it changes parents.
+        if (!stageAttached && t > CLIMB_END + 0.16) {
+          rocket.attach(station);
+          stageAttached = true;
+        }
+        const stageSep = smooth(CLIMB_END + 0.18, CLIMB_END + 0.26, t);
+        const stageDrift = Math.max(0, t - (CLIMB_END + 0.18));
+        upperGroup.position.set(0, stageSep * 2.4 + stageDrift * 3.5, stageSep * 1.2 + stageDrift * 2);
+        upperGroup.rotation.set(stageDrift * 6, stageSep * 0.6, stageDrift * 5);
+
+        // 4 — Haven-1 settles into a fixed presentation attitude. Nothing
+        // further animates once revealed — the stillness IS the arrival,
+        // rather than a rendezvous that has to be flown.
+        station.rotation.set(0.08, 0.4, 0);
+
+        // a steady indicator light on the hull, once there is a hull to sit on
+        beaconMat.opacity = reveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
       }
-
-      /* the station arrives late, then you are inside it */
-      const near = smooth(0.62, 1, t);
-      hull.opacity = near;
-      panelMat.opacity = near * 0.95;
-      station.visible = near > 0.01;
-      // Positioned relative to the camera rather than in world space: the
-      // camera swings a long way between waypoints, and a station parked at
-      // fixed coordinates leaves the frame and never comes back.
-      // Far enough that it reads as a craft rather than a white shape pressed
-      // against the glass, and held high and right so it clears the headlines.
-      const sd = lerp(70, 21, near);
-      // Lateral offset is scaled by aspect. Horizontal field of view is derived
-      // from the vertical one, so a fixed sideways distance that frames nicely
-      // on a laptop is far outside the frustum on a phone held upright — which
-      // is how most of this audience will arrive.
-      const lateral = sd * 0.22 * Math.min(1.8, camera.aspect);
-      const off = new THREE.Vector3(
-        lateral + Math.cos(clock * 0.05) * 0.6,
-        sd * 0.26 + Math.sin(clock * 0.04) * 0.4,
-        -sd
-      ).applyQuaternion(camera.quaternion);
-      station.position.copy(camera.position).add(off);
-      station.quaternion.copy(camera.quaternion);
-      station.rotateY(0.55);
-      station.rotateX(0.12);
-      station.scale.setScalar(lerp(2.4, 1, near));
-      panelPivot.rotation.x = clock * 0.14;
-
-      // sits exactly where the station is, so the dot resolves into the craft
-      // rather than the two being in different places
-      beacon.position.copy(station.position);
-      const spot = smooth(0.40, 0.58, t) * (1 - smooth(0.60, 0.72, t));
-      // a real one glints as it tumbles, and never holds steady
-      beaconMat.opacity = spot * (0.55 + 0.45 * Math.sin(clock * 2.3));
-      beacon.scale.setScalar(1.1 + spot * 1.4);
-      beacon.visible = spot > 0.01;
 
       /* arrival: you are inside Haven-1, and the window opens as you approach */
       const aboard = smooth(0.80, 1, t);
@@ -745,7 +814,7 @@ export default function JourneyScene() {
         el.style.opacity = String(aboard);
         // the opening widens with scroll once you are actually in the cabin —
         // walking up to the glass rather than arriving pressed against it
-        const holeR = 26 + scrollT * 20 + aboard * 4;
+        const holeR = 26 + scrollTRef.current * 20 + aboard * 4;
         const m = `radial-gradient(circle at 50% 50%, transparent ${holeR}vmin, rgba(0,0,0,1) ${holeR + 1.1}vmin)`;
         el.style.maskImage = m;
         el.style.setProperty("-webkit-mask-image", m);
@@ -760,7 +829,7 @@ export default function JourneyScene() {
         (window as unknown as { __j?: unknown }).__j = {
           t: +t.toFixed(3),
           target: targetRef.current,
-          scrollT: +scrollT.toFixed(3),
+          scrollT: +scrollTRef.current.toFixed(3),
           earth: earthGroup.position.toArray().map((n) => Math.round(n)),
           earthVisible: earthGroup.visible,
           earthOpacity: +(earth.material as THREE.MeshPhongMaterial).opacity.toFixed(2),
