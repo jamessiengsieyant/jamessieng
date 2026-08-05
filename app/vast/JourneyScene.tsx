@@ -807,8 +807,11 @@ export default function JourneyScene() {
         beaconMat.opacity = reveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
       }
 
-      /* arrival: you are inside Haven-1, and the window opens as you approach */
-      const aboard = smooth(0.80, 1, t);
+      /* arrival: the cabin fades in during the tail of Topic 1's own scroll, so
+         it is fully in by DOCK_END — Topic 2's waypoint. Landing there via the
+         "Entering →" button (or scrolling to it directly) means Topic 2 opens
+         already inside, rather than starting the reveal from scratch. */
+      const aboard = smooth(DOCK_END - 0.10, DOCK_END, t);
       if (cabinRef.current) {
         const el = cabinRef.current;
         el.style.opacity = String(aboard);
