@@ -78,7 +78,15 @@ export default function JourneyScene() {
           gl_FragColor = vec4(col, uFade);
         }`,
     });
-    groundGroup.add(new THREE.Mesh(new THREE.SphereGeometry(400, 40, 28), skyMat));
+    const skyMesh = new THREE.Mesh(new THREE.SphereGeometry(400, 40, 28), skyMat);
+    /* Both the dome and the ground plane are centred on the origin, so three.js
+       sorts them by centre distance — about a metre from the camera — and draws
+       them LAST of all the transparent objects. Anything transparent that does
+       not write depth (the exhaust) is then repainted over by the sky. Pinning
+       the backdrop to the front of the queue is what makes the flame visible at
+       all. */
+    skyMesh.renderOrder = -100;
+    groundGroup.add(skyMesh);
 
     const groundMat = new THREE.ShaderMaterial({
       transparent: true,
@@ -100,6 +108,7 @@ export default function JourneyScene() {
     });
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), groundMat);
     ground.rotation.x = -Math.PI / 2;
+    ground.renderOrder = -90;
     groundGroup.add(ground);
     scene.add(groundGroup);
 
@@ -252,21 +261,205 @@ export default function JourneyScene() {
       rocket.add(leg);
     }
 
-    // plume: additive cone, scaled by thrust, plus a light so the exhaust
-    // actually throws colour onto the ground during the first moments
-    const plumeMat = new THREE.MeshBasicMaterial({
-      color: 0xffd08a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false,
-    });
-    const plume = new THREE.Mesh(new THREE.ConeGeometry(R_R * 0.95, R_H * 0.5, 20, 1, true), plumeMat);
-    plume.rotation.x = Math.PI;
-    plume.position.y = -R_H * 0.24;
-    rocket.add(plume);
-    const plumeLight = new THREE.PointLight(0xffa94d, 0, 90, 2);
-    plumeLight.position.y = -1;
+    /* the exhaust.
+       Three stacked cones rather than one. There is no bloom pass here — a
+       post-processing chain for a single bright object would cost more than the
+       rest of the scene put together — so the glow is faked the old way, by
+       stacking additive shells that get wider, longer and fainter outward. The
+       eye reads the pile-up as bloom. */
+    const plumeShader = (widthMul: number, lenMul: number, gain: number) =>
+      new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        /* Depth testing stays ON. The reason the flame was invisible was never
+           depth — it was that the backdrop sorted last and repainted over it
+           (see the renderOrder note on the sky dome). With that fixed, keeping
+           the test means the ground correctly cuts the plume off at the horizon
+           instead of the beam appearing to pass through the planet. */
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        uniforms: { uTime: { value: 0 }, uThrust: { value: 0 }, uGain: { value: gain } },
+        vertexShader: `
+          varying vec2 vUv;
+          varying float vFres;
+          void main(){
+            vUv = uv;
+            vec4 mv = modelViewMatrix * vec4(position, 1.0);
+            vec3 n = normalize(normalMatrix * normal);
+            vec3 vd = normalize(-mv.xyz);
+            // 1 at the silhouette, 0 face-on: makes a hollow shell read as volume
+            vFres = 1.0 - abs(dot(n, vd));
+            gl_Position = projectionMatrix * mv;
+          }`,
+        fragmentShader: `
+          varying vec2 vUv;
+          varying float vFres;
+          uniform float uTime; uniform float uThrust; uniform float uGain;
+
+          float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+          float noise(vec2 p){
+            vec2 i = floor(p), f = fract(p);
+            f = f * f * (3.0 - 2.0 * f);
+            return mix(mix(hash(i), hash(i+vec2(1,0)), f.x),
+                       mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y);
+          }
+
+          void main(){
+            float v = vUv.y;   // 0 at the nozzle, 1 at the tail
+
+            /* NB: on a cone's side uv.x runs around the circumference, not
+               across the radius, so it cannot be used for a radial falloff —
+               doing that fades the plume by angle and leaves a sliver. The
+               cross-sectional softness comes from the fresnel term instead. */
+
+            // turbulence scrolling away from the engine
+            float n = noise(vec2(vUv.x * 9.0, v * 7.0 - uTime * 8.0));
+
+            // white-hot for most of its length, only going orange at the very
+            // tail — a night launch is a white column, not an orange one
+            vec3 col = mix(vec3(1.0,1.0,0.99), vec3(1.0,0.94,0.76), smoothstep(0.0, 0.45, v));
+            col = mix(col, vec3(1.0,0.62,0.26), smoothstep(0.55, 0.95, v));
+
+            // shock diamonds — the standing bright bands just past the nozzle
+            float dia = 0.5 + 0.5 * sin(v * 48.0);
+            col += vec3(0.7,0.55,0.35) * dia * (1.0 - smoothstep(0.0, 0.26, v)) * 0.55;
+
+            float len = pow(1.0 - v, 0.55);          // fade down the length
+            float body = 0.55 + 0.45 * vFres;        // brighter at the edges
+            float a = len * body * (0.55 + 0.45 * n) * uThrust * uGain;
+            gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));
+          }`,
+      });
+
+    const plumeMats: THREE.ShaderMaterial[] = [];
+    const plumes: THREE.Mesh[] = [];
+    for (const [w, l, g] of [[0.80, 1.7, 1.0], [1.15, 2.3, 0.55], [1.75, 3.0, 0.26]]) {
+      const m = plumeShader(w, l, g);
+      const len = R_H * 0.55 * l;
+
+      /* The transform is baked into the vertices rather than set on the mesh.
+         A cone is centred on its own middle, so scaling the mesh grows it in
+         both directions — which drives the bright wide end up inside the first
+         stage, leaving only the faint tail poking out below. Moving the origin
+         to the mouth means scale.y only ever stretches the flame downward,
+         away from the engines. */
+      const geo = new THREE.ConeGeometry(R_R * w, len, 24, 1, true);
+      geo.rotateX(Math.PI);        // apex points down
+      geo.translate(0, -len / 2, 0); // mouth at y=0, apex at y=-len
+
+      const mesh = new THREE.Mesh(geo, m);
+      mesh.position.y = 0;         // the engine plane
+      mesh.renderOrder = 20;       // after the backdrop, over the pad hardware
+      rocket.add(mesh);
+      plumeMats.push(m);
+      plumes.push(mesh);
+    }
+
+    // light so the exhaust actually throws colour onto the pad and the ground
+    const plumeLight = new THREE.PointLight(0xffa23d, 0, 160, 2);
+    plumeLight.position.y = -2;
     rocket.add(plumeLight);
 
-    rocket.position.set(-7, 0, -46);
+    /* The vehicle stands on a mount rather than on the dirt. This is not
+       decoration: the exhaust is modelled as cones hanging below the engines,
+       and with the base at y=0 all of it is buried under the ground plane and
+       nothing is ever seen. Lifting it clears the flame, and the ground then
+       does something useful — it crops the bottom of the plume the way a flame
+       trench actually does. */
+    const PAD_H = 5;
+    // Close enough that the vehicle and its flame fill the frame. At the old
+    // 46 units the whole launch played out about an inch tall.
+    const PAD_X = -4.5, PAD_Z = -27;
+    rocket.position.set(PAD_X, PAD_H, PAD_Z);
     scene.add(rocket);
+
+    /* A ring on legs, not a plinth. A solid mount occupies exactly the volume
+       the exhaust needs and hides the whole plume inside itself — which is why
+       real pads hold the vehicle at its skirt and leave the space underneath
+       open. Same reason here. */
+    const mount = new THREE.Group();
+    const steelMat = new THREE.MeshPhongMaterial({ color: 0x2a2e36, shininess: 6 });
+
+    const collar = new THREE.Mesh(
+      new THREE.CylinderGeometry(R_R * 1.35, R_R * 1.35, 0.35, 14, 1, true),
+      steelMat
+    );
+    collar.position.y = PAD_H - 0.2;
+    mount.add(collar);
+
+    for (let i = 0; i < 4; i++) {
+      const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+      const leg = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.07, 0.07, PAD_H, 6),
+        steelMat
+      );
+      leg.position.set(Math.cos(a) * R_R * 1.35, PAD_H / 2, Math.sin(a) * R_R * 1.35);
+      mount.add(leg);
+    }
+
+    // the tower alongside, so the pad reads as a pad
+    const tower = new THREE.Mesh(
+      new THREE.BoxGeometry(0.5, PAD_H * 2.6, 0.5),
+      steelMat
+    );
+    tower.position.set(R_R * 3.4, PAD_H * 1.3, 0);
+    mount.add(tower);
+
+    mount.position.set(PAD_X, 0, PAD_Z);
+    scene.add(mount);
+
+    /* ignition: the flash, and the cloud it leaves behind.
+       Both stay at the pad in world space rather than parented to the vehicle,
+       because the whole point is that the rocket leaves and the smoke does not. */
+    function softTexture(inner: string, outer: string): THREE.Texture {
+      const c = document.createElement("canvas");
+      c.width = c.height = 128;
+      const x = c.getContext("2d")!;
+      const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+      g.addColorStop(0, inner);
+      g.addColorStop(0.45, outer);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      x.fillStyle = g;
+      x.fillRect(0, 0, 128, 128);
+      return new THREE.CanvasTexture(c);
+    }
+
+    const PAD = new THREE.Vector3(PAD_X, 0, PAD_Z);
+
+    const flashMat = new THREE.SpriteMaterial({
+      map: softTexture("rgba(255,248,230,1)", "rgba(255,150,40,0.55)"),
+      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const flash = new THREE.Sprite(flashMat);
+    // at the engines, not on the deck — at ground level it disappears into the
+    // sunset band, which is the brightest thing on screen at that moment
+    flash.position.set(PAD.x, PAD_H * 0.55, PAD.z);
+    scene.add(flash);
+
+    /* The cloud rolls outward across the ground rather than lifting with the
+       vehicle — that spreading sheet at the pad is most of what sells the scale
+       of a launch, and it is still there long after the rocket has gone. */
+    const smokeTex = softTexture("rgba(232,229,222,0.95)", "rgba(150,145,136,0.42)");
+    const smoke: THREE.Sprite[] = [];
+    const SMOKE_N = 30;
+    for (let i = 0; i < SMOKE_N; i++) {
+      const m = new THREE.SpriteMaterial({
+        map: smokeTex, transparent: true, opacity: 0, depthWrite: false,
+      });
+      const s = new THREE.Sprite(m);
+      // two rings: a dense billow at the pad, and a thinner sheet running out
+      // across the terrain behind it
+      const outer = i >= SMOKE_N * 0.45;
+      s.userData = {
+        a: (i / SMOKE_N) * Math.PI * 2 + Math.random() * 0.9,
+        spd: outer ? 2.4 + Math.random() * 3.2 : 0.6 + Math.random() * 1.1,
+        rise: outer ? 0.05 + Math.random() * 0.25 : 0.3 + Math.random() * 0.9,
+        size: outer ? 9 + Math.random() * 14 : 4 + Math.random() * 7,
+        lag: Math.random() * 0.22,
+      };
+      scene.add(s);
+      smoke.push(s);
+    }
 
     /* ───────── Haven-1 ───────── */
     const station = new THREE.Group();
@@ -367,19 +560,55 @@ export default function JourneyScene() {
       const alt = Math.pow(liftoff, 2.1) * 300;
       const thrust = smooth(0.008, 0.05, t) * (1 - smooth(0.5, 0.64, t));
       rocket.visible = t < 0.66;
-      plumeMat.opacity = thrust * 0.95;
-      // a little jitter in the flame; steady exhaust looks like a lamp
-      plume.scale.set(1, 0.55 + thrust * 1.9 + Math.sin(clock * 26) * 0.06 * thrust, 1);
-      plumeLight.intensity = thrust * 900;
+
+      // two beat frequencies so the flicker never falls into an obvious loop
+      const flicker = 1 + Math.sin(clock * 31) * 0.05 + Math.sin(clock * 17.3) * 0.035;
+      for (let i = 0; i < plumeMats.length; i++) {
+        plumeMats[i].uniforms.uTime.value = clock;
+        plumeMats[i].uniforms.uThrust.value = thrust * flicker;
+        /* It leaves the pad as a tight column and only opens out with height —
+           thinner air lets the exhaust expand, which is why a launch looks
+           like a pencil at the tower and a cone by staging. */
+        const spread = 1 + smooth(0.03, 0.33, t) * 1.6;
+        plumes[i].scale.set(spread, (0.5 + thrust * 1.2) * flicker, spread);
+      }
+      plumeLight.intensity = thrust * flicker * 260;
+
+      /* ignition — a hard flash, then a cloud that stays on the pad */
+      const ignite = smooth(0.006, 0.032, t);
+      const flashOut = 1 - smooth(0.028, 0.095, t);
+      flashMat.opacity = ignite * flashOut * 0.95;
+      flash.scale.setScalar(3 + ignite * 26);
+
+      const age = smooth(0.008, 0.15, t);
+      const smokeOut = 1 - smooth(0.30, 0.48, t);
+      for (const s of smoke) {
+        const u = s.userData as {
+          a: number; spd: number; rise: number; size: number; lag: number;
+        };
+        // each puff starts a little later than the last, so the cloud unrolls
+        // instead of every sprite expanding in lockstep
+        const own = Math.max(0, (age - u.lag) / (1 - u.lag));
+        s.position.set(
+          PAD.x + Math.cos(u.a) * u.spd * own * 30,
+          PAD.y + u.rise * own * 14 + 1.2,
+          PAD.z + Math.sin(u.a) * u.spd * own * 30
+        );
+        s.scale.setScalar(u.size * (0.35 + own * 1.5));
+        (s.material as THREE.SpriteMaterial).opacity = ignite * smokeOut * own * 0.28;
+        s.visible = own > 0.01 && ignite * smokeOut > 0.01;
+      }
 
       if (t < 0.30) {
-        rocket.position.set(-7, alt, -46);
+        rocket.position.set(PAD_X, PAD_H + alt, PAD_Z);
         rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
+        // the mount is left behind the instant it moves
+        mount.visible = alt < 1.5;
         // standing on the pad, craning to follow it — the 0.55 makes the head
         // lag the vehicle, which is what actually happens
         camera.position.set(0, 1.6, 0);
         camera.up.set(0, 1, 0);
-        camera.lookAt(-3.5, 1.6 + alt * 0.55, -27.6);
+        camera.lookAt(PAD_X * 0.6, PAD_H * 0.7 + alt * 0.55, PAD_Z * 0.6);
       } else {
         // Pull back along a line that keeps Earth's limb in frame the whole
         // way: near enough that the horizon curves hard at first, far enough
