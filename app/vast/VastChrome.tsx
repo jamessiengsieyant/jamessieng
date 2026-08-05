@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import SpaceBackground from "./SpaceBackground";
+import GroundScene from "./GroundScene";
 
 export default function VastChrome({
   owner,
@@ -18,11 +19,14 @@ export default function VastChrome({
     pathname === "/vast/powerpoint" ||
     pathname === "/vast/role" ||
     pathname === "/vast/prompt";
+  // Scene 1 is the ground. The rest of the journey is in orbit and aboard.
+  const isGround = pathname === "/vast";
   const variant = pathname === "/vast/topic-1" ? "closeup" : "orbit";
 
   return (
     <>
-      {!isDoc && <SpaceBackground variant={variant} />}
+      {isGround && <GroundScene />}
+      {!isDoc && !isGround && <SpaceBackground variant={variant} />}
       <nav className="nav" style={{ position: "sticky", background: "rgba(5,7,13,.72)" }}>
         <div className="nav-inner">
           <span className="nav-name">

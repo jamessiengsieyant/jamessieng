@@ -151,7 +151,13 @@ function clock(total: number) {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
+export default function PowerPointClient({
+  slides,
+  canSeeNotes = false,
+}: {
+  slides: DeckSlide[];
+  canSeeNotes?: boolean;
+}) {
   const [i, setI] = useState(0);
   const [notes, setNotes] = useState(false);
   const [pace, setPace] = useState(0); // index into PACES
@@ -189,7 +195,7 @@ export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
         else document.exitFullscreen?.();
       } else if (e.key.toLowerCase() === "n") {
         e.preventDefault();
-        setNotes((v) => !v);
+        if (canSeeNotes) setNotes((v) => !v);
       } else if (e.key.toLowerCase() === "t") {
         e.preventDefault();
         setRunning((v) => !v);
@@ -197,7 +203,7 @@ export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
     }
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
-  }, [go, last]);
+  }, [go, last, canSeeNotes]);
 
   // the talk clock
   useEffect(() => {
@@ -233,7 +239,7 @@ export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
   return (
     <div style={{ position: "relative", zIndex: 1, padding: "28px 16px 60px", maxWidth: 1180, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
-        <div className="mono">← → to move · F fullscreen · N notes · T timer</div>
+        <div className="mono">← → to move · F fullscreen{canSeeNotes ? " · N notes" : ""} · T timer</div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
           <button className="btn" onClick={() => setRunning((v) => !v)} style={{ fontSize: 13, padding: "6px 12px" }}>
             {running ? "⏸" : "▶"} {clock(elapsed)}
@@ -299,9 +305,11 @@ export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
       </div>
 
       <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <button className="btn" onClick={() => setNotes((v) => !v)} style={{ fontSize: 13, padding: "6px 14px" }}>
-          {notes ? "Hide" : "Show"} speaker notes
-        </button>
+        {canSeeNotes && (
+          <button className="btn" onClick={() => setNotes((v) => !v)} style={{ fontSize: 13, padding: "6px 14px" }}>
+            {notes ? "Hide" : "Show"} speaker notes
+          </button>
+        )}
         <button
           className="btn"
           onClick={() => {
@@ -315,7 +323,7 @@ export default function PowerPointClient({ slides }: { slides: DeckSlide[] }) {
         </button>
       </div>
 
-      {notes && (
+      {notes && canSeeNotes && (
         <div className="note" style={{ marginTop: 18 }}>
           <span className="mono" style={{ display: "block", marginBottom: 8 }}>Speaker notes — slide {i + 1}</span>
           {notesFor(slide)}
