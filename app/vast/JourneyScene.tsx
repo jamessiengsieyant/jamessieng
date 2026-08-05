@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import * as THREE from "three";
-import { lerp, smooth, waypointFor } from "./journey";
+import { CLIMB_END, DOCK_END, PAD_END, lerp, smooth, spanFor, waypointFor } from "./journey";
 
 /**
  * One scene, one timeline. See journey.ts for why.
@@ -24,11 +24,13 @@ export default function JourneyScene() {
   const cabinRef = useRef<HTMLDivElement>(null);
   const rimRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(0);
+  const pathRef = useRef("/vast");
   const pathname = usePathname();
 
   // navigation only moves the target; the loop below eases toward it
   useEffect(() => {
     targetRef.current = waypointFor(pathname);
+    pathRef.current = pathname;
   }, [pathname]);
 
   useEffect(() => {
@@ -480,6 +482,19 @@ export default function JourneyScene() {
     station.add(panelPivot);
     scene.add(station);
 
+    /* Haven-1 is a point of light long before it is a shape. Rendezvous is
+       mostly staring at a bright dot that refuses to get bigger, so the beacon
+       carries the coast and hands over to the model once there is actually
+       something to see — otherwise the station simply materialises out of
+       nothing the moment its opacity crosses zero. */
+    const beaconMat = new THREE.SpriteMaterial({
+      map: softTexture("rgba(255,255,255,1)", "rgba(180,214,255,0.5)"),
+      transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const beacon = new THREE.Sprite(beaconMat);
+    beacon.renderOrder = 15;
+    scene.add(beacon);
+
     /* ───────── input ───────── */
     let scrollT = 0;
     function onScroll() {
@@ -528,27 +543,36 @@ export default function JourneyScene() {
       if (document.hidden) { hidden = true; return; }
       const clock = (performance.now() - t0) / 1000;
 
-      // ease toward the waypoint; scroll nudges within the current segment so
-      // the picture keeps moving even when nobody is navigating
-      const goal = Math.min(1, targetRef.current + scrollT * 0.34);
+      /* Ease toward the waypoint; scroll nudges within the current segment so
+         the picture keeps moving even when nobody is navigating.
+
+         The nudge is scaled by THIS ROUTE's own span, not a flat constant.
+         /vast only owns t:[0, PAD_END] — scrolling all the way through its own
+         page content must land exactly on the ignition whiteout and never
+         carry through into deep climb. A flat multiplier here previously let
+         scrollT alone push t well past the boundary the route was supposed to
+         own, which is why the pad page was showing a rocket already high in a
+         dark sky instead of still on the mount. */
+      const goal = Math.min(1, targetRef.current + scrollT * spanFor(pathRef.current));
       cur += (goal - cur) * (reduced ? 1 : 0.035);
       const t = cur;
 
       /* which representation is on screen */
-      const groundFade = 1 - smooth(0.16, 0.32, t);   // plane + dome
-      const spaceFade = smooth(0.18, 0.36, t);        // sphere
+      // the ground survives all of scene 1 and only lets go during the climb
+      const groundFade = 1 - smooth(0.30, 0.46, t);   // plane + dome
+      const spaceFade = smooth(0.34, 0.52, t);        // sphere
       skyMat.uniforms.uFade.value = groundFade;
       groundMat.uniforms.uFade.value = groundFade;
       groundGroup.visible = groundFade > 0.01;
-      skyMat.uniforms.uLift.value = smooth(0, 0.3, t);
-      groundMat.uniforms.uLift.value = smooth(0, 0.3, t);
+      skyMat.uniforms.uLift.value = smooth(0.04, 0.44, t);
+      groundMat.uniforms.uLift.value = smooth(0.04, 0.44, t);
 
       (earth.material as THREE.MeshPhongMaterial).opacity = spaceFade;
       atmoMat.uniforms.uFade.value = spaceFade;
       earthGroup.visible = spaceFade > 0.01;
 
       starMat.uniforms.uTime.value = clock;
-      starMat.uniforms.uOpacity.value = smooth(0.04, 0.42, t) * 0.95;
+      starMat.uniforms.uOpacity.value = smooth(0.20, 0.50, t) * 0.95;
       stars.rotation.y = clock * 0.0007;
 
       earth.rotation.y = clock * 0.012;
@@ -643,6 +667,12 @@ export default function JourneyScene() {
         rocket.quaternion.copy(camera.quaternion);
         rocket.rotateX(-0.22);
         rocket.rotateZ(0.12);
+        /* Once it has stopped burning it is a spent stage, not a vehicle, and a
+           spent stage tumbles — there is nothing left holding its attitude. The
+           rate builds with distance so the handover from "flying" to "falling
+           away" happens without a moment where it visibly switches. */
+        rocket.rotateZ(clock * 0.30 * away);
+        rocket.rotateX(clock * 0.17 * away);
       }
 
       /* the station arrives late, then you are inside it */
@@ -672,6 +702,15 @@ export default function JourneyScene() {
       station.rotateX(0.12);
       station.scale.setScalar(lerp(2.4, 1, near));
       panelPivot.rotation.x = clock * 0.14;
+
+      // sits exactly where the station is, so the dot resolves into the craft
+      // rather than the two being in different places
+      beacon.position.copy(station.position);
+      const spot = smooth(0.40, 0.58, t) * (1 - smooth(0.60, 0.72, t));
+      // a real one glints as it tumbles, and never holds steady
+      beaconMat.opacity = spot * (0.55 + 0.45 * Math.sin(clock * 2.3));
+      beacon.scale.setScalar(1.1 + spot * 1.4);
+      beacon.visible = spot > 0.01;
 
       /* arrival: you are inside Haven-1, and the window opens as you approach */
       const aboard = smooth(0.80, 1, t);
