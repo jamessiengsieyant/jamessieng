@@ -335,7 +335,7 @@ export default function JourneyScene() {
 
     const plumeMats: THREE.ShaderMaterial[] = [];
     const plumes: THREE.Mesh[] = [];
-    for (const [w, l, g] of [[0.80, 1.7, 1.0], [1.15, 2.3, 0.55], [1.75, 3.0, 0.26]]) {
+    for (const [w, l, g] of [[0.80, 1.7, 1.25], [1.15, 2.3, 0.72], [1.75, 3.0, 0.36]]) {
       const m = plumeShader(w, l, g);
       const len = R_H * 0.55 * l;
 
@@ -380,7 +380,12 @@ export default function JourneyScene() {
        real pads hold the vehicle at its skirt and leave the space underneath
        open. Same reason here. */
     const mount = new THREE.Group();
-    const steelMat = new THREE.MeshPhongMaterial({ color: 0x2a2e36, shininess: 6 });
+    // transparent so the dock can fade out smoothly rather than snapping
+    // off — it needs to still be standing at the end of /vast and only let
+    // go gradually into the first part of the climb
+    const steelMat = new THREE.MeshPhongMaterial({
+      color: 0x2a2e36, shininess: 6, transparent: true, opacity: 1,
+    });
 
     const collar = new THREE.Mesh(
       new THREE.CylinderGeometry(R_R * 1.35, R_R * 1.35, 0.35, 14, 1, true),
@@ -557,10 +562,13 @@ export default function JourneyScene() {
       cur += (goal - cur) * (reduced ? 1 : 0.035);
       const t = cur;
 
-      /* which representation is on screen */
-      // the ground survives all of scene 1 and only lets go during the climb
-      const groundFade = 1 - smooth(0.30, 0.46, t);   // plane + dome
-      const spaceFade = smooth(0.34, 0.52, t);        // sphere
+      /* which representation is on screen.
+         Both resolve BEFORE CLIMB_END (0.4) rather than straddling it — by the
+         moment the engines cut off, the ground is fully gone and Earth is
+         fully in, so "proper orbit" and "engines shut down" read as the same
+         instant instead of two things half-finished at once. */
+      const groundFade = 1 - smooth(0.13, 0.34, t);   // plane + dome
+      const spaceFade = smooth(0.16, 0.37, t);        // sphere
       skyMat.uniforms.uFade.value = groundFade;
       groundMat.uniforms.uFade.value = groundFade;
       groundGroup.visible = groundFade > 0.01;
@@ -582,7 +590,11 @@ export default function JourneyScene() {
       // that rises at constant speed reads as an elevator
       const liftoff = smooth(0.015, 0.33, t);
       const alt = Math.pow(liftoff, 2.1) * 300;
-      const thrust = smooth(0.008, 0.05, t) * (1 - smooth(0.5, 0.64, t));
+      /* Engine cutoff is the scene boundary, not an incidental detail — the
+         jets going dark IS the transition from Introduction into Topic 1, so
+         it has to land exactly on CLIMB_END rather than drift on into the
+         next scene's territory. */
+      const thrust = smooth(0.008, 0.05, t) * (1 - smooth(CLIMB_END - 0.06, CLIMB_END, t));
       rocket.visible = t < 0.66;
 
       // two beat frequencies so the flicker never falls into an obvious loop
@@ -623,11 +635,21 @@ export default function JourneyScene() {
         s.visible = own > 0.01 && ignite * smokeOut > 0.01;
       }
 
+      /* The dock fades on a clock, not on altitude. Tying it to alt made it
+         let go within the first couple of seconds of ignition — long before
+         /vast even finishes scrolling — which is why the tower had already
+         vanished by the time anyone reached the bottom of the page. It now
+         stays fully solid through the end of /vast (PAD_END) and only lets
+         go gradually over the first stretch of the climb that follows —
+         the "still rising, dock quietly dropping away" beat that plays right
+         after Launch is pressed. */
+      const dockFade = 1 - smooth(PAD_END, PAD_END + 0.09, t);
+      steelMat.opacity = dockFade;
+      mount.visible = dockFade > 0.01;
+
       if (t < 0.30) {
         rocket.position.set(PAD_X, PAD_H + alt, PAD_Z);
         rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
-        // the mount is left behind the instant it moves
-        mount.visible = alt < 1.5;
         // standing on the pad, craning to follow it — the 0.55 makes the head
         // lag the vehicle, which is what actually happens
         camera.position.set(0, 1.6, 0);
@@ -657,7 +679,11 @@ export default function JourneyScene() {
         // Well downrange by the time the planet appears. Held far enough out
         // that a fifteen-unit vehicle reads as a vehicle rather than a girder
         // laid across the headline, and offset left so it clears the text.
-        const away = smooth(0.30, 0.64, t);
+        // Spread across almost the whole rest of the journey rather than
+        // finishing inside Introduction alone — the vehicle should still read
+        // as present and climbing right up to engine cutoff, not have already
+        // shrunk to a speck with a third of the scene still to go.
+        const away = smooth(0.32, 0.85, t);
         const roff = new THREE.Vector3(
           -(14 + away * 30),
           16 + away * 60,
