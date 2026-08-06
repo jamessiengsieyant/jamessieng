@@ -723,6 +723,12 @@ export default function JourneyScene() {
       // Topic 1's: they cannot appear until the visitor has actually clicked
       // through, because t cannot cross CLIMB_END from inside Introduction.
       if (t < CLIMB_END) {
+        // undo the else-branch below: once t has crossed into Topic 1 these
+        // go invisible for good unless something turns them back on when the
+        // visitor scrolls back to the pad and replays the launch
+        boosterGroup.visible = true;
+        fairingLeft.visible = true;
+        fairingRight.visible = true;
         rocket.position.set(PAD_X, PAD_H + alt, PAD_Z);
         rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
         // standing on the pad, craning to follow it — the 0.55 makes the head
