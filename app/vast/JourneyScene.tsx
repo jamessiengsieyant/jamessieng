@@ -510,12 +510,13 @@ export default function JourneyScene() {
     }
 
     /* ───────── Haven-1 ─────────
-       Not a separate destination — the cargo. It rides hidden inside the
-       fairing the whole climb, tucked small, and is only ever REVEALED — it
-       never has to be flown to, because it was there the entire time. It
-       starts as a child of upperGroup (so it travels with the stack while
-       hidden) and gets handed to `rocket` directly, world-transform intact,
-       the moment the second stage lets go of it. */
+       Topic 2's own object, not the rocket's cargo — parented straight to
+       the scene rather than to `rocket`/`upperGroup`. The rocket group goes
+       invisible for the whole of Topic 1 and Topic 2 (see the else-branch
+       below), and three.js stops descending into a hidden object's children
+       entirely — anything nested under `rocket` can never be shown on its
+       own again once that happens. Living in the scene directly means the
+       station's own visibility is never at the mercy of the rocket's. */
     const station = new THREE.Group();
     const hull = new THREE.MeshStandardMaterial({ color: 0xf2f4f7, roughness: 0.3, metalness: 0.45, transparent: true, opacity: 0 });
     const body = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 2.6, 32), hull);
@@ -532,11 +533,11 @@ export default function JourneyScene() {
       panelPivot.add(p);
     }
     station.add(panelPivot);
-    // tucked where the fairing sits, and small — it unfolds to full size as
-    // part of the reveal rather than simply appearing at full scale
-    station.position.y = R_H * 0.97;
+    // starts tiny and invisible; grows in only once Topic 2 has actually
+    // been reached (see the reveal logic below) — never during the pad or
+    // Topic 1's Earth-orbit view
     station.scale.setScalar(0.001);
-    upperGroup.add(station);
+    scene.add(station);
 
     // a steady indicator light on the hull once revealed — not a distant
     // blip to be approached, since Haven-1 never has to be flown to
@@ -729,6 +730,7 @@ export default function JourneyScene() {
         boosterGroup.visible = true;
         fairingLeft.visible = true;
         fairingRight.visible = true;
+        station.visible = false;
         rocket.position.set(PAD_X, PAD_H + alt, PAD_Z);
         rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
         // standing on the pad, craning to follow it — the 0.55 makes the head
@@ -767,7 +769,29 @@ export default function JourneyScene() {
         boosterGroup.visible = false;
         fairingLeft.visible = false;
         fairingRight.visible = false;
-        station.visible = false;
+
+        /* Haven-1's own solar panels — Topic 2 only, never Topic 1: gated on
+           DOCK_END (Topic 2's own waypoint), not CLIMB_END, so nothing here
+           can show a frame early on the Topic 1 side of the boundary. Grows
+           in on arrival and a little further with scroll depth — "zooming
+           out" reveals more of it, the same idea as the cabin window's own
+           mask widening with scroll, just applied to the station instead of
+           the hole. Placed off to one side and close to the camera so it
+           reads as your own vehicle's hardware framing the shot, not a
+           second object floating out past Earth. */
+        const arrived = t < DOCK_END ? 0 : smooth(DOCK_END, DOCK_END + 0.06, t);
+        const dockReveal = arrived * (0.55 + 0.45 * scrollTRef.current);
+        station.visible = dockReveal > 0.01;
+        station.scale.setScalar(Math.max(0.001, dockReveal) * 2.1);
+        hull.opacity = dockReveal;
+        panelMat.opacity = dockReveal * 0.95;
+        beaconMat.opacity = dockReveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
+        station.position.set(3.4, -1.6, -9);
+        station.rotation.set(0.05, Math.PI * 0.6, 0);
+        // slow, bounded rock — an absolute assignment from clock each frame,
+        // not a cumulative rotate(), so it can never compound into the
+        // runaway spin this file already had to fix once before
+        panelPivot.rotation.z = Math.sin(clock * 0.15) * 0.18;
       }
 
       /* arrival: the cabin fades in during the tail of Topic 1's own scroll, so
