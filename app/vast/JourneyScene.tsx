@@ -782,12 +782,12 @@ export default function JourneyScene() {
         const arrived = t < DOCK_END ? 0 : smooth(DOCK_END, DOCK_END + 0.06, t);
         const dockReveal = arrived * (0.55 + 0.45 * scrollTRef.current);
         station.visible = dockReveal > 0.01;
-        station.scale.setScalar(Math.max(0.001, dockReveal) * 2.1);
+        station.scale.setScalar(Math.max(0.001, dockReveal) * 1.6);
         hull.opacity = dockReveal;
         panelMat.opacity = dockReveal * 0.95;
         beaconMat.opacity = dockReveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
-        station.position.set(3.4, -1.6, -9);
-        station.rotation.set(0.05, Math.PI * 0.6, 0);
+        station.position.set(3.0, -1.3, -10);
+        station.rotation.set(0.1, Math.PI * 0.72, 0);
         // slow, bounded rock — an absolute assignment from clock each frame,
         // not a cumulative rotate(), so it can never compound into the
         // runaway spin this file already had to fix once before
