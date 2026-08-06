@@ -612,8 +612,18 @@ export default function JourneyScene() {
          moment the engines cut off, the ground is fully gone and Earth is
          fully in, so "proper orbit" and "engines shut down" read as the same
          instant instead of two things half-finished at once. */
-      const groundFade = 1 - smooth(0.13, 0.34, t);   // plane + dome
-      const spaceFade = smooth(0.16, 0.37, t);        // sphere
+      /* Both run entirely AFTER CLIMB_END, not up to it — Earth's own
+         position is only ever set inside the else-branch below, which does
+         not execute until t reaches CLIMB_END. Fading Earth in any earlier
+         made it hit full opacity while still parked at its stale (0,0,0)
+         default — right where the pad camera stands — which rendered as a
+         solid colour fill with the camera effectively inside the planet.
+         Starting the crossfade at CLIMB_END guarantees Earth is invisible
+         for every frame its position isn't being driven, and the swap plays
+         out over the first stretch of Topic 1, alongside booster separation
+         rather than before anyone has clicked into it. */
+      const groundFade = 1 - smooth(CLIMB_END, CLIMB_END + 0.08, t);   // plane + dome
+      const spaceFade = smooth(CLIMB_END, CLIMB_END + 0.08, t);        // sphere
       skyMat.uniforms.uFade.value = groundFade;
       groundMat.uniforms.uFade.value = groundFade;
       groundGroup.visible = groundFade > 0.01;
@@ -692,7 +702,12 @@ export default function JourneyScene() {
       steelMat.opacity = dockFade;
       mount.visible = dockFade > 0.01;
 
-      if (t < 0.30) {
+      // The pad-relative "still climbing, still in the sky" camera holds for
+      // the entire length of Introduction — its own scroll span tops out
+      // exactly at CLIMB_END, never past it. Earth and staging are strictly
+      // Topic 1's: they cannot appear until the visitor has actually clicked
+      // through, because t cannot cross CLIMB_END from inside Introduction.
+      if (t < CLIMB_END) {
         rocket.position.set(PAD_X, PAD_H + alt, PAD_Z);
         rocket.rotation.set(0, 0, liftoff * 0.16); // starts to pitch downrange
         // standing on the pad, craning to follow it — the 0.55 makes the head
@@ -701,12 +716,20 @@ export default function JourneyScene() {
         camera.up.set(0, 1, 0);
         camera.lookAt(PAD_X * 0.6, PAD_H * 0.7 + alt * 0.55, PAD_Z * 0.6);
       } else {
-        // Pull back along a line that keeps Earth's limb in frame the whole
-        // way: near enough that the horizon curves hard at first, far enough
-        // for the whole disc by the end. Aiming is done with lookAt rather than
-        // hand-set angles — at these distances a couple of degrees of pitch is
-        // the difference between a planet and an empty black screen.
-        const climb = smooth(0.3, 1, t);
+        /* Topic 1: in orbit, watching Earth turn. Nothing else is in frame.
+           The earlier version staged the rocket here — booster separation,
+           fairing opening, Haven-1 unfolding, second stage falling away —
+           all built from cinema-scale reference footage. At the distance
+           this scene actually holds its camera, a fifteen-unit vehicle
+           breaking into four-unit fragments is a handful of pixels; it read
+           as a stray sliver and a smear of light, not a staging sequence.
+           Cut entirely rather than patched — the vehicle, booster, fairing
+           and station stay hidden for the whole of Topic 1, and the only
+           thing moving is the planet's own slow rotation (set once, below,
+           outside this branch). Topic 2's arrival never depended on any of
+           this — it is a DOM overlay keyed on t alone — so none of it is
+           missed on the way in. */
+        const climb = smooth(CLIMB_END, 1, t);
         const d = lerp(1.3, 2.7, climb);
         earthGroup.position.set(0, -EARTH_R * 1.3 * d, -EARTH_R * 2.4 * d);
 
@@ -719,92 +742,11 @@ export default function JourneyScene() {
           earthGroup.position.z
         );
 
-        // still ahead of you, pulling away — placed relative to the camera so
-        // it stays in shot while the camera itself is swinging
-        // Well downrange by the time the planet appears. Held far enough out
-        // that a fifteen-unit vehicle reads as a vehicle rather than a girder
-        // laid across the headline, and offset left so it clears the text.
-        // Spread across almost the whole rest of the journey rather than
-        // finishing inside Introduction alone — the vehicle should still read
-        // as present and climbing right up to engine cutoff, not have already
-        // shrunk to a speck with a third of the scene still to go.
-        const away = smooth(0.32, 0.85, t);
-        const roff = new THREE.Vector3(
-          -(14 + away * 30),
-          16 + away * 60,
-          -(95 + away * 320)
-        ).applyQuaternion(camera.quaternion);
-        rocket.position.copy(camera.position).add(roff);
-        rocket.quaternion.copy(camera.quaternion);
-        rocket.rotateX(-0.22);
-        rocket.rotateZ(0.12);
-
-        /* ── staging, in order: booster falls away, the fairing opens and
-           reveals Haven-1, then the spent second stage lets go of it too.
-           Every rotation and drift below is a function of t alone — bounded
-           and deterministic — never of raw elapsed clock time. The previous
-           version called rotateZ/rotateX with a value keyed on clock every
-           single frame, which is a RELATIVE rotation compounding forever —
-           the longer the tab happened to sit open, the faster it spun,
-           entirely unrelated to scroll position. That's the "random
-           spinning." Using rotation.set() with a value computed purely from
-           t fixes it: reload the page at the same t and it looks identical. */
-
-        // 1 — booster separation, right at engine cutoff
-        const boosterSep = smooth(CLIMB_END, CLIMB_END + 0.07, t);
-        const boosterFall = Math.max(0, t - CLIMB_END); // bounded: t itself never exceeds 1
-        boosterGroup.position.set(
-          0,
-          -boosterSep * 3 - boosterFall * 5,
-          -boosterSep * 1.5 - boosterFall * 2.5
-        );
-        boosterGroup.rotation.set(
-          boosterSep * 1.1 + boosterFall * 14,
-          boosterFall * 9,
-          boosterSep * 0.7 + boosterFall * 11
-        );
-
-        // 2 — the fairing peels open, which is the moment Haven-1 first
-        // becomes visible at all — it was never flown TO, only revealed
-        const fairingOpen = smooth(CLIMB_END + 0.06, CLIMB_END + 0.16, t);
-        const fairingGone = 1 - smooth(CLIMB_END + 0.14, CLIMB_END + 0.20, t);
-        fairingLeft.position.set(fairingOpen * 2.2, R_H * 1.0, fairingOpen * 0.8);
-        fairingRight.position.set(-fairingOpen * 2.2, R_H * 1.0, -fairingOpen * 0.8);
-        fairingLeft.rotation.z = -fairingOpen * 1.3;
-        fairingRight.rotation.z = fairingOpen * 1.3;
-        fairingMat.opacity = fairingGone;
-        fairingLeft.visible = fairingGone > 0.01;
-        fairingRight.visible = fairingGone > 0.01;
-
-        // Haven-1 unfolds from tucked-tiny to full size as the fairing opens
-        const reveal = smooth(CLIMB_END + 0.05, CLIMB_END + 0.18, t);
-        station.scale.setScalar(Math.max(0.001, reveal));
-        hull.opacity = reveal;
-        panelMat.opacity = reveal * 0.95;
-        station.visible = reveal > 0.01;
-        // solar panels unfold once, on a fixed schedule — not a spin that
-        // never stops, the same fix as the booster's rotation above
-        panelPivot.rotation.x = lerp(-1.15, 0, smooth(CLIMB_END + 0.10, CLIMB_END + 0.30, t));
-
-        // 3 — the spent second stage lets go of Haven-1, once the fairing is
-        // clear of it. attach() (not add()) preserves world transform, so
-        // Haven-1 does not jump the instant it changes parents.
-        if (!stageAttached && t > CLIMB_END + 0.16) {
-          rocket.attach(station);
-          stageAttached = true;
-        }
-        const stageSep = smooth(CLIMB_END + 0.18, CLIMB_END + 0.26, t);
-        const stageDrift = Math.max(0, t - (CLIMB_END + 0.18));
-        upperGroup.position.set(0, stageSep * 2.4 + stageDrift * 3.5, stageSep * 1.2 + stageDrift * 2);
-        upperGroup.rotation.set(stageDrift * 6, stageSep * 0.6, stageDrift * 5);
-
-        // 4 — Haven-1 settles into a fixed presentation attitude. Nothing
-        // further animates once revealed — the stillness IS the arrival,
-        // rather than a rendezvous that has to be flown.
-        station.rotation.set(0.08, 0.4, 0);
-
-        // a steady indicator light on the hull, once there is a hull to sit on
-        beaconMat.opacity = reveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
+        rocket.visible = false;
+        boosterGroup.visible = false;
+        fairingLeft.visible = false;
+        fairingRight.visible = false;
+        station.visible = false;
       }
 
       /* arrival: the cabin fades in during the tail of Topic 1's own scroll, so
