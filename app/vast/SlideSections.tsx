@@ -65,6 +65,7 @@ function VisualBody({ v, first }: { v: Visual; first: boolean }) {
         <Heading className={headingClass} style={{ whiteSpace: "pre-line" }}>
           {v.title}
         </Heading>
+        {v.sub && <p className={s.sub}>{v.sub}</p>}
         <div className={s.two}>
           <div className={s.cap}>
             <h4>{v.a.h}</h4>

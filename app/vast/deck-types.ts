@@ -16,6 +16,7 @@ export type Visual =
       t: "cards";
       kick: string;
       title: string;
+      sub?: string;
       a: { h: string; lines: string };
       b: { h: string; lines: string };
       tail?: string;

@@ -26,6 +26,13 @@ export default function JourneyScene() {
   const targetRef = useRef(0);
   const pathRef = useRef("/vast");
   const scrollTRef = useRef(0);
+  // Set on every route change, consumed by the very next tick: jump `cur`
+  // straight to the new waypoint instead of easing into it. A click is a
+  // decision to be at a different scene NOW, not a scroll — easing a whole
+  // screen of scenery past the visitor when they didn't ask to see it read
+  // as a slide. Scroll-driven movement never touches this flag, so dragging
+  // through a route still eases exactly as before.
+  const snapRef = useRef(true);
   const pathname = usePathname();
 
   /* Navigation only moves the target; the loop below eases toward it.
@@ -42,6 +49,7 @@ export default function JourneyScene() {
     targetRef.current = waypointFor(pathname);
     pathRef.current = pathname;
     scrollTRef.current = 0;
+    snapRef.current = true;
   }, [pathname]);
 
   useEffect(() => {
@@ -604,7 +612,14 @@ export default function JourneyScene() {
          own, which is why the pad page was showing a rocket already high in a
          dark sky instead of still on the mount. */
       const goal = Math.min(1, targetRef.current + scrollTRef.current * spanFor(pathRef.current));
-      cur += (goal - cur) * (reduced ? 1 : 0.035);
+      if (snapRef.current) {
+        // one-shot: consume the flag so the very next frame goes right back
+        // to easing, for scroll within this new route
+        cur = goal;
+        snapRef.current = false;
+      } else {
+        cur += (goal - cur) * (reduced ? 1 : 0.035);
+      }
       const t = cur;
 
       /* which representation is on screen.

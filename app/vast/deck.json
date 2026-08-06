@@ -29,7 +29,7 @@
         "h": "Certifications",
         "lines": "7× Salesforce Certified (Advanced Admin)\n3x CompTIA Certified (A+, Network+, Security+)\nAWS Certified Cloud Practitioner\nISC2 Certified in Cybersecurity and CISSP exam passed"
       },
-      "tail": "No particular strategy, just the love of learning."
+      "tail": "No particular strategy, just a love of learning."
     },
     "beats": [
       {
@@ -65,7 +65,7 @@
       "t": "chain",
       "kick": "Amgen",
       "title": "They brought me in\nfor one project.",
-      "sub": "Years of historical preclinical data — never structured the same way twice.",
+      "sub": "Years of historical preclinical data — structured differently based on a variety of things. A puzzle.",
       "links": [
         {
           "from": "Excel",
@@ -93,7 +93,7 @@
     "visual": {
       "t": "list",
       "kick": "The CRO",
-      "title": "I built the system I used to hate using.",
+      "title": "I built the system with my previous experience in mind",
       "items": [
         {
           "lead": "I volunteered to administer their Salesforce",
@@ -133,10 +133,10 @@
         },
         {
           "from": "Data entry",
-          "to": "Built the database"
+          "to": "Configured the database"
         }
       ],
-      "tail": "Do the job by hand first. Feel exactly where it hurts. Then build the thing that takes it away."
+      "tail": "Do the job by hand first. Feel exactly where it hurts. Then build the thing that makes it hurt less."
     },
     "beats": [
       {
@@ -157,18 +157,18 @@
       "items": [
         {
           "lead": "PMify",
-          "sub": "Project management for a live practice"
+          "sub": "Project management built within Salesforce"
         },
         {
           "lead": "Survey Builder",
-          "sub": "Custom survey platform, written in Apex"
+          "sub": "Custom survey sends triggered by record statuses"
         },
         {
           "lead": "QuickBooks ↔ Salesforce",
-          "sub": "Automated AR/AP payment sync"
+          "sub": "Automated AR/AP payment sync, and a single source of truth"
         }
       ],
-      "callout": "The last one is the one that changed everything."
+      "callout": "Eliminating pain points felt by myself and my colleagues."
     },
     "beats": [
       {
@@ -185,7 +185,7 @@
     "visual": {
       "t": "list",
       "kick": "The pivot",
-      "title": "I wanted a skill I could use on anybody.",
+      "title": "I wanted skills that could help anyone.",
       "items": [
         {
           "lead": "WGU — B.S. Accounting, 2024",
@@ -200,7 +200,7 @@
           "sub": "Completing the experience requirement."
         }
       ],
-      "callout": "Books to returns is my normal commute."
+      "callout": "Applying the skills throughout the days, nights, and even weekends."
     },
     "beats": [
       {
@@ -216,9 +216,9 @@
     "sectionTitle": "Introduction — how I got here",
     "visual": {
       "t": "statement",
-      "kick": "CDTFA",
-      "title": "Now I'm the one\nasking to see it.",
-      "sub": "Sales & use tax auditor, State of California — capital purchases · use tax · audit procedure."
+      "kick": "H&R Block / CDTFA",
+      "title": "Tax filing and auditing from the same books",
+      "sub": "Top performing tax preparer and sales & use tax auditor."
     },
     "beats": [
       {
@@ -252,8 +252,8 @@
     "visual": {
       "t": "statement",
       "kick": "Topic 1 · example 1",
-      "title": "It came in from\nthe repair guy.",
-      "sub": "A field audit. Details disguised."
+      "title": "Invoice came from\na repair vendor",
+      "sub": "A sales and use tax audit."
     },
     "beats": [
       {
@@ -279,7 +279,7 @@
         "h": "Book basis · ASC 360",
         "lines": "Price plus freight\nplus installation —\nwhatever it took to\nget it working."
       },
-      "tail": "Same invoice, two different numbers. The rules are asking different questions."
+      "tail": "Same invoice, two different numbers."
     },
     "beats": [
       {
@@ -296,16 +296,16 @@
     "visual": {
       "t": "list",
       "kick": "What I did",
-      "title": "Repair, or asset?",
+      "title": "Expense or capitalize?",
       "items": [
         {
           "lead": "The use tax was due either way"
         },
         {
-          "lead": "But it added capability, and it lasts years"
+          "lead": "But it added capability and increased useful life"
         },
         {
-          "lead": "Expensed to R&M, and never on the depreciation schedule"
+          "lead": "Expensed to repairs & maintenance"
         }
       ],
       "callout": "That same vendor's other invoices were genuine repairs. I left those alone."
@@ -326,7 +326,7 @@
       "t": "statement",
       "kick": "How it came out",
       "title": "It held.",
-      "sub": "And nobody was cheating."
+      "sub": "The taxpayer concurred."
     },
     "beats": [
       {
@@ -343,8 +343,8 @@
     "visual": {
       "t": "statement",
       "kick": "What I'd change",
-      "title": "The bill\ncoded itself.",
-      "sub": "There was a rule. It was keyed on who sent the invoice, not what was on it."
+      "title": "The purchase\ncoded itself.",
+      "sub": "There was a rule. It was based on who sent the invoice, not what was on it."
     },
     "beats": [
       {
@@ -359,10 +359,19 @@
     "section": "Part 02 — Topic 1",
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
-      "t": "statement",
+      "t": "cards",
       "kick": "Topic 1 · example 2",
-      "title": "He asked me about\nan S-corp.",
-      "sub": "A construction client. Fixer-uppers. He'd just landed a contract bigger than anything he'd done."
+      "title": "Tax strategy consultation",
+      "sub": "Construction. S-corp. Keeps his own books.",
+      "a": {
+        "h": "Route 1 · safe harbor",
+        "lines": "$2,500 an invoice.\nExpense it. No analysis."
+      },
+      "b": {
+        "h": "Route 2 · the test",
+        "lines": "Better, different, restored?\nCapitalize. Pick a useful life."
+      },
+      "tail": "Same invoice. Two routes."
     },
     "beats": [
       {
@@ -377,21 +386,10 @@
     "section": "Part 02 — Topic 1",
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
-      "t": "list",
-      "kick": "What the rule wanted",
-      "title": "The election wasn't the expensive part.",
-      "items": [
-        {
-          "lead": "Schedule L and M-1 once receipts or assets cross $250,000"
-        },
-        {
-          "lead": "A real balance sheet, and a book-to-tax reconciliation"
-        },
-        {
-          "lead": "Which means his books have to actually tie"
-        }
-      ],
-      "callout": "He was running a checkbook and a folder of receipts."
+      "t": "statement",
+      "kick": "Advice 1 · timing",
+      "title": "Take it in the high year.",
+      "sub": "One contract. Income spikes, then drops back. A deduction is worth whatever rate you're in."
     },
     "beats": [
       {
@@ -405,20 +403,10 @@
     "section": "Part 02 — Topic 1",
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
-      "t": "list",
-      "kick": "What I did",
-      "title": "Then he started buying equipment.",
-      "items": [
-        {
-          "lead": "Better, different, or brought back? Any one — capitalize"
-        },
-        {
-          "lead": "Or the safe harbor: $2,500 an invoice, no analysis"
-        },
-        {
-          "lead": "But only with a written policy, in place before the year starts"
-        }
-      ]
+      "t": "statement",
+      "kick": "Advice 2 · who keeps it",
+      "title": "He maintains the schedule.",
+      "sub": "Capitalize and every item needs a life and a class. No controller. No fixed asset system. Just him."
     },
     "beats": [
       {
@@ -433,9 +421,9 @@
     "sectionTitle": "Example 2 — the other chair",
     "visual": {
       "t": "statement",
-      "kick": "How it came out",
-      "title": "Nobody had\nwritten it down.",
-      "sub": "So we capitalized things he could have deducted the day he bought them."
+      "kick": "Advice 3 · one set of numbers",
+      "title": "The books and the return agree.",
+      "sub": "The election requires book conformity. So there is no book-to-tax difference to carry."
     },
     "beats": [
       {
@@ -452,7 +440,7 @@
     "visual": {
       "t": "statement",
       "kick": "What I'd change · Topic 1 close",
-      "title": "One had the wrong rule.\nOne had no rules.",
+      "title": "One found after.\nOne decided before.",
       "sub": "Classify on purpose, at the source, in writing."
     },
     "beats": [
@@ -488,25 +476,26 @@
     "visual": {
       "t": "list",
       "kick": "The study map",
-      "title": "Four problems, and I know their names.",
+      "title": "Four things I'd have to practice.",
       "items": [
         {
-          "lead": "Currency translation · ASC 830",
-          "sub": "JPY and EUR into USD — and the CTA runs through OCI, not the income statement."
+          "lead": "Currency translation — ASC 830",
+          "sub": "And whether it is translation at all, or remeasurement."
         },
         {
           "lead": "Consolidation and eliminations",
-          "sub": "Intercompany, investment, minority interest — in OneWorld or by hand."
+          "sub": "Intercompany, investment, minority interest"
         },
         {
           "lead": "Transfer pricing",
-          "sub": "Arm's-length documentation that survives Section 482 and a foreign authority's review."
+          "sub": "Set price charged for goods, services, or intellectual property exchanged between related business entities"
         },
         {
-          "lead": "Indirect tax — VAT and Consumption Tax",
-          "sub": "Which is the discipline I already run daily on California sales and use tax."
+          "lead": "Indirect tax",
+          "sub": "Tokyo and Paris"
         }
-      ]
+      ],
+      "callout": "My first question isn't how to book it. It's which determination was already made."
     },
     "beats": [
       {
@@ -522,22 +511,23 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "list",
-      "kick": "Days 1–30",
+      "kick": "Days 1–30 · Observe",
       "title": "Do the job by hand.",
       "items": [
         {
-          "lead": "Walk one full close manually",
-          "sub": "Follow Japan's package through translation and eliminations into the consolidated statements. Once, by hand."
+          "lead": "Walk one full closing cycle manually",
+          "sub": "Japan's package through translation and eliminations, into the consolidated statements."
         },
         {
-          "lead": "Sit with whoever does it now",
-          "sub": "Not to review it. To find out where it breaks."
+          "lead": "Sit through one audit request cycle",
+          "sub": "Not to fix anything. To see what gets asked for, and of whom."
         },
         {
-          "lead": "Map how OneWorld is configured",
-          "sub": "What the system does, versus what a person quietly fixes afterward."
+          "lead": "Map the NetSuite config",
+          "sub": "Entities, currencies, elimination rules, subsidiary hierarchy."
         }
-      ]
+      ],
+      "callout": "Slowly, once, by hand. Know the current processes inside and out."
     },
     "beats": [
       {
@@ -553,22 +543,23 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "list",
-      "kick": "Days 30–60",
+      "kick": "Days 30–60 · Find the cost",
       "title": "Feel where it hurts.",
       "items": [
         {
           "lead": "Own real close tasks, under review",
-          "sub": "Reconciliations and translation entries that are mine — checked until they don't need to be."
+          "sub": "Reconciliations and translation entries that are mine."
         },
         {
           "lead": "Time the close",
-          "sub": "Where do the hours actually go? Nobody knows, because nobody has had a reason to write it down."
+          "sub": "Where do the hours go?"
         },
         {
-          "lead": "Pick one automation with the controller",
-          "sub": "Highest pain, lowest risk. Their call, not mine."
+          "lead": "Trace one PBC item end to end",
+          "sub": "From the request to the document that satisfies it. How long did finding it take?"
         }
-      ]
+      ],
+      "callout": "Identify possible KPIs that could be easily automated and reported."
     },
     "beats": [
       {
@@ -583,7 +574,7 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "list",
-      "kick": "Days 60–90",
+      "kick": "Days 60–90 · Ship",
       "title": "Build the thing that removes it.",
       "items": [
         {
@@ -592,11 +583,11 @@
         },
         {
           "lead": "The first automation live",
-          "sub": "With a before-and-after number attached."
+          "sub": "With a before-and-after number attached — not a claim, a measurement."
         },
         {
-          "lead": "Both documented well enough to survive me",
-          "sub": "If it only works while I'm in the room, I haven't finished."
+          "lead": "Documented well enough to survive me",
+          "sub": "If it only works while I'm in the room, I built a dependency."
         }
       ]
     },
@@ -644,10 +635,37 @@
     "section": "Part 03 — Topic 2",
     "sectionTitle": "The first ninety days",
     "visual": {
-      "t": "statement",
+      "t": "chain",
       "kick": "The brilliant idea",
-      "title": "Don't let it\ncode itself.",
-      "sub": "AI categorization is a control. Nobody tests it."
+      "title": "I built it before.\nSubstitute project with audit.",
+      "sub": "Supporting the audit came up as a pain point.",
+      "links": [
+        {
+          "from": "Project",
+          "to": "Audit"
+        },
+        {
+          "from": "Task",
+          "to": "PBC item"
+        },
+        {
+          "from": "Owner",
+          "to": "Preparer"
+        },
+        {
+          "from": "Dependency",
+          "to": "Blocker"
+        },
+        {
+          "from": "Approver",
+          "to": "Auditor"
+        },
+        {
+          "from": "Hours",
+          "to": "Time logged"
+        }
+      ],
+      "tail": "Every field already exists. Only the labels change."
     },
     "beats": [
       {
@@ -662,10 +680,32 @@
     "section": "Part 03 — Topic 2",
     "sectionTitle": "The first ninety days",
     "visual": {
-      "t": "flow",
+      "t": "list",
       "kick": "How it works",
-      "title": "Three signals. One invoice.",
-      "tail": "The flag happens the moment the invoice lands — not three weeks later at close, and not three years later with me sitting across the table."
+      "title": "PMify, pointed at the audit.",
+      "items": [
+        {
+          "lead": "One item per request",
+          "sub": "Owner, due date, status, entity."
+        },
+        {
+          "lead": "Evidence attaches to the item",
+          "sub": "Not to an email thread. The answer lives with the question."
+        },
+        {
+          "lead": "Permissions per entity",
+          "sub": "US, Japan, France — three statutory audits, three lists, one structure."
+        },
+        {
+          "lead": "A full trail",
+          "sub": "Who uploaded it, when, and who approved it. In security that's called non-repudiation."
+        },
+        {
+          "lead": "It rolls forward",
+          "sub": "This year's list is next year's starting point."
+        }
+      ],
+      "callout": "The second audit costs less than the first. The third costs less than the second."
     },
     "beats": [
       {
@@ -681,24 +721,24 @@
     "sectionTitle": "The first ninety days",
     "visual": {
       "t": "list",
-      "kick": "What would make it fail",
-      "title": "And I'd rather say it than have you find it.",
+      "kick": "The payoff",
+      "title": "Measured, not asserted.",
       "items": [
         {
-          "lead": "A new vendor has no history",
-          "sub": "So there's no median to compare against. The first few invoices from anyone always route to review."
+          "lead": "Fewer round trips per request",
+          "sub": "Re-requests: how often the auditor has asked more than once. That's the quality number, not speed."
         },
         {
-          "lead": "Too few invoices to have a baseline",
-          "sub": "Below about five, the statistic is noise. Fall back to a flat threshold instead of pretending."
+          "lead": "Hours out of the close, not just moved",
+          "sub": "Baseline the first cycle. Compare the second."
         },
         {
-          "lead": "Flagging everything is worse than flagging nothing",
-          "sub": "A queue nobody works is a control that only looks like one. Tie the threshold to performance materiality."
+          "lead": "Roll forward rate",
+          "sub": "How much of this year's list survives."
         },
         {
-          "lead": "It has to cut both ways",
-          "sub": "It should catch things wrongly capitalized too. Same discipline as the repairs I left alone."
+          "lead": "Evidence filed once, used three times",
+          "sub": "Requests satisfied across US, Japan, and France from the same attachment — count the overlap."
         }
       ]
     },
@@ -717,8 +757,8 @@
     "visual": {
       "t": "statement",
       "kick": "Close",
-      "title": "I was the guy\nentering the data.",
-      "sub": "Then I built the system. I'd like to do that here."
+      "title": "I perform it.\nThen improve it.",
+      "sub": "Requested, reviewed, approved, baselined, then implemented. Ninety days: close tasks owned · one automation live · improved audit support. Auditor's skepticism. Builder's toolkit."
     },
     "beats": [
       {
