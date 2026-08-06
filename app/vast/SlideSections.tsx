@@ -33,7 +33,11 @@ function VisualBody({ v, first }: { v: Visual; first: boolean }) {
         <Heading className={headingClass} style={{ whiteSpace: "pre-line" }}>
           {v.title}
         </Heading>
-        {v.sub && <p className={s.sub}>{v.sub}</p>}
+        {v.sub && (
+          <p className={s.sub} style={{ whiteSpace: "pre-line" }}>
+            {v.sub}
+          </p>
+        )}
       </>
     );
   }

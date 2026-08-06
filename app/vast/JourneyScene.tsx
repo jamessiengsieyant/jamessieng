@@ -517,15 +517,88 @@ export default function JourneyScene() {
        entirely — anything nested under `rocket` can never be shown on its
        own again once that happens. Living in the scene directly means the
        station's own visibility is never at the mercy of the rocket's. */
+    /* Two canvas textures modeled on Vast's actual Haven-1 renders — a grid
+       of dark solar cells for the panels, and paneled brushed metal for the
+       hull rather than flat colour. The panel is the one part of the station
+       that stays in frame even when heavily cropped (see the reveal logic
+       below), so it is the detail worth the most here. */
+    function panelTexture(): THREE.Texture {
+      const c = document.createElement("canvas");
+      c.width = c.height = 256;
+      const x = c.getContext("2d")!;
+      x.fillStyle = "#0b1220";
+      x.fillRect(0, 0, 256, 256);
+      const cols = 5, rows = 9;
+      const cw = 256 / cols, ch = 256 / rows;
+      for (let r = 0; r < rows; r++) {
+        for (let col = 0; col < cols; col++) {
+          const v = 16 + Math.random() * 10;
+          x.fillStyle = `rgb(${v + 6},${v + 14},${v + 26})`;
+          x.fillRect(col * cw + 1.5, r * ch + 1.5, cw - 3, ch - 3);
+        }
+      }
+      x.strokeStyle = "rgba(140,175,220,0.4)";
+      x.lineWidth = 1.5;
+      for (let r = 0; r <= rows; r++) {
+        x.beginPath(); x.moveTo(0, r * ch); x.lineTo(256, r * ch); x.stroke();
+      }
+      for (let col = 0; col <= cols; col++) {
+        x.beginPath(); x.moveTo(col * cw, 0); x.lineTo(col * cw, 256); x.stroke();
+      }
+      const t = new THREE.CanvasTexture(c);
+      t.colorSpace = THREE.SRGBColorSpace;
+      return t;
+    }
+
+    function hullTexture(): THREE.Texture {
+      const c = document.createElement("canvas");
+      c.width = 512; c.height = 128;
+      const x = c.getContext("2d")!;
+      const g = x.createLinearGradient(0, 0, 0, 128);
+      g.addColorStop(0, "#eef1f6");
+      g.addColorStop(0.5, "#d3d9e3");
+      g.addColorStop(1, "#a7b0c0");
+      x.fillStyle = g;
+      x.fillRect(0, 0, 512, 128);
+      x.strokeStyle = "rgba(70,80,100,0.3)";
+      x.lineWidth = 1;
+      for (let i = 1; i < 8; i++) {
+        const yy = (i / 8) * 128;
+        x.beginPath(); x.moveTo(0, yy); x.lineTo(512, yy); x.stroke();
+      }
+      for (let i = 1; i < 20; i++) {
+        const xx = (i / 20) * 512;
+        x.beginPath(); x.moveTo(xx, 0); x.lineTo(xx, 128); x.stroke();
+      }
+      const t = new THREE.CanvasTexture(c);
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.repeat.set(3, 1);
+      return t;
+    }
+
     const station = new THREE.Group();
-    const hull = new THREE.MeshStandardMaterial({ color: 0xf2f4f7, roughness: 0.3, metalness: 0.45, transparent: true, opacity: 0 });
+    const hull = new THREE.MeshStandardMaterial({
+      map: hullTexture(), color: 0xffffff, roughness: 0.28, metalness: 0.55, transparent: true, opacity: 0,
+    });
     const body = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 2.6, 32), hull);
     body.rotation.z = Math.PI / 2;
     station.add(body);
-    const dome = new THREE.Mesh(new THREE.SphereGeometry(0.56, 28, 20, 0, Math.PI * 2, 0, Math.PI / 2), hull);
-    dome.rotation.z = -Math.PI / 2; dome.position.x = 1.3;
-    station.add(dome);
-    const panelMat = new THREE.MeshStandardMaterial({ color: 0x1b3358, roughness: 0.35, metalness: 0.6, side: THREE.DoubleSide, transparent: true, opacity: 0 });
+    // a tapered nose rather than a blunt dome — Haven-1's own hull narrows
+    // to a point, not a hemisphere
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(0.55, 0.85, 28), hull);
+    nose.rotation.z = -Math.PI / 2;
+    nose.position.x = 1.725;
+    station.add(nose);
+    // the dark cap right at the tip — the one bit of contrast colour on an
+    // otherwise silver hull, same as the reference render
+    const tipMat = new THREE.MeshStandardMaterial({ color: 0x3a1418, roughness: 0.4, metalness: 0.3, transparent: true, opacity: 0 });
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 10), tipMat);
+    tip.position.x = 2.1;
+    station.add(tip);
+    const panelMat = new THREE.MeshStandardMaterial({
+      map: panelTexture(), color: 0xffffff, roughness: 0.3, metalness: 0.5, side: THREE.DoubleSide, transparent: true, opacity: 0,
+    });
     const panelPivot = new THREE.Group();
     for (const s of [-1, 1]) {
       const p = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.02, 0.9), panelMat);
@@ -784,6 +857,7 @@ export default function JourneyScene() {
         station.visible = dockReveal > 0.01;
         station.scale.setScalar(Math.max(0.001, dockReveal) * 1.6);
         hull.opacity = dockReveal;
+        tipMat.opacity = dockReveal;
         panelMat.opacity = dockReveal * 0.95;
         beaconMat.opacity = dockReveal * (0.6 + 0.4 * Math.sin(clock * 2.3));
         station.position.set(3.0, -1.3, -10);
@@ -841,7 +915,7 @@ export default function JourneyScene() {
       removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibility);
       starGeo.dispose(); starMat.dispose(); skyMat.dispose(); groundMat.dispose();
-      atmoMat.dispose(); hull.dispose(); panelMat.dispose();
+      atmoMat.dispose(); hull.dispose(); panelMat.dispose(); tipMat.dispose();
       renderer.dispose();
     };
   }, []);
