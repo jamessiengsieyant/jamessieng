@@ -12,7 +12,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* smooth was animating the browser's own scroll-to-top on every route
+   change — on /vast that meant an old scroll position deep in one scene
+   visibly scrolling back up to 0 before the next scene's content even
+   painted, on top of the three.js scene's own transition. Nothing on the
+   site uses an in-page anchor link that would want the smoothing. */
+html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
